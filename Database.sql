@@ -32,7 +32,7 @@ INSERT INTO Customers (kundeID, Fornavn, Etternavn, Epost, Telefonnummer, Passor
 values(4,'Mehmet', 'Eksi', 'MehmetEksi@hotmail,com', 41624571, 'memo123', 'Slettheiveien 66', 4626 );
 
 INSERT INTO Customers (kundeID, Fornavn, Etternavn, Epost, Telefonnummer, Passord, Adresse, Postnummer)
-values(5,'Berat', 'Gunes', 'BeratGunes@hotmail.com', 97000949, 'berat', 'Tinnheiveien 15', 4208 );
+values(5,'Berat', 'Gunes', 'BeratGunes@hotmail.com', 41654751, 'berat', 'Tinnheiveien 15', 4208 );
 
 
 
