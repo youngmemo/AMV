@@ -4,7 +4,7 @@ CREATE DATABASE WEBSHOP;
 use WEBSHOP;
 
 CREATE TABLE Customers (
-                           kundeID integer PRIMARY KEY NOT NULL,
+                          kundeID integer PRIMARY KEY NOT NULL,
                            Fornavn varchar (30) NOT NULL,
                            Etternavn varchar (30) NOT NULL,
                            Epost varchar (40) NOT NULL,
