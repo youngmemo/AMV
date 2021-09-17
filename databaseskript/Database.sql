@@ -60,8 +60,8 @@ CREATE TABLE Ordre (
                        OrderID integer PRIMARY KEY NOT NULL,
                        KundeID integer NOT NULL ,
                        OrdreDato date NOT NULL ,
-                       Produkter varchar (50) ,
-                       Status varchar (20) ,
+                       Produkter varchar (50) NOT NULL ,
+                       Status varchar (20) NOT NULL,
                        FOREIGN KEY (KundeID) REFERENCES kunder(KundeID)
 );
 
