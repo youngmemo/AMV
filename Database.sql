@@ -58,4 +58,4 @@ CREATE TABLE ordre (
 );
 
 INSERT INTO ordre (OrderID, KundeID, OrdreDato, Produkter)
-values (1, 2, '2011-11-11', 'Fatima sin nesehårsfjerner');
+values (1, 2, '2011-11-11', 'Fatimaa sin nesehårsfjerner');
