@@ -19,8 +19,8 @@ insert into user (User_firstName,
                        User_password,
                        User_dob)
 values (
-        'trym',
-        'Staurheim',
-        'trym@example.com',
-        '12345',
-        '1993-25-09');
+        'mehmet',
+        'eksi',
+        'mehmet@example.com',
+        '98460882',
+        '1999-21-04');

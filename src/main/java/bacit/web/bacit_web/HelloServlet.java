@@ -21,11 +21,21 @@ public class HelloServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
         out.println("<h1>Get someone from the database :-)</h1>");
+        out.println("<p>Vennligst velg en av feltene og trykk på send!");
+
         out.println("<form action='GetUserServlet' method='GET'>");
         out.println("  <label for='uname'>First name:</label>");
         out.println("  <input type='text' name='uname'/>");
         out.println("  <input type='submit' />");
         out.println("</form>");
+
+
+        out.println("<form action='MinEgenServlet' method='GET'>");
+        out.println("  <label for='lastName'>Last name:</label>");
+        out.println("  <input type='text' name='lastName'/>");
+        out.println("  <input type='submit' />");
+        out.println("</form>");
+
         out.println("</body></html>");
     }
 
