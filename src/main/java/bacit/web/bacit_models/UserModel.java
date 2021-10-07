@@ -32,7 +32,7 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
+    public String getEmail() {
         return userName;
     }
 
