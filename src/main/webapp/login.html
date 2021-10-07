@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Logg-inn side</title>
 </head>
 <body>
 <form method="POST" action="j_security_check">
     <table>
         <tr>
-            <td colspan="2">Login to the Tomcat-Demo application:</td>
+            <td colspan="2">Vennligst logg inn med ditt brukernavn og passord</td>
         </tr>
         <tr>
-            <td>Name:</td>
-            <td><input type="text" name="j_username" /></td>
+            <td>Brukernavn:</td>
+            <td><input type="text" name="j_username" placeholder="Skriv inn brukernavn"/></td>
         </tr>
         <tr>
-            <td>Password:</td>
-            <td><input type="password" name="j_password"/></td>
+            <td>Passord:</td>
+            <td><input type="password" name="j_password" placeholder="Skriv inn passord"/></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Go" /></td>
+            <td colspan="2"><input type="submit"  value="Trykk her for å logge inn" /></td>
         </tr>
     </table>
 </form>

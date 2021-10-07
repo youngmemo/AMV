@@ -5,11 +5,12 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "Hjemside" %>
 </h1>
+<p>Du er nå logget inn. Under kan du velge hva du ønsker å gjøre.</p>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<input type="button" class="button_active" onclick="location.href='hello-servlet';" value="HelloServlet"/>
 <br>
-<a href="/register-user">Register user</a>
+<input type="button" class="button_active" onclick="location.href='admin/register-user';" value="Registrer bruker"/>
 </body>
 </html>
