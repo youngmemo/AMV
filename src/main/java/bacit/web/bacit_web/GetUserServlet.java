@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
+
 
 @WebServlet(name = "GetUserServlet", value = "/GetUserServlet")
 public class GetUserServlet extends HttpServlet {

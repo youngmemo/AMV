@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name = "registerUserServlet", value = "/register-user")
+@WebServlet(name = "registerUserServlet", value = "/admin/register-user")
 public class RegisterUserServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

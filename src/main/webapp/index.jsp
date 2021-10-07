@@ -10,6 +10,6 @@
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
 <br>
-<a href="register-user">Register user</a>
+<a href="/register-user">Register user</a>
 </body>
 </html>
