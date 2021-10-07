@@ -33,8 +33,8 @@ public class HelloServlet extends HttpServlet {
 
         out.println("<form action='MinEgenServlet' method='GET'>");
         out.println("  <label for='lastName'>Last name:</label>");
-        out.println("  <input type='text' name='lastName'/>");
-        out.println("  <input type='submit' />");
+        out.println("  <input type='text' name='lastName' placeholder='skriv inn etternavn'/>");
+        out.println("  <input type='submit'/>");
         out.println("</form>");
 
         out.println("</body></html>");

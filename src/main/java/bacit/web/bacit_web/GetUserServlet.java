@@ -23,9 +23,12 @@ public class GetUserServlet extends HttpServlet {
         String uname = request.getParameter("uname");
         PrintWriter out = response.getWriter();
         try {
+            out.println("nå er du inne på trym sin side");
             UserModel model = getUser(uname, out);
 
+
             out.println(model.getFirstName());
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

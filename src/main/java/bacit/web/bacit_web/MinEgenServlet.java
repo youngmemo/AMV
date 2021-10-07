@@ -23,6 +23,7 @@ public class MinEgenServlet extends HttpServlet {
         try {
             UserModel model = getUser(lastName, out);
 
+
             out.println(model.getLastName());
             out.println("Denne brukeren fantes i databasen!");
         } catch (SQLException throwables) {

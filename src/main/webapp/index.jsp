@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello servlet</a>
+<input type="button" class="button_active" onclick="location.href='hello-servlet';" value="Hello servlet"/>
 </body>
 </html>
