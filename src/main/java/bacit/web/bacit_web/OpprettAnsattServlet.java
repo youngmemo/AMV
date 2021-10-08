@@ -1,5 +1,6 @@
 package bacit.web.bacit_web;
-import bacit.web.bacit_models.OpprettAnsattModel;
+import bacit.web.bacit_models.AnsattModel;
+import bacit.web.bacit_utilities.HtmlHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class OpprettAnsattServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
-        OpprettAnsattModel ansatt = new OpprettAnsattModel();
+        AnsattModel ansatt = new AnsattModel();
 
         ansatt.setFornavn(request.getParameter("fornavn"));
         ansatt.setEtternavn(request.getParameter("etternavn"));
@@ -35,6 +36,7 @@ public class OpprettAnsattServlet extends HttpServlet {
         ansatt.setAdresse(request.getParameter("adresse"));
         ansatt.setPostNummer(request.getParameter("postNummer"));
         ansatt.setAnsattNummer(request.getParameter("ansattNummer"));
+        ansatt.setPassord(request.getParameter("passord"));
 
         PrintWriter out = response.getWriter();
 
@@ -44,25 +46,26 @@ public class OpprettAnsattServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            writeHtmlStart(out, "Supert! Den ansatte du har nå lagt inn er registrert!");
+            HtmlHelper.writeHtmlStart(out, "Supert! Den ansatte du har nå lagt inn er registrert!");
             out.println("Det ble laget en ansatt med disse dataene i vår database: <br>" +
                     "<br>Fornavn: " + ansatt.getFornavn() +
                     "<br>Etternavn: " + ansatt.getEtternavn() +
                     "<br>E-post: " + ansatt.getEpost() +
                     "<br>Adresse: " + ansatt.getAdresse() +
                     "<br>Postnummer: " + ansatt.getPostNummer() +
-                    "<br>Ansattnummer: " + ansatt.getAnsattNummer());
-            writeHtmlEnd(out);
+                    "<br>Ansattnummer: " + ansatt.getAnsattNummer() +
+                    "<br>Passord: " + ansatt.getPassord());
+            HtmlHelper.writeHtmlEnd(out);
         } else {
             lagAnsattSkjema(out, "Oisann, du har skrevet noe feil på skjemaet!");
         }
     }
 
-    private void leggTilAnsatt(OpprettAnsattModel ansatt, PrintWriter out) throws SQLException {
+    private void leggTilAnsatt(AnsattModel ansatt, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into ansatt (Fornavn, Etternavn, Epost, Adresse, Post_nummer, Ansatt_Nummer) values(?,?,?,?,?,?);";
+            String leggeTilKode = "insert into ansatt (Fornavn, Etternavn, Epost, Adresse, Post_nummer, Ansatt_Nummer, Passord) values(?,?,?,?,?,?,?);";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, ansatt.getFornavn());
             kode.setString(2, ansatt.getEtternavn());
@@ -70,6 +73,7 @@ public class OpprettAnsattServlet extends HttpServlet {
             kode.setString(4, ansatt.getAdresse());
             kode.setString(5, ansatt.getPostNummer());
             kode.setString(6, ansatt.getAnsattNummer());
+            kode.setString(7, ansatt.getPassord());
 
             kode.executeUpdate();
         } catch (ClassNotFoundException e) {
@@ -79,7 +83,7 @@ public class OpprettAnsattServlet extends HttpServlet {
     }
 
     private void lagAnsattSkjema(PrintWriter out, String feilMelding) {
-        writeHtmlStart(out, "Opprett ansatt");
+        HtmlHelper.writeHtmlStart(out, "Opprett ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
@@ -103,27 +107,17 @@ public class OpprettAnsattServlet extends HttpServlet {
         out.println("<br><br> <label for='ansattNummer'>Ansatt nummer</label>");
         out.println("<input type='text' name='ansattNummer' placeholder='Skriv inn ansattnummer'/>");
 
+        out.println("<br><br> <label for='passord'>Passord</label>");
+        out.println("<input type='password' name='passord' placeholder='Skriv inn passord'/>");
+
         out.println("<br><br> <input type='submit' value='Registrer ansatt'/>");
         out.println("</form>");
-        writeHtmlEnd(out);
+        HtmlHelper.writeHtmlEnd(out);
 
     }
 
-    private void writeHtmlStart(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
-    }
 
-    private void writeHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
-
-    private boolean sjekkAnsatt(OpprettAnsattModel model) {
+    public boolean sjekkAnsatt(AnsattModel model) {
         if(model.getFornavn()==null)
             return false;
         if(model.getFornavn().trim().equalsIgnoreCase(""))
@@ -147,6 +141,10 @@ public class OpprettAnsattServlet extends HttpServlet {
         if(model.getAnsattNummer()==null)
             return false;
         if(model.getAnsattNummer().trim().equalsIgnoreCase(""))
+            return false;
+        if(model.getPassord()==null)
+            return false;
+        if(model.getPassord().trim().equalsIgnoreCase(""))
             return false;
 
         return true;

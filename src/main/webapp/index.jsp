@@ -10,7 +10,7 @@
 <p>Du er nå logget inn. </p>
 <p>Under kan du velge hva du ønsker å gjøre.</p>
 <br/>
-<input type="button" class="button_active" onclick="location.href='hello-servlet';" value="HelloServlet"/>
+<input type="button" class="button_active" onclick="location.href='/hello-servlet';" value="HelloServlet"/>
 <br>
 <input type="button" class="button_active" onclick="location.href='admin/register-user';" value="Registrer bruker"/>
 <br>

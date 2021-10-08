@@ -9,6 +9,7 @@ create table if not EXISTS ansatt
     Adresse         varchar(255),
     Post_Nummer     varchar(10),
     Ansatt_Nummer   varchar(25),
-    CONSTRAINT U_Ansatt_ID_PK PRIMARY KEY (Id)
+    Passord         varchar(255),
+    CONSTRAINT PRIMARY KEY (Id)
 
 );
