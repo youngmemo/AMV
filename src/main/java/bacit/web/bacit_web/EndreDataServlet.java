@@ -114,7 +114,26 @@ public class EndreDataServlet extends HttpServlet {
     }
 
     public boolean sjekkAnsatt(AnsattModel ansatt) {
-
+        if(ansatt.getEpost()==null)
+            return false;
+        if(ansatt.getEpost().trim().equalsIgnoreCase(""))
+            return false;
+        if(ansatt.getAdresse()==null)
+            return false;
+        if(ansatt.getAdresse().trim().equalsIgnoreCase(""))
+            return false;
+        if(ansatt.getPostNummer()==null)
+            return false;
+        if(ansatt.getPostNummer().trim().equalsIgnoreCase(""))
+            return false;
+        if(ansatt.getAnsattNummer()==null)
+            return false;
+        if(ansatt.getAnsattNummer().trim().equalsIgnoreCase(""))
+            return false;
+        if(ansatt.getPassord()==null)
+            return false;
+        if(ansatt.getPassord().trim().equalsIgnoreCase(""))
+            return false;
         return true;
     }
 }

@@ -24,3 +24,4 @@ values (
            'trym@example.com',
            '12345',
            '1993-25-09');
+

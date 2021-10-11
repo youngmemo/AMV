@@ -13,6 +13,15 @@ create table if not EXISTS Ansatt
     PRIMARY KEY (Ansatt_ID)
 );
 
+create table if not EXISTS Kategori
+(
+    Kategori_ID              integer UNIQUE auto_increment,
+    Kategori_Verktoy         varchar (50) NOT NULL,
+    Kategori_Kjoretoy        varchar (50) NOT NULL,
+    PRIMARY KEY (Kategori_ID)
+
+);
+
 create table if not EXISTS Utstyr
 (
     Utstyr_ID               integer UNIQUE auto_increment,
@@ -32,4 +41,4 @@ create table if not EXISTS Foresporsel
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID),
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID)
 
-)
+);
