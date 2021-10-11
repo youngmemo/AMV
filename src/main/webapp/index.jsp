@@ -5,10 +5,17 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "Hjemside" %>
 </h1>
+<p>Du er nå logget inn. </p>
+<p>Under kan du velge hva du ønsker å gjøre.</p>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
-<a href="/bacit-web-1.0-SNAPSHOT/admin/register_user">register user</a>
+<input type="button" class="button_active" onclick="location.href='hello-servlet';" value="HelloServlet"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/register-user';" value="Registrer bruker"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/registrer-ansatt';" value="Registrer ansatt"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/AnsattRegistrering';" value="Registrer ansatt min versjon"/>
 </body>
 </html>

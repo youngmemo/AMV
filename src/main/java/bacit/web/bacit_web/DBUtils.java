@@ -27,19 +27,21 @@ public class DBUtils {
      * @return connection to db
      * @throws SQLException if the connection fails
      */
-    public Connection getConnection(PrintWriter out) throws SQLException {
-        try{
-            Context initCtx = new InitialContext();
-            Context envCtx = (Context) initCtx.lookup("java:comp/env");
-            DataSource ds = (DataSource)envCtx.lookup("jdbc/database");
-
-            return ds.getConnection();
+    public Connection getConnection(PrintWriter out) throws SQLException, ClassNotFoundException {
+        Connection toReturn = null;
+        Class.forName("org.mariadb.jdbc.Driver");
+        try {
+            toReturn = (connection != null)
+                    ? connection
+                    : DriverManager.getConnection(
+                    "jdbc:mariadb://172.17.0.1:3308/MytestDB",
+                    "root",
+                    "12345");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            out.println("SQL Exception " + e);
         }
-        catch(NamingException ex)
-        {
-            out.println(ex.getMessage());
-        }
-        return null;
+        return toReturn;
     }
 }
 

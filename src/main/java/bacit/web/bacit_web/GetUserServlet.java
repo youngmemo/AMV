@@ -39,12 +39,17 @@ public class GetUserServlet extends HttpServlet {
 
 
     private UserModel getUser(String uname, PrintWriter out) throws SQLException {
-        Connection db =DBUtils.getINSTANCE().getConnection(out);
+        Connection db = null;
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         String query3 = "select * from user where User_firstName = ?";
         PreparedStatement statement = db.prepareStatement(query3);
         statement.setString(1, uname);
-        ResultSet rs =  statement.executeQuery(statement.toString());
+        ResultSet rs = statement.executeQuery();
         UserModel model = null;
         while (rs.next()) {
             model =
