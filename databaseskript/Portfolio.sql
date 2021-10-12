@@ -31,9 +31,9 @@ CREATE OR REPLACE TABLE Utstyr
     Utstyr_ID               SMALLINT UNIQUE AUTO_INCREMENT,
     Utstyr_Navn             VARCHAR(50) NOT NULL,
     Utstyr_Beskrivelse      VARCHAR(50) NOT NULL,
-    Kategori_ID             SMALLINT    NOT NULL,
+    Kategori_ID             SMALLINT NOT NULL,
     PRIMARY KEY (Utstyr_ID),
-    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
+    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID)
 );
 
 CREATE OR REPLACE TABLE Foresporsel
@@ -75,7 +75,7 @@ CREATE OR REPLACE TABLE Forslag
     Forslag_Kommentar       VARCHAR(60) NOT NULL,
     Ansatt_ID               SMALLINT    NOT NULL,
     PRIMARY KEY (Forslag_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL
+    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)
 );
 
 CREATE OR REPLACE TABLE Rapport
@@ -86,8 +86,8 @@ CREATE OR REPLACE TABLE Rapport
     Utstyr_ID               SMALLINT    NOT NULL,
     Ansatt_ID               SMALLINT    NOT NULL,
     PRIMARY KEY (Rapport_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
+    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID),
+    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID)
 );
 
 CREATE OR REPLACE TABLE LisensiertAnsatt
@@ -95,7 +95,7 @@ CREATE OR REPLACE TABLE LisensiertAnsatt
     Lisens_ID               SMALLINT NOT NULL,
     Ansatt_ID               SMALLINT NOT NULL,
     Ansatt_Kommentar        VARCHAR(255),
-    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE SET NULL,
+    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
 
@@ -116,5 +116,5 @@ CREATE OR REPLACE TABLE Betaling
     Ansatt_ID               SMALLINT NOT NULL,
     Utstyr_ID               SMALLINT NOT NULL,
     Betalingsmetode_ID      SMALLINT NOT NULL,
-    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL
+    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID)
 );
