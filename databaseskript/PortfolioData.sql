@@ -67,10 +67,6 @@ INSERT INTO Betalingsmetode(Metode)
 VALUES  ('Kontant'),
         ('Faktura');
 
-INSERT INTO Kategori (Kategori)
-VALUES ('Verktøy'),
-       ('Kjoretøy');
-
 INSERT INTO LisensiertUtstyr(Utstyr_Kommentar, Utstyr_ID)
 VALUES ('Trengs fullført og bestått kurs', 7),
        ('Trengs truckførerbevis', 8);
