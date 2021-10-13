@@ -28,12 +28,13 @@ SELECT * FROM Rapport
 LIMIT 5;
 
 /*List the names and number of borrows of the three users with most equipment borrowed, sorted by number of borrows */
-SELECT Ansatt.Fornavn, COUNT(Betaling.Ansatt_ID)
+SELECT Ansatt.Fornavn, COUNT(Betaling.Ansatt_ID) AS UTSTYRLANT
 FROM Betaling
 INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
 GROUP BY Betaling.Ansatt_ID
-ORDER BY Betaling.Ansatt_ID DESC
+ORDER BY UTSTYRLANT DESC
 LIMIT 3;
+
 
 /*List all the equipment borrowed by the user with the highest number of equipment borrowed, sorted by date/time*/
 SELECT Ansatt.Fornavn, COUNT(Betaling.Ansatt_ID)
@@ -42,3 +43,4 @@ INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
 GROUP BY Betaling.Ansatt_ID
 ORDER BY Betaling.Ansatt_ID DESC
 LIMIT 1;
+
