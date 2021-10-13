@@ -10,3 +10,19 @@ where Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date 
 SELECT distinct Utstyr_ID
 from Status
 where Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
+
+/*Listing the 5 first rows of the 5 most important tables (your judgement), sorted.*/
+SELECT * FROM Ansatt
+LIMIT 5;
+
+SELECT * FROM Utstyr
+LIMIT 5;
+
+SELECT * FROM Forslag
+LIMIT 5;
+
+SELECT * FROM Foresporsel
+LIMIT 5;
+
+SELECT * FROM Rapport
+LIMIT 5;

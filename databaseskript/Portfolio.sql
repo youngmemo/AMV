@@ -3,9 +3,9 @@ use AMV;
 CREATE OR REPLACE TABLE Ansatt
 (
     Ansatt_ID               SMALLINT UNIQUE AUTO_INCREMENT,
-    Mobilnummer             INTEGER NOT NULL,
     Fornavn                 VARCHAR(30) NOT NULL,
     Etternavn               VARCHAR(30) NOT NULL,
+    Mobilnummer             INTEGER NOT NULL,
     Epost                   VARCHAR(255) NOT NULL,
     Adresse                 VARCHAR(50) NOT NULL,
     Ansattnummer            SMALLINT    NOT NULL,

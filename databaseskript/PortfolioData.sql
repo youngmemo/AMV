@@ -32,16 +32,16 @@ VALUES  (1, 'Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 46464646, 'Markens gat
         (10, 'Janis', 'Gailis', 'janis.gailis@uia.no', 38141562, 'Elvegaten 10');
 
 INSERT INTO Utstyr (Utstyr_Navn, Utstyr_Beskrivelse, Kategori_ID)
-VALUES  ('Eksentersliper', 'børsteløs motor som gjør den vedlikeholdsfri og gir den lengre levetid og battertid.', 1),
-        ('Båndsliper', 'denne effektive båndsliperen garanterer et jevnt og pent resultat. 650W med en bånddimensjon på 76x457 mm.', 1),
+VALUES  ('Eksentersliper', 'Børsteløs motor som gjør den vedlikeholdsfri og gir den lengre levetid og battertid.', 1),
+        ('Båndsliper', 'Denne effektive båndsliperen garanterer et jevnt og pent resultat. 650W med en bånddimensjon på 76x457 mm.', 1),
         ('vinkelsliper', '150 mm batteridrevet vinkelsliper med turtallsvalg og økt brukerbeskyttelse', 1),
-        ('Meislemaskin', 'topp ytelse ved boring og meisling med 1500 wats motor og 12,5 joule enkeltslagenergi', 1),
+        ('Meislemaskin', 'Topp ytelse ved boring og meisling med 1500 wats motor og 12,5 joule enkeltslagenergi', 1),
         ('Slagdrill', 'Slagdrill med på 18 V med 13 mm hurtigchuch og batteriindikator', 1),
-        ('Kantklipper', 'elektrisk kantklipper som hjelper deg med de utfordrende kantene langs veier, trær,murer', 1),
-        ('Personløfter', 'personløft som er en enkel og sikker utstyr som du kan bruke til å komme deg opp i høyden', 2),
-        ('Gaffeltruck', 'en kraftig og rubust gaffeltruck med dieselmotor som kan brukes i alle lagermiljøer og står for kvalitet, effektivitet og pålitelighet', 2),
-        ('Motorisert trillebår', 'motorisert trillebår som er ypperlig for transport av varer etc.', 1),
-        ('Spikerpistol, stor' , 'dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1);
+        ('Kantklipper', 'Elektrisk kantklipper som hjelper deg med de utfordrende kantene langs veier, trær,murer', 1),
+        ('Personløfter', 'Personløft som er en enkel og sikker utstyr som du kan bruke til å komme deg opp i høyden', 2),
+        ('Gaffeltruck', 'En kraftig og rubust gaffeltruck med dieselmotor som kan brukes i alle lagermiljøer og står for kvalitet, effektivitet og pålitelighet', 2),
+        ('Motorisert trillebår', 'Motorisert trillebår som er ypperlig for transport av varer etc.', 1),
+        ('Spikerpistol, stor' , 'Dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1);
 
 INSERT INTO Superbruker (Ansatt_ID)
 VALUES (10);
@@ -77,12 +77,12 @@ VALUES  (1, 4, 'Har lov til å kjøre personlift'),
 
 
 INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID)
-VALUES  (1, 1, 1),
+VALUES  (3, 1, 1),
         (8, 2, 1),
         (5, 4, 2),
-        (6, 9, 1),
-        (9, 2, 2),
-        (7, 6, 2),
+        (8, 9, 1),
+        (8, 2, 2),
+        (5, 6, 2),
         (8, 7, 1),
         (5, 5, 2),
         (3, 2, 2);
