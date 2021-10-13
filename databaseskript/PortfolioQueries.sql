@@ -37,10 +37,11 @@ LIMIT 3;
 
 
 /*List all the equipment borrowed by the user with the highest number of equipment borrowed, sorted by date/time*/
-SELECT Ansatt.Fornavn, COUNT(Betaling.Ansatt_ID)
+SELECT Ansatt.Fornavn, Utstyr.Utstyr_Navn
 FROM Betaling
-INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
-GROUP BY Betaling.Ansatt_ID
-ORDER BY Betaling.Ansatt_ID DESC
-LIMIT 1;
+         INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
+         INNER JOIN Utstyr ON Betaling.Utstyr_ID = Utstyr.Utstyr_ID
+GROUP BY Utstyr.Utstyr_Navn
+ORDER BY Utstyr.Utstyr_Navn ASC;
+
 
