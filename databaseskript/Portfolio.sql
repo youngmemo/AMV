@@ -1,3 +1,4 @@
+drop schema AMV;
 create database if not exists AMV;
 use AMV;
 CREATE OR REPLACE TABLE Ansatt
@@ -30,7 +31,7 @@ CREATE OR REPLACE TABLE Utstyr
 (
     Utstyr_ID               SMALLINT UNIQUE AUTO_INCREMENT,
     Utstyr_Navn             VARCHAR(50) NOT NULL,
-    Utstyr_Beskrivelse      VARCHAR(50) NOT NULL,
+    Utstyr_Beskrivelse      VARCHAR(1000) NOT NULL,
     Kategori_ID             SMALLINT NOT NULL,
     PRIMARY KEY (Utstyr_ID),
     FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID)
@@ -61,7 +62,7 @@ CREATE OR REPLACE TABLE Status
 CREATE OR REPLACE TABLE LisensiertUtstyr
 (
     Lisens_ID               SMALLINT UNIQUE AUTO_INCREMENT,
-    Utstyr_Kommentar        VARCHAR (30) NOT NULL DEFAULT 'Ingen kommentar lagt til',
+    Utstyr_Kommentar        VARCHAR (1000) NOT NULL DEFAULT 'Ingen kommentar lagt til',
     Utstyr_ID               SMALLINT     NOT NULL,
     PRIMARY KEY (Lisens_ID),
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
@@ -71,8 +72,8 @@ CREATE OR REPLACE TABLE LisensiertUtstyr
 CREATE OR REPLACE TABLE Forslag
 (
     Forslag_ID              SMALLINT UNIQUE AUTO_INCREMENT,
-    Forslag_Utstyr          VARCHAR(30) NOT NULL,
-    Forslag_Kommentar       VARCHAR(60) NOT NULL,
+    Forslag_Utstyr          VARCHAR(150) NOT NULL,
+    Forslag_Kommentar       VARCHAR(1000) NOT NULL,
     Ansatt_ID               SMALLINT    NOT NULL,
     PRIMARY KEY (Forslag_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)
@@ -81,8 +82,8 @@ CREATE OR REPLACE TABLE Forslag
 CREATE OR REPLACE TABLE Rapport
 (
     Rapport_ID              SMALLINT UNIQUE AUTO_INCREMENT,
-    Rapport_Tittel          VARCHAR(30) NOT NULL,
-    Rapport_Kommentar       VARCHAR(60) NOT NULL,
+    Rapport_Tittel          VARCHAR(150) NOT NULL,
+    Rapport_Kommentar       VARCHAR(100) NOT NULL,
     Utstyr_ID               SMALLINT    NOT NULL,
     Ansatt_ID               SMALLINT    NOT NULL,
     PRIMARY KEY (Rapport_ID),
@@ -94,7 +95,7 @@ CREATE OR REPLACE TABLE LisensiertAnsatt
 (
     Lisens_ID               SMALLINT NOT NULL,
     Ansatt_ID               SMALLINT NOT NULL,
-    Ansatt_Kommentar        VARCHAR(255),
+    Ansatt_Kommentar        VARCHAR(1000),
     FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
