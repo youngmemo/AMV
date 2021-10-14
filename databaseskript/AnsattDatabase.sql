@@ -13,6 +13,6 @@ create table if not EXISTS ansatt
     CONSTRAINT PRIMARY KEY (Id)
 );
 
-insert into ansatt (Id, Fornavn, Etternavn, Epost, Adresse, Post_Nummer, Ansatt-Nummer, Passord)
+insert into ansatt (Id, Fornavn, Etternavn, Epost, Adresse, Post_Nummer, Ansatt_Nummer, Passord)
 values ('','Mehmet', 'Eksi', 'Mehmeteksi99@hotmail.com', 'Løvsangerveien 28A', '4626', '415', 'GamlePassord123');
 

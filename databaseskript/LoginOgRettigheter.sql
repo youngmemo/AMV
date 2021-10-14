@@ -39,3 +39,4 @@ values (
 
 insert into user_roles (LoginName, role_name) values ('memouser','user');
 insert into user_roles (LoginName, role_name) values ('memoadmin','administrator');
+insert into user_roles (LoginName, role_name) values ('memoadmin','user');

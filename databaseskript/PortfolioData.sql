@@ -34,7 +34,7 @@ VALUES  (1, 'Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 46464646, 'Markens gat
 INSERT INTO Utstyr (Utstyr_Navn, Utstyr_Beskrivelse, Kategori_ID)
 VALUES  ('Eksentersliper', 'Børsteløs motor som gjør den vedlikeholdsfri og gir den lengre levetid og battertid.', 1),
         ('Båndsliper', 'Denne effektive båndsliperen garanterer et jevnt og pent resultat. 650W med en bånddimensjon på 76x457 mm.', 1),
-        ('vinkelsliper', '150 mm batteridrevet vinkelsliper med turtallsvalg og økt brukerbeskyttelse', 1),
+        ('Vinkelsliper', '150 mm batteridrevet vinkelsliper med turtallsvalg og økt brukerbeskyttelse', 1),
         ('Meislemaskin', 'Topp ytelse ved boring og meisling med 1500 wats motor og 12,5 joule enkeltslagenergi', 1),
         ('Slagdrill', 'Slagdrill med på 18 V med 13 mm hurtigchuch og batteriindikator', 1),
         ('Kantklipper', 'Elektrisk kantklipper som hjelper deg med de utfordrende kantene langs veier, trær,murer', 1),
