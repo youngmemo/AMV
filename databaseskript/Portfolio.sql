@@ -1,3 +1,4 @@
+drop schema AMV;
 create database if not exists AMV;
 use AMV;
 CREATE OR REPLACE TABLE Ansatt
@@ -52,7 +53,6 @@ CREATE OR REPLACE TABLE Status
     /* date skrives på format dd.mm.åååå */
     Start_Dato              DATE,
     Slutt_Dato              DATE,
-    Tilgjengelig            VARCHAR(30) NOT NULL DEFAULT 'Tilgjengelig',
     Utstyr_ID               SMALLINT NOT NULL,
     PRIMARY KEY (Status_ID),
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE

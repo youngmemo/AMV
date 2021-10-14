@@ -75,6 +75,58 @@ INSERT INTO LisensiertAnsatt (Lisens_ID, Ansatt_ID, Ansatt_Kommentar)
 VALUES  (1, 4, 'Har lov til å kjøre personlift'),
         (2, 5, 'Har tilgang til gaffeltruck, har tatt truckførerkurs og vist bevis');
 
+/* Tilgjengelig besvares med følgende koder: Tilgjengelig, Utlånt, Repareres, Ødelagt /
+/ NOT NULL må fjernes fra Start_dato og Slutt_dato i Status tabell for å tillate tomme felt (for tilgjengelig eller ødelagt status)*/
+insert into Status (Start_Dato, Slutt_Dato, Utstyr_ID)
+values  ('2021-10-08', '2021-10-12',1),
+        ('2021-10-08', '2021-10-16',2),
+        ('2021-10-06', '2021-10-12',3),
+        ('2021-10-08', '2021-10-14',4),
+        ('2021-10-08', '2021-10-18',5),
+        ('2021-10-08', '2021-10-19',6),
+        ('2021-10-08', '2021-10-11',7),
+        ('2021-10-08', '2021-10-13',8),
+        ('2021-10-08', '2021-10-17',9),
+        ('2021-10-08', '2021-10-20',10);
+
+
+insert into Superbruker (Ansatt_ID) values ('10');
+
+INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
+VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
+        ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5),
+        ('Personløfter punktert', 'Dekket til personløfter ble punktert når jeg skulle løfte opp noe', 7,4),
+        ('Motorisert trillebår ødelagt','Den ble ødelagt når prøvde å borre stein', 9,3),
+        ('Slagdrill fungerer ikke','Det er noe problem med motoren i selve drillen', 5,1),
+        ('Kantklipper lager problemer','Kantklipperen klipper skeivt og det er veldig irriterende for meg', 6,8),
+        ('Spikerpistol er ødelagt','To spikere sitter fast så jeg får ikke ut den ene', 10,7),
+        ('Meislemaskinen er skadet','Den falt på en stor så ble den skadet', 4,2),
+        ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
+        ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
+
+INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID)
+VALUES (3, 3),
+       (6, 4),
+       (4, 7),
+       (5, 9),
+       (10, 8),
+       (8, 2),
+       (9, 1),
+       (1, 6),
+       (2, 5),
+       (7, 10);
+
+insert into Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
+values  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
+        ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
+        ('Enkelstige 4100 mm','Vi har ingen stiger å låne akkurat nå, å ha noen hadde vært greit',3),
+        ('Mørtelblander','Vi har alt annet utstyr til muring, men ikke en mørtelblander',4),
+        ('Høytrykksvasker','Høytrykksvaskere er dyrt, hadde vært greit å fått lånt fra bedriften',5),
+        ('Bosch Nibbler','Ønsker en Nibbler her på jobb, veldig god utstyr',6),
+        ('Termisk kamera','Viktig å se hvor varmt ting er.',7),
+        ('Støv/Våtsuger','Blir for mye vann i terrassen etter vask av tepper med madammen',8),
+        ('Tørrsuger','Kan anta mange av oss maler hjemme, hadde vært greit å få tørket malinga fortere',9),
+        ('Rotasjonslaser','Greit når man jobber hjemme.',10);
 
 INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID)
 VALUES  (3, 1, 1),
