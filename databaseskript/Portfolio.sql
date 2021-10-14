@@ -1,4 +1,3 @@
-drop schema AMV;
 create database if not exists AMV;
 use AMV;
 CREATE OR REPLACE TABLE Ansatt
