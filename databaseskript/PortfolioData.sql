@@ -89,9 +89,6 @@ values  ('2021-10-08', '2021-10-12',1),
         ('2021-10-08', '2021-10-17',9),
         ('2021-10-08', '2021-10-20',10);
 
-
-insert into Superbruker (Ansatt_ID) values ('10');
-
 INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
 VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
         ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5),
