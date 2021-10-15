@@ -17,5 +17,7 @@
 <input type="button" class="button_active" onclick="location.href='admin/registrer-ansatt';" value="Registrer ansatt"/>
 <br>
 <input type="button" class="button_active" onclick="location.href='admin/AnsattRegistrering';" value="Registrer ansatt min versjon"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>
 </body>
 </html>

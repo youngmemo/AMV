@@ -1,6 +1,4 @@
 package bacit.web.bacit_web;
-import bacit.web.bacit_models.OpprettAnsattModel;
-import bacit.web.bacit_models.RegisterUserModel;
 import bacit.web.bacit_models.RegistrereAnsattModel;
 
 import javax.servlet.ServletException;

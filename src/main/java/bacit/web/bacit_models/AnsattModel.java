@@ -1,6 +1,6 @@
 package bacit.web.bacit_models;
 
-public class OpprettAnsattModel {
+public class AnsattModel {
     private String mobilNummer;
     private String fornavn;
     private String etternavn;
@@ -8,7 +8,7 @@ public class OpprettAnsattModel {
     private String adresse;
     private String postNummer;
     private String ansattNummer;
-
+    private String passord;
 
 
     public String getMobilNummer() {
@@ -66,6 +66,10 @@ public class OpprettAnsattModel {
     public void setAnsattNummer(String ansattNummer) {
         this.ansattNummer = ansattNummer;
     }
+
+    public String getPassord()  { return passord; }
+
+    public void setPassord(String passord) { this.passord = passord; }
 
 }
 

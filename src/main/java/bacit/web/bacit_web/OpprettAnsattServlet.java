@@ -1,5 +1,5 @@
 package bacit.web.bacit_web;
-import bacit.web.bacit_models.OpprettAnsattModel;
+import bacit.web.bacit_models.AnsattModel;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class OpprettAnsattServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
-        OpprettAnsattModel ansatt = new OpprettAnsattModel();
+        AnsattModel ansatt = new AnsattModel();
 
         ansatt.setFornavn(request.getParameter("fornavn"));
         ansatt.setEtternavn(request.getParameter("etternavn"));
@@ -58,7 +58,7 @@ public class OpprettAnsattServlet extends HttpServlet {
         }
     }
 
-    private void leggTilAnsatt(OpprettAnsattModel ansatt, PrintWriter out) throws SQLException {
+    private void leggTilAnsatt(AnsattModel ansatt, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -123,7 +123,7 @@ public class OpprettAnsattServlet extends HttpServlet {
         out.println("</html>");
     }
 
-    private boolean sjekkAnsatt(OpprettAnsattModel model) {
+    private boolean sjekkAnsatt(AnsattModel model) {
         if(model.getFornavn()==null)
             return false;
         if(model.getFornavn().trim().equalsIgnoreCase(""))
