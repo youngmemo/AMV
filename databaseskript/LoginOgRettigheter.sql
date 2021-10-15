@@ -1,5 +1,5 @@
-create database if not exists MytestDB;
-use MytestDB;
+create database if not exists mytestdb;
+use mytestdb;
 create table if not EXISTS users
 (
     Id              integer UNIQUE auto_increment,

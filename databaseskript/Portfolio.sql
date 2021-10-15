@@ -1,5 +1,5 @@
-create database if not exists AMV;
-use AMV;
+create database if not exists mytestdb;
+use mytestdb;
 CREATE OR REPLACE TABLE Ansatt
 (
     Ansatt_ID               SMALLINT UNIQUE AUTO_INCREMENT,

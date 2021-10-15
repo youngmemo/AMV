@@ -13,7 +13,7 @@
    13 - Betaling *
  */
 
-USE AMV;
+USE mytestdb;
 
 INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
