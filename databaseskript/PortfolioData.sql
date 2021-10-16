@@ -17,7 +17,7 @@ USE mytestdb;
 
 INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
-       ('Kjoretøy');
+       ('Kjøretøy');
 
 INSERT INTO Ansatt (Ansattnummer, Fornavn, Etternavn, Epost, Mobilnummer, Adresse)
 VALUES  (1, 'Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 46464646, 'Markens gate 19'),
@@ -46,6 +46,42 @@ VALUES  ('Eksentersliper', 'Børsteløs motor som gjør den vedlikeholdsfri og g
 INSERT INTO Superbruker (Ansatt_ID)
 VALUES (10);
 
+INSERT INTO Status (Start_Dato, Slutt_Dato, Tilgjengelig, Utstyr_ID)
+VALUES ('2021-01-01', '2021-01-04', 'Utilgjengelig', 1),
+       ('2021-01-08', '2021-01-12', 'Booket', 2),
+       ('2021-01-16', '2021-01-20', 'Booket', 3),
+       ('2021-02-20', '2021-02-24', 'Booket', 4),
+       ('2021-02-24', '2021-02-28', 'Booket', 5),
+       ('2021-03-03', '2021-03-05', 'Vedlikeholdsdag', 2),
+       ('2021-03-07', '2021-03-11', 'Booket', 3),
+       ('2021-03-14', '2021-03-15', 'I ustand', 8),
+       ('2021-03-20', '2021-03-25', 'Booket', 3),
+       ('2021-03-26', '2021-03-27', 'I ustand', 10);
+
+INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
+VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
+        ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5),
+        ('Personløfter punktert', 'Dekket til personløfter ble punktert når jeg skulle løfte opp noe', 7,4),
+        ('Motorisert trillebår ødelagt','Den ble ødelagt når prøvde å borre stein', 9,3),
+        ('Slagdrill fungerer ikke','Det er noe problem med motoren i selve drillen', 5,1),
+        ('Kantklipper lager problemer','Kantklipperen klipper skeivt og det er veldig irriterende for meg', 6,8),
+        ('Spikerpistol er ødelagt','To spikere sitter fast så jeg får ikke ut den ene', 10,7),
+        ('Meislemaskinen er skadet','Den falt på en stor stein så ble den skadet', 4,2),
+        ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
+        ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
+
+
+INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID)
+VALUES (3, 3),
+       (6, 4),
+       (4, 7),
+       (5, 9),
+       (10, 8),
+       (8, 2),
+       (9, 1),
+       (1, 6),
+       (2, 5),
+       (7, 10);
 
 INSERT INTO Administrator (Ansatt_ID)
 VALUES  (9),
@@ -77,8 +113,8 @@ VALUES  (1, 4, 'Har lov til å kjøre personlift'),
 
 /* Tilgjengelig besvares med følgende koder: Tilgjengelig, Utlånt, Repareres, Ødelagt /
 / NOT NULL må fjernes fra Start_dato og Slutt_dato i Status tabell for å tillate tomme felt (for tilgjengelig eller ødelagt status)*/
-insert into Status (Start_Dato, Slutt_Dato, Utstyr_ID)
-values  ('2021-10-08', '2021-10-12',1),
+INSERT INTO Status (Start_Dato, Slutt_Dato, Utstyr_ID)
+VALUES  ('2021-10-08', '2021-10-12',1),
         ('2021-10-08', '2021-10-16',2),
         ('2021-10-06', '2021-10-12',3),
         ('2021-10-08', '2021-10-14',4),
@@ -115,6 +151,18 @@ VALUES (3, 3),
 
 insert into Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 values  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
+        ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
+        ('Enkelstige 4100 mm','Vi har ingen stiger å låne akkurat nå, å ha noen hadde vært greit',3),
+        ('Mørtelblander','Vi har alt annet utstyr til muring, men ikke en mørtelblander',4),
+        ('Høytrykksvasker','Høytrykksvaskere er dyrt, hadde vært greit å fått lånt fra bedriften',5),
+        ('Bosch Nibbler','Ønsker en Nibbler her på jobb, veldig god utstyr',6),
+        ('Termisk kamera','Viktig å se hvor varmt ting er.',7),
+        ('Støv/Våtsuger','Blir for mye vann i terrassen etter vask av tepper med madammen',8),
+        ('Tørrsuger','Kan anta mange av oss maler hjemme, hadde vært greit å få tørket malinga fortere',9),
+        ('Rotasjonslaser','Greit når man jobber hjemme.',10);
+
+INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
+VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
         ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
         ('Enkelstige 4100 mm','Vi har ingen stiger å låne akkurat nå, å ha noen hadde vært greit',3),
         ('Mørtelblander','Vi har alt annet utstyr til muring, men ikke en mørtelblander',4),
