@@ -7,6 +7,8 @@
         <web-resource-collection>
             <web-resource-name>Administration</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/lisens/*</url-pattern>
+            <url-pattern>/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
         </web-resource-collection>
@@ -18,6 +20,43 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Superbruker</web-resource-name>
+            <url-pattern>/super/*</url-pattern>
+            <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/lisens/*</url-pattern>
+            <url-pattern>/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>superbruker</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <!-- transport-guarantee can be CONFIDENTIAL, INTEGRAL, or NONE -->
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Lisens</web-resource-name>
+            <url-pattern>/lisens/*</url-pattern>
+            <url-pattern>/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>lisens</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <!-- transport-guarantee can be CONFIDENTIAL, INTEGRAL, or NONE -->
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>All</web-resource-name>
@@ -26,13 +65,14 @@
             <http-method>POST</http-method>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>user</role-name>
+            <role-name>normal</role-name>
         </auth-constraint>
         <user-data-constraint>
             <!-- transport-guarantee can be CONFIDENTIAL, INTEGRAL, or NONE -->
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>

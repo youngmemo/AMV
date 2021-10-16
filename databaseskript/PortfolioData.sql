@@ -19,17 +19,17 @@ INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
        ('Kjøretøy');
 
-INSERT INTO Ansatt (Ansattnummer, Fornavn, Etternavn, Epost, Mobilnummer, Adresse)
-VALUES  (1, 'Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 46464646, 'Markens gate 19'),
-        (2, 'Osamah', 'Almaliki', 'osamah2001@hotmail.com', 46276313, 'Holbergs gate 8'),
-        (3, 'Tina', 'Ruud', 'tinamruud@gmail.com', 88745219, 'Henrik wergelandsgate 1'),
-        (4, 'Abdul Rahman', 'Kasim', 'abdul-rahman-kasim@hotmail.com', 44444444, 'Vestre strandgate 42'),
-        (5, 'Ømer', 'Fener', 'omer99fe@hotmail.com', 56565656, 'Dronningens gate 31'),
-        (6, 'Berat', 'Gunes', 'beratg12@hotmail.com', 77777777, 'Kongens gate 1'),
-        (7, 'Terje', 'Gjøsæter', 'terje.gjøsæter@uia.no', 12345678, 'Gyldenløvens gate 12'),
-        (8, 'Geir', 'Hausvik', 'geir.i.hausvik@uia.no', 89898989, 'Tollbodgaten 60'),
-        (9, 'Espen', 'Limi', 'espen.limi@uia.no', 87654321, 'Rådhusgaten 7'),
-        (10, 'Janis', 'Gailis', 'janis.gailis@uia.no', 38141562, 'Elvegaten 10');
+INSERT INTO Ansatt (Ansattnummer, Fornavn, Etternavn, Epost, Passord, Mobilnummer, Adresse)
+VALUES  (1, 'Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 'meheks1', 46464646, 'Markens gate 19'),
+        (2, 'Osamah', 'Almaliki', 'osamah2001@hotmail.com', 'osaalm1', 46276313, 'Holbergs gate 8'),
+        (3, 'Tina', 'Ruud', 'tinamruud@gmail.com', 'tinruu1', 88745219, 'Henrik wergelandsgate 1'),
+        (4, 'Abdul Rahman', 'Kasim', 'abdul-rahman-kasim@hotmail.com', 'abdrah1', 44444444, 'Vestre strandgate 42'),
+        (5, 'Ømer', 'Fener', 'omer99fe@hotmail.com', 'omefen1', 56565656, 'Dronningens gate 31'),
+        (6, 'Berat', 'Gunes', 'beratg12@hotmail.com', 'bergun1', 77777777, 'Kongens gate 1'),
+        (7, 'Terje', 'Gjøsæter', 'terje.gjøsæter@uia.no', 'tegjo1', 12345678, 'Gyldenløvens gate 12'),
+        (8, 'Geir', 'Hausvik', 'geir.i.hausvik@uia.no', 'geihau1', 89898989, 'Tollbodgaten 60'),
+        (9, 'Espen', 'Limi', 'espen.limi@uia.no','esplim1', 87654321, 'Rådhusgaten 7'),
+        (10, 'Janis', 'Gailis', 'janis.gailis@uia.no', 'jangai1', 38141562, 'Elvegaten 10');
 
 INSERT INTO Utstyr (Utstyr_Navn, Utstyr_Beskrivelse, Kategori_ID)
 VALUES  ('Eksentersliper', 'Børsteløs motor som gjør den vedlikeholdsfri og gir den lengre levetid og battertid.', 1),
@@ -43,20 +43,18 @@ VALUES  ('Eksentersliper', 'Børsteløs motor som gjør den vedlikeholdsfri og g
         ('Motorisert trillebår', 'Motorisert trillebår som er ypperlig for transport av varer etc.', 1),
         ('Spikerpistol, stor' , 'Dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1);
 
-INSERT INTO Superbruker (Ansatt_ID)
-VALUES (10);
 
-INSERT INTO Status (Start_Dato, Slutt_Dato, Tilgjengelig, Utstyr_ID)
-VALUES ('2021-01-01', '2021-01-04', 'Utilgjengelig', 1),
-       ('2021-01-08', '2021-01-12', 'Booket', 2),
-       ('2021-01-16', '2021-01-20', 'Booket', 3),
-       ('2021-02-20', '2021-02-24', 'Booket', 4),
-       ('2021-02-24', '2021-02-28', 'Booket', 5),
-       ('2021-03-03', '2021-03-05', 'Vedlikeholdsdag', 2),
-       ('2021-03-07', '2021-03-11', 'Booket', 3),
-       ('2021-03-14', '2021-03-15', 'I ustand', 8),
-       ('2021-03-20', '2021-03-25', 'Booket', 3),
-       ('2021-03-26', '2021-03-27', 'I ustand', 10);
+INSERT INTO Status (Start_Dato, Slutt_Dato, Utstyr_ID)
+VALUES ('2021-01-01', '2021-01-04', 1),
+       ('2021-01-08', '2021-01-12', 2),
+       ('2021-01-16', '2021-01-20', 3),
+       ('2021-02-20', '2021-02-24', 4),
+       ('2021-02-24', '2021-02-28', 5),
+       ('2021-03-03', '2021-03-05', 2),
+       ('2021-03-07', '2021-03-11', 3),
+       ('2021-03-14', '2021-03-15', 8),
+       ('2021-03-20', '2021-03-25', 3),
+       ('2021-03-26', '2021-03-27', 10);
 
 INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
 VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
@@ -83,10 +81,6 @@ VALUES (3, 3),
        (2, 5),
        (7, 10);
 
-INSERT INTO Administrator (Ansatt_ID)
-VALUES  (9),
-        (7);
-
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
         ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
@@ -106,10 +100,6 @@ VALUES  ('Kontant'),
 INSERT INTO LisensiertUtstyr(Utstyr_Kommentar, Utstyr_ID)
 VALUES ('Trengs fullført og bestått kurs', 7),
        ('Trengs truckførerbevis', 8);
-
-INSERT INTO LisensiertAnsatt (Lisens_ID, Ansatt_ID, Ansatt_Kommentar)
-VALUES  (1, 4, 'Har lov til å kjøre personlift'),
-        (2, 5, 'Har tilgang til gaffeltruck, har tatt truckførerkurs og vist bevis');
 
 /* Tilgjengelig besvares med følgende koder: Tilgjengelig, Utlånt, Repareres, Ødelagt /
 / NOT NULL må fjernes fra Start_dato og Slutt_dato i Status tabell for å tillate tomme felt (for tilgjengelig eller ødelagt status)*/
@@ -149,18 +139,6 @@ VALUES (3, 3),
        (2, 5),
        (7, 10);
 
-insert into Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
-values  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
-        ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
-        ('Enkelstige 4100 mm','Vi har ingen stiger å låne akkurat nå, å ha noen hadde vært greit',3),
-        ('Mørtelblander','Vi har alt annet utstyr til muring, men ikke en mørtelblander',4),
-        ('Høytrykksvasker','Høytrykksvaskere er dyrt, hadde vært greit å fått lånt fra bedriften',5),
-        ('Bosch Nibbler','Ønsker en Nibbler her på jobb, veldig god utstyr',6),
-        ('Termisk kamera','Viktig å se hvor varmt ting er.',7),
-        ('Støv/Våtsuger','Blir for mye vann i terrassen etter vask av tepper med madammen',8),
-        ('Tørrsuger','Kan anta mange av oss maler hjemme, hadde vært greit å få tørket malinga fortere',9),
-        ('Rotasjonslaser','Greit når man jobber hjemme.',10);
-
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
         ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
@@ -182,4 +160,26 @@ VALUES  (3, 1, 1),
         (5, 6, 2),
         (8, 7, 1),
         (5, 5, 2),
-        (3, 2, 2);
+        (3, 2, 2),
+        (1, 2, 2);
+
+INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
+VALUES  (1, 'normal', ''),  (2, 'normal', ''),
+        (3, 'normal', ''),  (4, 'normal', ''),
+        (5, 'normal', ''),  (6, 'normal', ''),
+        (7, 'normal', ''),  (8, 'normal', ''),
+        (9, 'normal', ''),  (10, 'normal', ''),
+
+        (4, 'lisens', 'Har lov til å kjøre personlift'),
+        (5, 'lisens', 'Har tilgang til gaffeltruck, har tatt truckførerkurs og vist bevis'),
+
+        (7, 'administrator', ''),
+        (9, 'administrator', ''),
+
+        (10, 'superbruker', 'Grunnleggeren av systemet');
+
+
+
+
+
+

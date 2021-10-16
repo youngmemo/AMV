@@ -76,7 +76,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         out.println("<br><br><br>");
         out.println("<h3>Vennligst velg utstyret du ønsker å låne</h3>");
 
-        out.println("<label for='utstyrValg'>Velg et utstyr under:</label>");
+        out.println("<label for='utstyrValg'>Velg et utstyr:</label>");
         out.println("<select name='utstyrid' id='utstyrid'>");
         out.println("<option value='1'>Eksentersliper</option>");
         out.println("<option value='2'>Båndsliper</option>");
@@ -102,7 +102,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         out.println("<option value='2'>Faktura</option>");
         out.println("</select>");
 
-        out.println("<br><br> <input type='submit' value='Endre info på ansatt'/>");
+        out.println("<br><br> <input type='submit' value='Book utstyr'/>");
         out.println("</form>");
         HtmlHelper.writeHtmlEnd(out);
     }

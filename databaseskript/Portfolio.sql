@@ -7,6 +7,7 @@ CREATE OR REPLACE TABLE Ansatt
     Etternavn               VARCHAR(30)     NOT NULL,
     Mobilnummer             INTEGER         NOT NULL,
     Epost                   VARCHAR(255)    NOT NULL,
+    Passord                 VARCHAR(255)    NOT NULL,
     Adresse                 VARCHAR(50)     NOT NULL,
     Ansattnummer            SMALLINT        NOT NULL,
     PRIMARY KEY (Ansatt_ID)
@@ -81,33 +82,12 @@ CREATE OR REPLACE TABLE Rapport
 (
     Rapport_ID              SMALLINT UNIQUE AUTO_INCREMENT,
     Rapport_Tittel          VARCHAR(150)    NOT NULL,
-    Rapport_Kommentar       VARCHAR(100)    NOT NULL,
+    Rapport_Kommentar       VARCHAR(1000)    NOT NULL,
     Utstyr_ID               SMALLINT        NOT NULL,
     Ansatt_ID               SMALLINT        NOT NULL,
     PRIMARY KEY (Rapport_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID),
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID)
-);
-
-CREATE OR REPLACE TABLE LisensiertAnsatt
-(
-    Lisens_ID               SMALLINT        NOT NULL,
-    Ansatt_ID               SMALLINT        NOT NULL,
-    Ansatt_Kommentar        VARCHAR(1000),
-    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
-);
-
-CREATE OR REPLACE TABLE Administrator
-(
-    Ansatt_ID               SMALLINT        NOT NULL,
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
-);
-
-CREATE OR REPLACE TABLE Superbruker
-(
-    Ansatt_ID               SMALLINT        NOT NULL,
-    FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Betaling
@@ -116,4 +96,12 @@ CREATE OR REPLACE TABLE Betaling
     Utstyr_ID               SMALLINT        NOT NULL,
     Betalingsmetode_ID      SMALLINT        NOT NULL,
     FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID)
+);
+
+CREATE OR REPLACE TABLE Brukerrettigheter
+(
+    Ansatt_ID               SMALLINT        NOT NULL,
+    Rettighet               VARCHAR(50)     NOT NULL,
+    Kommentar               VARCHAR(1000),
+    FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID)
 );

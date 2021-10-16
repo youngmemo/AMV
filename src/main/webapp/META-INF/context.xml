@@ -10,11 +10,11 @@
               maxIdle="3"/>
 
     <Realm className="org.apache.catalina.realm.DataSourceRealm"
-           userTable="users"
-           userNameCol="LoginName"
-           userCredCol="Password"
-           userRoleTable="User_roles"
-           roleNameCol="role_name"
+           userTable="Ansatt"
+           userNameCol="Ansatt_ID"
+           userCredCol="Passord"
+           userRoleTable="Brukerrettigheter"
+           roleNameCol="Rettighet"
            localDataSource="true"
            dataSourceName="jdbc/database"/>
 </Context>
