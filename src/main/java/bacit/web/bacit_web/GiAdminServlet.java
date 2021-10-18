@@ -32,6 +32,8 @@ public class GiAdminServlet extends HttpServlet {
         HtmlHelper HtmlHelper = new HtmlHelper();
 
         Admin.setAnsattID(request.getParameter("AdminsNavn"));
+        Admin.setKommentar(request.getParameter("kommentar"));
+
         PrintWriter out = response.getWriter();
 
         if (CheckAdmin(Admin)) {
@@ -41,8 +43,12 @@ public class GiAdminServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStart(out, "Nå har denne ansatten adminrettigheter!");
-            out.println("<br>Admins navn: ");
-            HtmlHelper.writeHtmlEnd(out);
+            out.println(
+                    "<br><b>Admins navn:</b> " +Admin.getAnsattID()+
+                    "<br><b>Kommentar: </b>" + Admin.getKommentar());
+            HtmlHelper.writeHtmlEnd(out);;
+
+
         } else {
             GiAdminInput(out, "Dessverre er det ikke mulig å fullføre dette");
         }
@@ -52,9 +58,11 @@ public class GiAdminServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into Brukkerrettigheter(Ansatt_ID, Rettighet, Kommentar) VALUES(?,'administrator',?)";
+            String leggeTilKode = "insert into Brukerrettigheter(Ansatt_ID, Rettighet, Kommentar) VALUES(?,'administrator',?)";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, Admin.getAnsattID());
+            kode.setString(2, Admin.getKommentar());
+
 
             kode.executeUpdate();
         } catch (ClassNotFoundException e) {
@@ -64,13 +72,16 @@ public class GiAdminServlet extends HttpServlet {
     }
 
     private boolean GiAdminInput(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Gi Adminrettigheter");
+        HtmlHelper.writeHtmlStart(out, "Gi adminrettigheter til en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/giAdmin' method='POST'>");
-        out.println("<br><br> <label for='Navnet til Nyadmin'>Navnet</label>");
-        out.println("<input type='text' name='AdminsNavn' placeholder='Skriv inn navnet'/>");
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/GiAdmin' method='POST'>");
+        out.println("<br><br> <label for='Admin'>Navnet</label>");
+        out.println("<input type='text' name='AdminsNummer' placeholder='Skriv inn navnet'/>");
+
+        out.println("<br><br> <label for='Kommentar'>Kommentar</label>");
+        out.println("<input type='text' name='kommentar' placeholder='Skriv inn kommentaret'/>");
 
         out.println("<br><br> <input type='submit' value='Godta'/>");
         out.println("</form>");
@@ -93,11 +104,17 @@ public class GiAdminServlet extends HttpServlet {
         out.println("</html>");
     }
 
-    private boolean CheckAdmin (AdminModel Admin){
-        if (Admin.getAnsattID() == null) {
+    private boolean CheckAdmin (AdminModel Admin) {
+        if (Admin.getAnsattID() == null)
             return false;
-        }
-        return !Admin.getAnsattID().trim().equalsIgnoreCase("");
+        if (Admin.getAnsattID().trim().equalsIgnoreCase(""))
+            return false;
+        if(Admin.getKommentar()==null)
+            return false;
+        if(Admin.getKommentar().trim().equalsIgnoreCase(""))
+            return false;
+
+        return true;
     }
 }
 
