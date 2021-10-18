@@ -1,7 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.AdminModel;
-import bacit.web.bacit_utilities.HtmlHelper;
-
+import bacit_utilities.HtmlHelper;
 
 
 import javax.servlet.ServletException;
@@ -30,6 +29,7 @@ public class GiAdminServlet extends HttpServlet {
 
         response.setContentType("text/html");
         AdminModel Admin = new AdminModel();
+        HtmlHelper HtmlHelper = new HtmlHelper();
 
         Admin.setAnsattID(request.getParameter("AdminsNavn"));
         PrintWriter out = response.getWriter();
