@@ -72,7 +72,7 @@ public class GiAdminServlet extends HttpServlet {
         out.println("<br><br> <label for='Navnet til Nyadmin'>Navnet</label>");
         out.println("<input type='text' name='navnet til admin' placeholder='Skriv inn navnet'/>");
 
-        out.println("<br><br> <input type='submit' value='Gi personen rettighetene'/>");
+        out.println("<br><br> <input type='submit' value='Godta'/>");
         out.println("</form>");
         HtmlHelper.writeHtmlEnd(out);
         return false;
