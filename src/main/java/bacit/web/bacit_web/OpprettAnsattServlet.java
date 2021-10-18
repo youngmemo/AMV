@@ -33,7 +33,9 @@ public class OpprettAnsattServlet extends HttpServlet {
         ansatt.setFornavn(request.getParameter("fornavn"));
         ansatt.setEtternavn(request.getParameter("etternavn"));
         ansatt.setEpost(request.getParameter("epost"));
+        ansatt.setMobilNummer(request.getParameter("mobilNummer"));
         ansatt.setAdresse(request.getParameter("adresse"));
+        ansatt.setBy(request.getParameter("by"));
         ansatt.setPostNummer(request.getParameter("postNummer"));
         ansatt.setAnsattNummer(request.getParameter("ansattNummer"));
         ansatt.setPassord(request.getParameter("passord"));
@@ -50,8 +52,10 @@ public class OpprettAnsattServlet extends HttpServlet {
             out.println("Det ble laget en ansatt med disse dataene i vår database: <br>" +
                     "<br>Fornavn: " + ansatt.getFornavn() +
                     "<br>Etternavn: " + ansatt.getEtternavn() +
+                    "<br>Mobilnummer: " + ansatt.getMobilNummer() +
                     "<br>E-post: " + ansatt.getEpost() +
                     "<br>Adresse: " + ansatt.getAdresse() +
+                    "<br>By: " + ansatt.getBy() +
                     "<br>Postnummer: " + ansatt.getPostNummer() +
                     "<br>Ansattnummer: " + ansatt.getAnsattNummer() +
                     "<br>Passord: " + ansatt.getPassord());
@@ -65,17 +69,25 @@ public class OpprettAnsattServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into ansatt (Fornavn, Etternavn, Epost, Adresse, Post_nummer, Ansatt_Nummer, Passord) values(?,?,?,?,?,?,?);";
+            String leggeTilKode = "insert into ansatt (Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer, Ansattnummer, Passord) values(?,?,?,?,?,?,?,?,?);";
+            String giRettighetKode = "insert into Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar) VALUES(?, 'normal', 'Førstegangsregistrering')";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
+            PreparedStatement rettighetKode = db.prepareStatement(giRettighetKode);
+
             kode.setString(1, ansatt.getFornavn());
             kode.setString(2, ansatt.getEtternavn());
-            kode.setString(3, ansatt.getEpost());
-            kode.setString(4, ansatt.getAdresse());
-            kode.setString(5, ansatt.getPostNummer());
-            kode.setString(6, ansatt.getAnsattNummer());
-            kode.setString(7, ansatt.getPassord());
+            kode.setString(3, ansatt.getMobilNummer());
+            kode.setString(4, ansatt.getEpost());
+            kode.setString(5, ansatt.getAdresse());
+            kode.setString(6, ansatt.getBy());
+            kode.setString(7, ansatt.getPostNummer());
+            kode.setString(8, ansatt.getAnsattNummer());
+            kode.setString(9, ansatt.getPassord());
+
+            rettighetKode.setString(1, ansatt.getAnsattNummer());
 
             kode.executeUpdate();
+            rettighetKode.executeUpdate();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -95,11 +107,17 @@ public class OpprettAnsattServlet extends HttpServlet {
         out.println("<br><br> <label for='etternavn'>Etternavn</label>");
         out.println("<input type='text' name='etternavn' placeholder='Skriv inn etternavn'/>");
 
+        out.println("<br><br> <label for='mobilNummer'>Mobilnummer</label>");
+        out.println("<input type='text' name='mobilNummer' placeholder='Skriv inn mobilnummer'/>");
+
         out.println("<br><br> <label for='epost'>E-post</label>");
         out.println("<input type='text' name='epost' placeholder='Skriv inn e-post'/>");
 
         out.println("<br><br> <label for='adresse'>Adresse</label>");
         out.println("<input type='text' name='adresse' placeholder='Skriv inn adresse'/>");
+
+        out.println("<br><br> <label for='by'>By</label>");
+        out.println("<input type='text' name='by' placeholder='Skriv inn by'/>");
 
         out.println("<br><br> <label for='postNummer'>Postnummer</label>");
         out.println("<input type='text' name='postNummer' placeholder='Skriv inn postnummer'/>");
@@ -117,35 +135,45 @@ public class OpprettAnsattServlet extends HttpServlet {
     }
 
 
-    public boolean sjekkAnsatt(AnsattModel model) {
-        if(model.getFornavn()==null)
+    public boolean sjekkAnsatt(AnsattModel ansatt) {
+
+        if(ansatt.getFornavn()==null)
             return false;
-        if(model.getFornavn().trim().equalsIgnoreCase(""))
+        if(ansatt.getFornavn().trim().equalsIgnoreCase(""))
             return false;
-        if(model.getEtternavn()==null)
+        if(ansatt.getEtternavn()==null)
             return false;
-        if(model.getEtternavn().trim().equalsIgnoreCase(""))
+        if(ansatt.getEtternavn().trim().equalsIgnoreCase(""))
             return false;
-        if(model.getEpost()==null)
+        if(ansatt.getEpost()==null)
             return false;
-        if(model.getEpost().trim().equalsIgnoreCase(""))
+        if(ansatt.getEpost().trim().equalsIgnoreCase(""))
             return false;
-        if(model.getAdresse()==null)
+        if(ansatt.getAdresse()==null)
             return false;
-        if(model.getAdresse().trim().equalsIgnoreCase(""))
+        if(ansatt.getAdresse().trim().equalsIgnoreCase(""))
             return false;
-        if(model.getPostNummer()==null)
+        if(ansatt.getPostNummer()==null)
             return false;
-        if(model.getPostNummer().trim().equalsIgnoreCase(""))
+        if(ansatt.getPostNummer().trim().equalsIgnoreCase(""))
             return false;
-        if(model.getAnsattNummer()==null)
+        if(ansatt.getAnsattNummer()==null)
             return false;
-        if(model.getAnsattNummer().trim().equalsIgnoreCase(""))
+        if(ansatt.getAnsattNummer().trim().equalsIgnoreCase(""))
             return false;
-        if(model.getPassord()==null)
+        if(ansatt.getPassord()==null)
             return false;
-        if(model.getPassord().trim().equalsIgnoreCase(""))
+        if(ansatt.getPassord().trim().equalsIgnoreCase(""))
             return false;
+        if(ansatt.getMobilNummer()==null)
+            return false;
+        if(ansatt.getMobilNummer().trim().equalsIgnoreCase(""))
+            return false;
+        if(ansatt.getBy()==null)
+            return false;
+        if(ansatt.getBy().trim().equalsIgnoreCase(""))
+            return false;
+
 
         return true;
     }

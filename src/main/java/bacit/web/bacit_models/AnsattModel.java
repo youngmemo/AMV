@@ -6,9 +6,11 @@ public class AnsattModel {
     private String etternavn;
     private String epost;
     private String adresse;
+    private String by;
     private String postNummer;
     private String ansattNummer;
     private String passord;
+    private String kommentar;
 
     public String getPassord() {
         return passord;
@@ -73,5 +75,22 @@ public class AnsattModel {
     public void setAnsattNummer(String ansattNummer) {
         this.ansattNummer = ansattNummer;
     }
+
+    public String getBy() {
+        return by;
+    }
+
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    public String getKommentar() {
+        return kommentar;
+    }
+
+    public void setKommentar(String kommentar) {
+        this.kommentar = kommentar;
+    }
+
 
 }

@@ -7,9 +7,11 @@ CREATE OR REPLACE TABLE Ansatt
     Etternavn               VARCHAR(30)     NOT NULL,
     Mobilnummer             INTEGER         NOT NULL,
     Epost                   VARCHAR(255)    NOT NULL,
+    Ansattnummer            SMALLINT        NOT NULL,
     Passord                 VARCHAR(255)    NOT NULL,
     Adresse                 VARCHAR(50)     NOT NULL,
-    Ansattnummer            SMALLINT        NOT NULL,
+    Bynavn                  VARCHAR(50)     NOT NULL,
+    Postnummer              SMALLINT        NOT NULL,
     PRIMARY KEY (Ansatt_ID)
 );
 

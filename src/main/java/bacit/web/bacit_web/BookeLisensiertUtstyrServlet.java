@@ -14,8 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name = "BookeUtstyr", value = "/ansatt/booke-utstyr")
-public class BookeUtstyrServlet extends HttpServlet {
+@WebServlet(name = "BookeLisensiertUtstyr", value = "/lisens/booke-lisensiertutstyr")
+public class BookeLisensiertUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -37,7 +37,6 @@ public class BookeUtstyrServlet extends HttpServlet {
         model.setBetalingsMetode(request.getParameter("betalingsmetode"));
 
         PrintWriter out = response.getWriter();
-
         if(sjekkInput(model)){
             try{
                 sendInnUtstyr(model, out);
@@ -47,7 +46,7 @@ public class BookeUtstyrServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStart(out, "Gratulerer, dine ønskede utstyr er nå sendt inn for godkjenning!");
-            out.println("Din ansattnummer: "+model.getAnsattNummer());
+            out.println("Ditt ansattnummer: "+model.getAnsattNummer());
             out.println("<br>Du kan hente ønskede utstyr hvis bekreftet dato: " + model.getStartDato());
             out.println("<br>Husk å levere ønskede utstyr hvis bekreftet dato: " +model.getSluttDato());
         }
@@ -55,14 +54,15 @@ public class BookeUtstyrServlet extends HttpServlet {
     }
 
     private void hentUtstyrSkjema(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Book utstyr");
+        HtmlHelper.writeHtmlStart(out, "Book lisensiert utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
 
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/booke-utstyr' method='POST'>");
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/lisens/booke-lisensiertutstyr' method='POST'>");
 
-        out.println("<h3>Her kan du booke utstyr</h3>");
+        out.println("<h3>Her kan du booke utstyr som krever lisens</h3>");
+        out.println("<h3>NB! Du får bare lov til å låne det du har lisens til, ellers vil du ikke få godkjent utlån!</h3>");
         out.println("<h3>Skriv inn ansattnummeret ditt under</h3>");
 
         out.println("<label for='ansattnummer'>Ansattnummer</label>");
@@ -73,14 +73,8 @@ public class BookeUtstyrServlet extends HttpServlet {
 
         out.println("<label for='utstyrValg'>Velg et utstyr:</label>");
         out.println("<select name='utstyrid' id='utstyrid'>");
-        out.println("<option value='1'>Eksentersliper</option>");
-        out.println("<option value='2'>Båndsliper</option>");
-        out.println("<option value='3'>Vinkelsliper</option>");
-        out.println("<option value='4'>Meislemaskin</option>");
-        out.println("<option value='5'>Slagdrill</option>");
-        out.println("<option value='6'>Kantklipper</option>");
-        out.println("<option value='9'>Motorisert trillebår</option>");
-        out.println("<option value='10'>Spikerpistol</option>");
+        out.println("<option value='7'>Personløfter</option>");
+        out.println("<option value='8'>Gaffeltruck</option>");
         out.println("</select>");
         out.println("<br><br>");
 
