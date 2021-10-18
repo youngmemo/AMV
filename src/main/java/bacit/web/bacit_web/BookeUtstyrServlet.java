@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name = "BookeUtstyr", value = "/ansatt/booke-utstyr")
@@ -60,7 +62,7 @@ public class BookeUtstyrServlet extends HttpServlet {
             out.println("<h2>" + feilMelding + "</h2>");
         }
 
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/booke-utstyr' method='POST'>");
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/booke-utstyr' method='POST'>");
 
         out.println("<h3>Her kan du booke utstyr</h3>");
         out.println("<h3>Skriv inn ansattnummeret ditt under</h3>");
@@ -106,8 +108,12 @@ public class BookeUtstyrServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
+            ResultSet rs;
+
             String betalingKode = "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID) values(?,?,?);";
             String statusKode = "INSERT INTO Status (Start_Dato, Slutt_Dato, Utstyr_ID) values(?,?,?);";
+            String sisteStatusKode = "SELECT Status_ID FROM Status WHERE Status_ID=(SELECT max(Status_ID) FROM Status);";
+            String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Status_ID) values(?,?,?);";
 
             PreparedStatement bkode = db.prepareStatement(betalingKode);
             bkode.setString(1, model.getAnsattNummer());
@@ -120,6 +126,19 @@ public class BookeUtstyrServlet extends HttpServlet {
             skode.setString(2, model.getSluttDato());
             skode.setString(3, model.getUtstyrId());
             skode.executeUpdate();
+
+            PreparedStatement sskode = db.prepareStatement(sisteStatusKode);
+            rs = sskode.executeQuery();
+            rs.next();
+
+            int sisteStatus = rs.getInt("Status_ID");
+
+
+            PreparedStatement fkode = db.prepareStatement(foresporselKode);
+            fkode.setString(1, model.getAnsattNummer());
+            fkode.setString(2, model.getUtstyrId());
+            fkode.setInt(3, sisteStatus);
+            fkode.executeUpdate();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
