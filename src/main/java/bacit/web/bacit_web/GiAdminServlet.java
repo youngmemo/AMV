@@ -52,7 +52,7 @@ public class GiAdminServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into Administrator (Ansatt_ID) values(?,?,?);";
+            String leggeTilKode = "insert into Brukkerrettigheter(Ansatt_ID, Rettighet, Kommentar) VALUES(?,'administrator',?)";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, Admin.getAnsattID());
 
@@ -68,9 +68,9 @@ public class GiAdminServlet extends HttpServlet {
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/Giadminrettigheter' method='POST'>");
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/giAdmin' method='POST'>");
         out.println("<br><br> <label for='Navnet til Nyadmin'>Navnet</label>");
-        out.println("<input type='text' name='navnet til admin' placeholder='Skriv inn navnet'/>");
+        out.println("<input type='text' name='AdminsNavn' placeholder='Skriv inn navnet'/>");
 
         out.println("<br><br> <input type='submit' value='Godta'/>");
         out.println("</form>");
