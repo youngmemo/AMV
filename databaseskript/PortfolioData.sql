@@ -127,18 +127,6 @@ VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
         ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
         ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
 
-INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Status_ID)
-VALUES (3, 3, 1),
-       (6, 4, 2),
-       (4, 7, 3),
-       (5, 9, 4),
-       (10, 8, 5),
-       (8, 2, 6),
-       (9, 1, 7),
-       (1, 6, 8),
-       (2, 5, 9),
-       (7, 10, 10);
-
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
         ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
