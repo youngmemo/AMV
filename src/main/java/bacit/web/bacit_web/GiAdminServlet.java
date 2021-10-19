@@ -46,7 +46,7 @@ public class GiAdminServlet extends HttpServlet {
             out.println(
                     "<br><b>Admins navn:</b> " +Admin.getAnsattID()+
                     "<br><b>Kommentar: </b>" + Admin.getKommentar());
-            HtmlHelper.writeHtmlEnd(out);;
+            HtmlHelper.writeHtmlEnd(out);
 
 
         } else {
