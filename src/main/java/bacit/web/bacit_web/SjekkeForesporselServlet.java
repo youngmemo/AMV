@@ -9,11 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "SjekkeForesporselServlet", value = "/admin/sjekke-foresporsel")
+@WebServlet(name = "SjekkeForesporselServlet", value = "/sjekke-foresporsel")
 public class SjekkeForesporselServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,23 +39,40 @@ public class SjekkeForesporselServlet extends HttpServlet {
 
     private void seForesporsel(PrintWriter out) throws SQLException {
         Connection db = null;
-        Statement statement = null;
-        ResultSet rs = null;
 
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            statement = db.createStatement();
 
-            String visTabell =  "SELECT Foresporsel_ID, Ansatt_ID, Utstyr_ID FROM Foresporsel;";
+            String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Utstyr.Utstyr_Navn, Status.Start_Dato, Status.Slutt_Dato FROM Foresporsel " +
+                                "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                                "inner join Status on Foresporsel.Status_ID = Status.Status_ID " +
+                                "inner join Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
+                                "ORDER BY Foresporsel_ID ASC;";
 
-
-            rs = statement.executeQuery(visTabell);
+            PreparedStatement kode = db.prepareStatement(visTabell);
+            ResultSet rs;
+            rs = kode.executeQuery();
+            HtmlHelper.writeHtmlStartCss(out, "style.css");
+            out.println("<table>" +
+                            "<tr>" +
+                                "<th>Forespørsel ID</th>" +
+                                "<th>Ansatt ID</th>" +
+                                "<th>Utstyr Navn</th>" +
+                                "<th>Start Dato</th>" +
+                                "<th>Slutt Dato</th>" +
+                            "</tr>");
 
             while (rs.next()) {
-                out.println(rs.getInt("Foresporsel_ID") + "      ");
-                out.println(rs.getInt("Ansatt_ID") + "      ");
-                out.println(rs.getInt("Utstyr_ID") + "      <br>");
+                out.println("<tr>" +
+                                "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
+                                "<td>" + rs.getString("Ansatt_ID") + "</td>" +
+                                "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
+                                "<td>" + rs.getString("Start_Dato") + "</td>" +
+                                "<td>" + rs.getString("Slutt_Dato") + "</td>" +
+                            "</tr>");
             }
+
+            HtmlHelper.writeHtmlEnd(out);
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

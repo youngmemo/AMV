@@ -13,6 +13,21 @@ public class HtmlHelper {
         out.println("<h3>" + title + "</h3>");
     }
 
+    public static void writeHtmlStartNoTitle(PrintWriter out) {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("</head>");
+        out.println("<body>");
+    }
+
+    public static void writeHtmlStartCss(PrintWriter out, String cssName) {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<link rel=\"stylesheet\" href=\"/css/style.css\">");
+        out.println("</head>");
+        out.println("<body>");
+    }
+
     public static void writeHtmlOnlyHead(PrintWriter out, String title) {
         out.println("<html>");
         out.println("<head>");

@@ -1,26 +1,33 @@
-<html lang="en">
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Logg-inn side</title>
+    <title>JSP - Hello World</title>
 </head>
 <body>
-<form method="POST" action="Login">
-    <table>
-        <tr>
-            <td colspan="2">Vennligst logg inn med ditt ansattnummer og passord</td>
-        </tr>
-        <tr>
-            <td>Ansattnummer:</td>
-            <td><input type="text" name="j_username" placeholder="Skriv inn ansattnummer"/></td>
-        </tr>
-        <tr>
-            <td>Passord:</td>
-            <td><input type="password" name="j_password" placeholder="Skriv inn passord"/></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit"  value="Trykk her for å logge inn" /></td>
-        </tr>
-    </table>
-</form>
+<h1><%= "Hjemside" %>
+</h1>
+<p>Du er nå logget inn. </p>
+<p>Under kan du velge hva du ønsker å gjøre.</p>
+<h1>Super rettigheter</h1>
+<br>
+<input type="button" class="button_active" onclick="location.href='super/gi-admin';" value="Gi admin"/>
+<h1>Admin rettigheter</h1>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/register-user';" value="Registrer bruker"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/registrer-ansatt';" value="Registrer ansatt"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/sjekke-foresporsel';" value="Sjekke forespørsel"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/endre-data';" value="Endre data"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/gi-lisens';" value="Gi lisens"/>
+<h1>Normale rettigheter</h1>
+<input type="button" class="button_active" onclick="location.href='/MinEgenServlet';" value="Min egen servlet"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='ansatt/hello-servlet';" value="HelloServlet"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='lisens/booke-lisensiertutstyr';" value="Booke lisensiert utstyr"/>
 </body>
 </html>
