@@ -27,9 +27,10 @@ public class RapporterUtstyretServlet extends HttpServlet {
         RapportereUtstyrModel model = new RapportereUtstyrModel();
         HtmlHelper HtmlHelper = new HtmlHelper();
 
-        model.setRapportTittel(request.getParameter("Tittel"));
-        model.setRapportID(request.getParameter("Rapport"));
-        model.setRapportKommentar(request.getParameter("Kommentar"));
+        model.setRapport_Tittel(request.getParameter("Tittel"));
+        model.setRapport_Kommentar(request.getParameter("RapportKommentar"));
+        model.setUtstyr_ID(request.getParameter("Utstyret"));
+        model.setAnsatt_ID(request.getParameter("Ansatt"));
 
         PrintWriter out = response.getWriter();
 
@@ -40,50 +41,59 @@ public class RapporterUtstyretServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStart(out, "Rapporten er nå sendt inn!");
-           out.println(
-                   "<br><b>Tittel: </b> " +model.getRapportTittel()+
-                           "<br><b>Rapporten: </b> " +model.getRapportID()+
-                           "<br><b>Kommentaret: </b>" +model.getRapportKommentar());
+
+           out.println("<br><b>Tittel: </b> " +model.getRapport_Tittel());
+           out.println("<br><b>RapportKommentar: </b> " +model.getRapport_Kommentar());
+           out.println("<br><b>Utstyret: </b> " +model.getUtstyr_ID());
+           out.println("<br><b>Ansatt: </b> " +model.getAnsatt_ID());
 
             HtmlHelper.writeHtmlEnd(out);
 
         } else {
-            RapporterUtstyrInput(out, "Ops!!! Det skjedde noe feil :(");
+            RapporterUtstyrInput(out, "Ops!!! Det skjedde noe feil..");
 
         }
     }
         private void RapporteringAvUtstyr(RapportereUtstyrModel model, PrintWriter out) throws SQLException {
         Connection db = null;
-        try{db = DBUtils.getINSTANCE().getConnection(out);
+        try{
+            db = DBUtils.getINSTANCE().getConnection(out);
             String leggeTilKode ="insert into Rapport(Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID) VALUES(?, ?, ?, ?)";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
-            kode.setString(1, model.getRapportTittel());
-            kode.setString(3, model.getRapportKommentar());
+            kode.setString(1, model.getRapport_Tittel());
+            kode.setString(2, model.getRapport_Kommentar());
+            kode.setString(3, model.getUtstyr_ID());
+            kode.setString(4, model.getAnsatt_ID());
 
             kode.executeUpdate();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 }
         private void RapporterUtstyrInput(PrintWriter out, String feilMelding) {
             HtmlHelper.writeHtmlStart(out, "Her kan du rapportere utstyret du har lånt:");
-            if (feilMelding != null) {
-                out.println("<h2>" + feilMelding + "<h2>");
+            { {if(feilMelding !=null)
+                out.println("<h2>" + feilMelding + "</h2>");}
+                out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/RapporterUtstyret' method='POST'>");
+
+                out.println("<br><br> <label for ='Tittel'> Tittel</label>");
+                out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn tittelen'/>");
+
+                out.println("<br><br> <label for='RapportKommentar'> RapportKommentar </label>");
+                out.println("<br><br><textarea id='RapportKommentar' name='RapportKommentar' rows='4' cols='50'></textarea><br>");
+
+                out.println("<br><br> <label for='Utstyret'> Utstyret</label>");
+                out.println("<input type='text' name='Utstyret' placeholder='Skriv inn utstyret'/>");
+
+                out.println("<br><br> <label for='Ansatt'> Ansatt</label>");
+                out.println("<input type='text' name='Ansatt' placeholder='Skriv inn ansattnummeret'/>");
+
+                out.println("<br><br> <input type='submit' value='Rapporter'/>");
+                out.println("</form>");
+                HtmlHelper.writeHtmlEnd(out);
+
             }
-            out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/RapporterUtstyret' method='POST'>");
-
-            out.println("<br><br> <label for='Rapport'>Rapporten</label>");
-            out.println("<input type='text' name='Rapporten' placeholder= 'Write here boi'/>");
-
-            out.println("<br><br> <label for ='Tittel'</label>");
-            out.println("<input type='text' name=Tittelen' placeholder= 'Tittelen din boi'/>");
-
-            out.println("<br><br> <label for ='Kommentar'</label>");
-            out.println("<input type='text' name=Kommentar' placeholder = 'Kommentaret ditt boi'/>");
-
-            out.println("<br><br> <input type='submit' value='Godta'/>");
-            out.println("</form>");
-            HtmlHelper.writeHtmlEnd(out);
         }
 
     private void writeHtmlStart (PrintWriter out, String title){
@@ -101,17 +111,21 @@ public class RapporterUtstyretServlet extends HttpServlet {
     }
 
     private boolean checkRapporterUtstyr(RapportereUtstyrModel model) {
-    if (model.getRapportID() == null)
+    if (model.getRapport_Tittel() == null)
         return false;
-    if (model.getRapportID().trim().equalsIgnoreCase(""))
+    if (model.getRapport_Tittel().trim().equalsIgnoreCase(""))
         return false;
-    if (model.getRapportTittel() == null)
+    if (model.getRapport_Kommentar() == null)
         return false;
-    if (model.getRapportTittel().trim().equalsIgnoreCase(""))
+    if (model.getRapport_Kommentar().trim().equalsIgnoreCase(""))
         return false;
-    if (model.getRapportKommentar() == null)
+    if (model.getUtstyr_ID() == null)
         return false;
-    if (model.getRapportKommentar().trim().equalsIgnoreCase(""))
+    if (model.getUtstyr_ID().trim().equalsIgnoreCase(""))
+        return false;
+    if(model.getAnsatt_ID() == null)
+        return false;
+    if(model.getAnsatt_ID().trim().equalsIgnoreCase(""))
         return false;
 
     return true;
