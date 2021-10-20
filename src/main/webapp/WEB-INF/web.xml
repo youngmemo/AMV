@@ -87,8 +87,8 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <form-login-page>/login.html</form-login-page>
-            <form-error-page>/login-failed.html</form-error-page>
+            <form-login-page>/index.jsp</form-login-page>
+            <form-error-page>/loginfailed.jsp</form-error-page>
         </form-login-config>
     </login-config>
 </web-app>
