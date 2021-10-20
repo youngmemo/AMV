@@ -27,8 +27,8 @@ public class RapporterUtstyretServlet extends HttpServlet {
         RapportereUtstyrModel model = new RapportereUtstyrModel();
         HtmlHelper HtmlHelper = new HtmlHelper();
 
-        model.setRapportID(request.getParameter("Rapport"));
         model.setRapportTittel(request.getParameter("Tittel"));
+        model.setRapportID(request.getParameter("Rapport"));
         model.setRapportKommentar(request.getParameter("Kommentar"));
 
         PrintWriter out = response.getWriter();
@@ -41,9 +41,9 @@ public class RapporterUtstyretServlet extends HttpServlet {
             }
             HtmlHelper.writeHtmlStart(out, "Rapporten er nå sendt inn!");
            out.println(
-                   "<br><b>Rapporten: </b> " +model.getRapportID()+
-                           "<br><b>Tittel: </b> " +model.getRapportTittel()+
-                           "<br><b>Kommentar: </b>" +model.getRapportKommentar());
+                   "<br><b>Tittel: </b> " +model.getRapportTittel()+
+                           "<br><b>Rapporten: </b> " +model.getRapportID()+
+                           "<br><b>Kommentaret: </b>" +model.getRapportKommentar());
 
             HtmlHelper.writeHtmlEnd(out);
 
@@ -57,8 +57,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
         try{db = DBUtils.getINSTANCE().getConnection(out);
             String leggeTilKode ="insert into Rapport(Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID) VALUES(?, ?, ?, ?)";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
-            kode.setString(1, model.getRapportID());
-            kode.setString(2, model.getRapportTittel());
+            kode.setString(1, model.getRapportTittel());
             kode.setString(3, model.getRapportKommentar());
 
             kode.executeUpdate();

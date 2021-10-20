@@ -28,22 +28,27 @@ public class ForslagsBoksServlet extends HttpServlet{
             throws ServletException, IOException {
 
         response.setContentType("text/html");
-        ForslagsBoksModel forslagsboks = new ForslagsBoksModel();
+        ForslagsBoksModel model = new ForslagsBoksModel();
         HtmlHelper HtmlHelper = new HtmlHelper();
 
-        forslagsboks.setForslagID(request.getParameter("Forslaget"));
+        model.setAnsatt_ID(request.getParameter("Ansattnummeret"));
+        model.setForslag_Utstyr(request.getParameter("Hvilket utstyr?"));
+        model.setForslag_Kommentar(request.getParameter("Kommentar for forslaget"));
+
 
         PrintWriter out = response.getWriter();
 
-        if (CheckForslag(forslagsboks)) {
+        if (CheckForslag(model)) {
             try {
-                Forslagene(forslagsboks, out);
+                Forslagene(model, out);
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStart(out, "Takk for forslaget ditt!");
-            out.println(
-                    "<br><b>Forslaget:</b> " +forslagsboks.getForslagID());
+            out.println("<br><b>Ansattnummeret:</b> " +model.getAnsatt_ID());
+            out.println("<br><b>Hvilket utstyr?:</b> " +model.getForslag_Utstyr());
+            out.println("<br><b>Kommentar for forslaget:</b>" +model.getForslag_Kommentar());
+
             HtmlHelper.writeHtmlEnd(out);;
 
 
@@ -51,16 +56,17 @@ public class ForslagsBoksServlet extends HttpServlet{
             ForslagsBoksInput(out, "Ops! Det skjedde noe feil..");
         }
     }
-    private void Forslagene(ForslagsBoksModel forslagsboks, PrintWriter out) throws SQLException {
+    private void Forslagene(ForslagsBoksModel model, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into Forslag (Forslag_Utstyr) VALUES(?);";
+            String leggeTilKode = "insert into Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID) VALUES(?,?,?);";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
-            kode.setString(1, forslagsboks.getForslagID());
+            kode.setString(3, model.getAnsatt_ID());
+            kode.setString(1, model.getForslag_Utstyr());
+            kode.setString(2, model.getForslag_Kommentar());
 
             kode.executeUpdate();
-
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -71,11 +77,15 @@ public class ForslagsBoksServlet extends HttpServlet{
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
             out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/ForslagsBoks' method='POST'>");
-            out.println("<br><br> <label for='Forslaget'>Her kan du skrive forslaget ditt:</label>");
 
-            out.println("<br><br><textarea id='Forslaget' name='Forslaget' rows='4' cols='50'></textarea><br>");
+            out.println("<br><br> <label for='Ansattnummeret'> Ansattnummeret</label>");
+            out.println("<input type='text' name='Ansattnummeret' placeholder='Skriv inn ansattnummeret'/>");
 
+            out.println("<br><br> <label for='Hvilket utstyr?'> Hvilket utstyr</label>");
+            out.println("<input type='text' name='Hvilket utstyr?' placeholder='Skriv inn ustyret'/>");
 
+            out.println("<br><br> <label for='Kommentar for forslaget'> Kommentar for forslaget</label>");
+            out.println("<br><br><textarea id='Kommentar for forslaget' name='Kommentar for forslaget' rows='4' cols='50'></textarea><br>");
 
             out.println("<br><br> <input type='submit' value='Godta'/>");
             out.println("</form>");
@@ -99,10 +109,20 @@ public class ForslagsBoksServlet extends HttpServlet{
         out.println("</body>");
         out.println("</html>");
     }
-        private boolean CheckForslag (ForslagsBoksModel forslagsboks) {
-            if(forslagsboks.getForslagID() == null)
+        private boolean CheckForslag (ForslagsBoksModel model) {
+            if(model.getAnsatt_ID() == null)
                 return false;
-            if(forslagsboks.getForslagID().trim().equalsIgnoreCase(""))
+            if(model.getAnsatt_ID().trim().equalsIgnoreCase(""))
+                return false;
+
+            if(model.getForslag_Utstyr() == null)
+                return false;
+            if(model.getForslag_Utstyr().trim().equalsIgnoreCase(""))
+                return false;
+
+            if(model.getForslag_Kommentar() == null)
+                return false;
+            if(model.getForslag_Kommentar().trim().equalsIgnoreCase(""))
                 return false;
 
             return true;
