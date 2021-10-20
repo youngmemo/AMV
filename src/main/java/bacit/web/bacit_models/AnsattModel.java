@@ -6,10 +6,19 @@ public class AnsattModel {
     private String etternavn;
     private String epost;
     private String adresse;
+    private String by;
     private String postNummer;
     private String ansattNummer;
     private String passord;
+    private String kommentar;
 
+    public String getPassord() {
+        return passord;
+    }
+
+    public void setPassord(String passord) {
+        this.passord = passord;
+    }
 
     public String getMobilNummer() {
         return mobilNummer;
@@ -67,11 +76,21 @@ public class AnsattModel {
         this.ansattNummer = ansattNummer;
     }
 
-    public String getPassord()  { return passord; }
+    public String getBy() {
+        return by;
+    }
 
-    public void setPassord(String passord) { this.passord = passord; }
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    public String getKommentar() {
+        return kommentar;
+    }
+
+    public void setKommentar(String kommentar) {
+        this.kommentar = kommentar;
+    }
+
 
 }
-
-
-

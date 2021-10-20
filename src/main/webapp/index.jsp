@@ -16,8 +16,12 @@
 <br>
 <input type="button" class="button_active" onclick="location.href='admin/registrer-ansatt';" value="Registrer ansatt"/>
 <br>
-<input type="button" class="button_active" onclick="location.href='admin/AnsattRegistrering';" value="Registrer ansatt min versjon"/>
+<input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>'
 <br>
-<input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>
+<input type="button" class="button_active" onclick="location.href='admin/Fjerneutstyr';" value="Fjerne utstyr"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='ansatt/booke-utstyr';" value="Booke Utstyr"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/endre-data';" value="Endre data"/>
 </body>
 </html>
