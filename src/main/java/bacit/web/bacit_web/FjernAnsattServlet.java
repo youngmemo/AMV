@@ -26,7 +26,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
     response.setContentType("text/html");
     FjernAnsattModel model = new FjernAnsattModel();
     HtmlHelper HtmlHelper = new HtmlHelper();
-    model.setAnsattnummer(request.getParameter("Ansattnummeret"));
+    model.setAnsatt_ID(request.getParameter("Ansattnummeret"));
 
     PrintWriter out = response.getWriter();
 
@@ -37,7 +37,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             out.println(ex.getMessage());
         }
         HtmlHelper.writeHtmlStart(out, "Ansatt er fjernet!");
-        out.println("<br><b>Ansattnummeret</b>)" + model.getAnsattnummer()) ";
+        out.println("<br><b>Ansattnummeret</b>" + model.getAnsatt_ID());
 
         HtmlHelper.writeHtmlEnd(out);
         ;
@@ -50,9 +50,9 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "DELETE FROM Ansatt WHERE Ansattnummer = ?;";
+            String leggeTilKode = "DELETE FROM Ansatt WHERE Ansatt_ID = ?;";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
-            kode.setString(1, model.getAnsattnummer());
+            kode.setString(1, model.getAnsatt_ID());
 
             kode.executeUpdate();
         } catch (ClassNotFoundException e) {
@@ -63,7 +63,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         HtmlHelper.writeHtmlStart(out, "Fjern Ansatt");
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
-            out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/FjernAnsatt' method='POST'>");
+            out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/FjerneAnsatt' method='POST'>");
 
             out.println("<br><br> <label for='Ansattnummeret'> Ansattnummeret</label>");
             out.println("<input type='text' name='Ansattnummeret' placeholder='Skriv inn ansattnummeret'/>");
@@ -90,10 +90,10 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
     }
 
     private boolean CheckFjernAnsatt(FjernAnsattModel model) {
-    if(model.getAnsattnummer() == null);
-        return false;
-        if(model.getAnsattnummer().trim().equalsIgnoreCase(""));
-        return false;
+        if(model.getAnsatt_ID() == null)
+            return false;
+        if(model.getAnsatt_ID().trim().equalsIgnoreCase(""))
+            return false;
 
         return true;
     }

@@ -1,9 +1,15 @@
 package bacit.web.bacit_models;
 
 public class FjernAnsattModel {
-    private String Ansattnummer;
+    private String Ansatt_ID;
 
-    public String getAnsattnummer() { return Ansattnummer; }
+    public String getAnsatt_ID() {
+        return Ansatt_ID;
+    }
 
-    public void setAnsattnummer(String ansattnummer) { this.Ansattnummer = ansattnummer;}
+    public void setAnsatt_ID(String ansatt_ID) {
+        Ansatt_ID = ansatt_ID;
+    }
+
 }
+
