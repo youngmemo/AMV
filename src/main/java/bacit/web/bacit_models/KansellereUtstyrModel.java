@@ -4,14 +4,14 @@ public class KansellereUtstyrModel {
 
 public String AnsattID;
 public String StatusID;
-public String Foresporsel;
+public String ForesporselID;
 
     public String getAnsattID() {
         return AnsattID;
     }
 
-    public void setAnsattID(String utstyrnavn) {
-        AnsattID = AnsattID;
+    public void setAnsattID(String AnsattID) {
+        this.AnsattID = AnsattID;
     }
 
     public String getStatusID() {
@@ -19,15 +19,15 @@ public String Foresporsel;
     }
 
     public void setStatusID(String statusID) {
-        StatusID = statusID;
+        this.StatusID = statusID;
     }
 
-    public String getForesporsel() {
-        return Foresporsel;
+    public String getForesporselID() {
+        return ForesporselID;
     }
 
-    public void setForesporsel(String foresporsel) {
-        Foresporsel = foresporsel;
+    public void setForesporselID(String foresporselID) {
+        this.ForesporselID = foresporselID;
     }
 
 

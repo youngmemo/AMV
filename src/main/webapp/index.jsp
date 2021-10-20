@@ -11,17 +11,17 @@
 <p>Under kan du velge hva du ønsker å gjøre.</p>
 <br/>
 <input type="button" class="button_active" onclick="location.href='hello-servlet';" value="HelloServlet"/>
-<br>
+<br><br>
 <input type="button" class="button_active" onclick="location.href='admin/register-user';" value="Registrer bruker"/>
-<br>
+<br><br>
 <input type="button" class="button_active" onclick="location.href='admin/registrer-ansatt';" value="Registrer ansatt"/>
-<br>
+<br><br>
 <input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>'
-<br>
+<br><br>
 <input type="button" class="button_active" onclick="location.href='admin/Fjerneutstyr';" value="Fjerne utstyr"/>
-<br>
+<br><br>
 <input type="button" class="button_active" onclick="location.href='ansatt/booke-utstyr';" value="Booke Utstyr"/>
-<br>
+<br><br>
 <input type="button" class="button_active" onclick="location.href='admin/endre-data';" value="Endre data"/>
 </body>
 </html>
