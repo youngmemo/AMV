@@ -48,7 +48,7 @@ public class ForslagsBoksServlet extends HttpServlet{
 
 
         } else {
-            ForslagsBoksInput(out, "Ops! Det skjedde noe feil :(");
+            ForslagsBoksInput(out, "Ops! Det skjedde noe feil..");
         }
     }
     private void Forslagene(ForslagsBoksModel forslagsboks, PrintWriter out) throws SQLException {
