@@ -8,9 +8,7 @@ public class AdminModel {
         return AnsattID;
     }
 
-    public void setAnsattID(String ansattID) {
-        this.AnsattID = ansattID;
-    }
+    public void setAnsattID(String ansattID) { this.AnsattID = ansattID; }
 
     public String getKommentar() { return kommentar; }
 
