@@ -45,3 +45,4 @@ GROUP BY Utstyr.Utstyr_Navn
 ORDER BY Utstyr.Utstyr_Navn ASC;
 
 
+/*https://stackoverflow.com/questions/41146919/how-to-select-most-frequent-value-in-a-column-per-each-id-group
