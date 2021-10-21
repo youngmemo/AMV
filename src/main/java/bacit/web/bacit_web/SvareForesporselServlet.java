@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "SjekkeForesporselServlet", value = "/sjekke-foresporsel")
-public class SjekkeForesporselServlet extends HttpServlet {
+@WebServlet(name = "SvareForesporselServlet", value = "/admin/svare-foresporsel")
+public class SvareForesporselServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -23,6 +23,7 @@ public class SjekkeForesporselServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try{
             seForesporsel(out);
+            hentHTMLkode(out, null);
         }
         catch (SQLException ex)
         {
@@ -51,24 +52,24 @@ public class SjekkeForesporselServlet extends HttpServlet {
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
-            HtmlHelper.writeHtmlStartCss(out, "style.css");
+            HtmlHelper.writeHtmlNoTitle(out);
             out.println("<table>" +
-                            "<tr>" +
-                                "<th>Forespørsel ID</th>" +
-                                "<th>Ansatt ID</th>" +
-                                "<th>Utstyr Navn</th>" +
-                                "<th>Start Dato</th>" +
-                                "<th>Slutt Dato</th>" +
-                            "</tr>");
+                    "<tr>" +
+                    "<th>Forespørsel ID</th>" +
+                    "<th>Ansatt ID</th>" +
+                    "<th>Utstyr Navn</th>" +
+                    "<th>Start Dato</th>" +
+                    "<th>Slutt Dato</th>" +
+                    "</tr>");
 
             while (rs.next()) {
                 out.println("<tr>" +
-                                "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
-                                "<td>" + rs.getString("Ansatt_ID") + "</td>" +
-                                "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
-                                "<td>" + rs.getString("Start_Dato") + "</td>" +
-                                "<td>" + rs.getString("Slutt_Dato") + "</td>" +
-                            "</tr>");
+                        "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
+                        "<td>" + rs.getString("Ansatt_ID") + "</td>" +
+                        "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
+                        "<td>" + rs.getString("Start_Dato") + "</td>" +
+                        "<td>" + rs.getString("Slutt_Dato") + "</td>" +
+                        "</tr>");
             }
 
             HtmlHelper.writeHtmlEnd(out);
@@ -76,5 +77,25 @@ public class SjekkeForesporselServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void hentHTMLkode(PrintWriter out, String feilMelding) {
+        HtmlHelper.writeHtmlStart(out, "Book utstyr");
+        if (feilMelding != null) {
+            out.println("<h2>" + feilMelding + "</h2>");
+        }
+
+        out.println("<h3>Her kan du svare på forespørsel</h3>");
+
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/svare-foresporsel' method='POST'>");
+
+        out.println("<label for='foresporselId'>Forespørsel ID</label>");
+        out.println("<input type='text' name='foresporselId' placeholder='Skriv inn forespørsel ID'/>");
+
+        out.println("<br><br>");
+
+        out.println("<br><br> <input type='submit' value='Aksepter forespørsel'/>");
+        out.println("</form>");
+        HtmlHelper.writeHtmlEnd(out);
     }
 }

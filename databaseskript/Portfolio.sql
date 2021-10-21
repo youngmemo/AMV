@@ -39,27 +39,30 @@ CREATE OR REPLACE TABLE Utstyr
     FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID)
 );
 
-CREATE OR REPLACE TABLE Status
-(
-    Status_ID               SMALLINT UNIQUE AUTO_INCREMENT,
-    /* date skrives på format dd.mm.åååå */
-    Start_Dato              DATE NOT NULL,
-    Slutt_Dato              DATE NOT NULL,
-    Utstyr_ID               SMALLINT        NOT NULL,
-    PRIMARY KEY (Status_ID),
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
-);
-
 CREATE OR REPLACE TABLE Foresporsel
 (
     Foresporsel_ID          SMALLINT UNIQUE AUTO_INCREMENT,
     Ansatt_ID               SMALLINT        NOT NULL,
     Utstyr_ID               SMALLINT        NOT NULL,
-    Status_ID               SMALLINT        NOT NULL,
+    Start_Dato              DATE            NOT NULL,
+    Slutt_Dato              DATE            NOT NULL,
     PRIMARY KEY (Foresporsel_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Status_ID) REFERENCES Status(Status_ID) ON DELETE CASCADE
+    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+);
+
+CREATE OR REPLACE TABLE Status
+(
+    Status_ID               SMALLINT UNIQUE AUTO_INCREMENT,
+    /* date skrives på format dd.mm.åååå */
+    Foresporsel_ID          SMALLINT        NOT NULL,
+    Ansatt_ID               SMALLINT        NOT NULL,
+    Utstyr_ID               SMALLINT        NOT NULL,
+
+    PRIMARY KEY (Status_ID),
+    FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE LisensiertUtstyr
