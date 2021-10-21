@@ -9,32 +9,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "SvareForesporselServlet", value = "/admin/svare-foresporsel")
+@WebServlet(name = "SvareForesporselServlet", value = "/svare-foresporsel")
 public class SvareForesporselServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
+
+
+        String foresporselId = request.getParameter("foresporselId");
+
+        HttpSession session = request.getSession();
+        session.setAttribute("foresporselId", foresporselId);
+        out.println(session.getAttribute("foresporselId"));
+
+
         try{
             seForesporsel(out);
-            hentHTMLkode(out, null);
         }
         catch (SQLException ex)
         {
             out.println(ex.getMessage());
         }
+        hentHTMLkode(out, null);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setContentType("text/html");
+
     }
 
 
@@ -86,15 +97,16 @@ public class SvareForesporselServlet extends HttpServlet {
         }
 
         out.println("<h3>Her kan du svare på forespørsel</h3>");
-
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/svare-foresporsel' method='POST'>");
-
         out.println("<label for='foresporselId'>Forespørsel ID</label>");
         out.println("<input type='text' name='foresporselId' placeholder='Skriv inn forespørsel ID'/>");
 
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/aksepter-foresporsel' method='POST'>");
         out.println("<br><br>");
-
         out.println("<br><br> <input type='submit' value='Aksepter forespørsel'/>");
+
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/avsla-foresporsel' method='POST'>");
+        out.println("<br><br>");
+        out.println("<input type='submit' value='Avslå forespørsel'/>");
         out.println("</form>");
         HtmlHelper.writeHtmlEnd(out);
     }
