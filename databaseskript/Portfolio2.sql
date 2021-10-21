@@ -43,19 +43,6 @@ VALUES  ('Eksentersliper', 'Børsteløs motor som gjør den vedlikeholdsfri og g
         ('Motorisert trillebår', 'Motorisert trillebår som er ypperlig for transport av varer etc.', 1),
         ('Spikerpistol, stor' , 'Dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1);
 
-
-INSERT INTO Status (Start_Dato, Slutt_Dato, Utstyr_ID)
-VALUES ('2021-01-01', '2021-01-04', 1),
-       ('2021-01-08', '2021-01-12', 2),
-       ('2021-01-16', '2021-01-20', 3),
-       ('2021-02-20', '2021-02-24', 4),
-       ('2021-02-24', '2021-02-28', 5),
-       ('2021-03-03', '2021-03-05', 2),
-       ('2021-03-07', '2021-03-11', 3),
-       ('2021-03-14', '2021-03-15', 8),
-       ('2021-03-20', '2021-03-25', 3),
-       ('2021-03-26', '2021-03-27', 10);
-
 INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
 VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
         ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5),
@@ -67,19 +54,6 @@ VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
         ('Meislemaskinen er skadet','Den falt på en stor stein så ble den skadet', 4,2),
         ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
         ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
-
-
-INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Status_ID)
-VALUES (3, 3, 1),
-       (6, 4, 2),
-       (4, 7, 3),
-       (5, 9, 4),
-       (10, 8, 5),
-       (8, 2, 6),
-       (9, 1, 7),
-       (1, 6, 8),
-       (2, 5, 9),
-       (7, 10, 10);
 
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
@@ -101,19 +75,32 @@ INSERT INTO LisensiertUtstyr(Utstyr_Kommentar, Utstyr_ID)
 VALUES ('Trengs fullført og bestått kurs', 7),
        ('Trengs truckførerbevis', 8);
 
+INSERT INTO Foresporsel(Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato)
+VALUES  (1,1,'2021-10-08', '2021-10-12'),
+        (2,2,'2021-10-08', '2021-10-16'),
+        (3,3,'2021-10-08', '2021-10-12'),
+        (4,4,'2021-10-08', '2021-10-16'),
+        (5,5,'2021-10-06', '2021-10-12'),
+        (6,6,'2021-10-08', '2021-10-14'),
+        (7,7,'2021-10-08', '2021-10-18'),
+        (8,8,'2021-10-08', '2021-10-19'),
+        (9,9,'2021-10-08', '2021-10-11'),
+        (10,10,'2021-10-08', '2021-10-13');
+
 /* Tilgjengelig besvares med følgende koder: Tilgjengelig, Utlånt, Repareres, Ødelagt /
 / NOT NULL må fjernes fra Start_dato og Slutt_dato i Status tabell for å tillate tomme felt (for tilgjengelig eller ødelagt status)*/
-INSERT INTO Status (Start_Dato, Slutt_Dato, Utstyr_ID)
-VALUES  ('2021-10-08', '2021-10-12',1),
-        ('2021-10-08', '2021-10-16',2),
-        ('2021-10-06', '2021-10-12',3),
-        ('2021-10-08', '2021-10-14',4),
-        ('2021-10-08', '2021-10-18',5),
-        ('2021-10-08', '2021-10-19',6),
-        ('2021-10-08', '2021-10-11',7),
-        ('2021-10-08', '2021-10-13',8),
-        ('2021-10-08', '2021-10-17',9),
-        ('2021-10-08', '2021-10-20',10);
+INSERT INTO Status (Foresporsel_ID, Ansatt_ID, Utstyr_ID)
+VALUES  (1,1,1),
+        (2,2,2),
+        (3,3,3),
+        (4,4,4),
+        (5,5,5),
+        (6,6,6),
+        (7,7,7),
+        (8,8,8),
+        (9,9,9),
+        (10,10,10);
+
 
 INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
 VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
@@ -126,7 +113,6 @@ VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
         ('Meislemaskinen er skadet','Den falt på en stor så ble den skadet', 4,2),
         ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
         ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
-
 
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
@@ -170,4 +156,9 @@ VALUES  (1, 'normal', ''),  (2, 'normal', ''),
         (10, 'administrator', 'superbruker skal ha tilgang her'),
 
         (10, 'superbruker', 'Grunnleggeren av systemet');
+
+
+
+
+
 

@@ -16,6 +16,8 @@
 <br><br>
 <input type="button" class="button_active" onclick="location.href='admin/registrer-ansatt';" value="Registrer ansatt"/>
 <br><br>
+<h1> <%= "Våre egne Servlets"%>
+</h1>
 <input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>'
 <br><br>
 <input type="button" class="button_active" onclick="location.href='admin/Fjerneutstyr';" value="Fjerne utstyr"/>
@@ -23,5 +25,7 @@
 <input type="button" class="button_active" onclick="location.href='ansatt/booke-utstyr';" value="Booke Utstyr"/>
 <br><br>
 <input type="button" class="button_active" onclick="location.href='admin/endre-data';" value="Endre data"/>
+<br><br>
+<input type="button" class="button_active" onclick="location.href='ansatt/Kansellereutstyr';" value="Kansellere utstyr"/>
 </body>
 </html>

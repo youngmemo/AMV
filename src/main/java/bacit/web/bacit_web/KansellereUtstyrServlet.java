@@ -1,5 +1,4 @@
 package bacit.web.bacit_web;
-import bacit.web.bacit_models.AnsattModel;
 import bacit.web.bacit_models.KansellereUtstyrModel;
 import bacit.web.bacit_utilities.HtmlHelper;
 
@@ -24,7 +23,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         KansellereUtstyrModel am = new KansellereUtstyrModel();
-        am.setAnsattID("1");
+        am.setAnsattID("4");
         try {
             listForesporsel(am, out);
         } catch (SQLException e) {
@@ -53,7 +52,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
             }
             HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt kansellert");
             out.println("under ser du hvilket utstyr du som har blitt kansellert: <br>" +
-                    "<br>Foresporsel ID" + Model.getForesporselID());
+                    "<br> Foresporsel ID" + Model.getForesporselID());
 
 
             writeHtmlEnd(out);
@@ -84,15 +83,13 @@ public class KansellereUtstyrServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String statusKode = "select  Foresporsel_ID, Utstyr.Utstyr_Navn, Status.Start_Dato, Status.Slutt_Dato from Foresporsel\n" +
-                    "    inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID\n" +
-                    "    inner join Status on Foresporsel.Status_ID = Status.Status_ID\n" +
-                    "where Ansatt_ID = ?\n" +
-                    ";";
+            String foresporselKode = "select Foresporsel_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
+                    "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                    "where Ansatt_ID = ?;";
 
-            PreparedStatement kode = db.prepareStatement(statusKode);
-            kode.setString(1,Model.getAnsattID());
+            PreparedStatement kode = db.prepareStatement(foresporselKode);
             ResultSet rs;
+            kode.setString(1,Model.getAnsattID());
             rs = kode.executeQuery();
             out.println("<html>\n" +
                     "<head>\n" +
@@ -116,7 +113,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
                     "</head>\n" +
                     "<body>\n" +
                     "\n" +
-                    "<h2>HTML Table</h2>\n" +
+                    "<h2>Velg utstyret du ønsker å kansellere under</h2>\n" +
                     "\n" +
                     "<table>\n" +
                     "  <tr>\n" +
@@ -147,7 +144,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
     }
 
     private void KansellereUtstyrInput(PrintWriter out, String feilMelding) {
-        writeHtmlStart(out, "Kansellere Utstyr");
+        writeHtmlStart(out, "");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
