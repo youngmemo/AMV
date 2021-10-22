@@ -44,6 +44,8 @@ CREATE OR REPLACE TABLE Foresporsel
     Foresporsel_ID          SMALLINT UNIQUE AUTO_INCREMENT,
     Ansatt_ID               SMALLINT        NOT NULL,
     Utstyr_ID               SMALLINT        NOT NULL,
+    Start_Dato              DATE            NOT NULL,
+    Slutt_Dato              DATE            NOT NULL,
     PRIMARY KEY (Foresporsel_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
@@ -53,10 +55,13 @@ CREATE OR REPLACE TABLE Status
 (
     Status_ID               SMALLINT UNIQUE AUTO_INCREMENT,
     /* date skrives på format dd.mm.åååå */
-    Start_Dato              DATE,
-    Slutt_Dato              DATE,
+    Foresporsel_ID          SMALLINT        NOT NULL,
+    Ansatt_ID               SMALLINT        NOT NULL,
     Utstyr_ID               SMALLINT        NOT NULL,
+
     PRIMARY KEY (Status_ID),
+    FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
 );
 
