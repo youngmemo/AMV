@@ -2,15 +2,16 @@ package bacit.web.bacit_models;
 
 public class SvareForesporselModel {
 
-    public int getForesporselId() {
+    public String getForesporselId() {
         return foresporselId;
     }
 
-    public void setForesporselId(int foresporselId) {
+    public String setForesporselId(String foresporselId) {
         this.foresporselId = foresporselId;
+        return foresporselId;
     }
 
-    private int foresporselId;
+    private String foresporselId;
 
 
 }

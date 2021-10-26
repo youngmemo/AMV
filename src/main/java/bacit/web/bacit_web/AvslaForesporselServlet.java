@@ -2,7 +2,6 @@ package bacit.web.bacit_web;
 import bacit.web.bacit_models.AnsattModel;
 import bacit.web.bacit_models.BookeUtstyrModel;
 import bacit.web.bacit_models.ForesporselModel;
-import bacit.web.bacit_models.SvareForesporselModel;
 import bacit.web.bacit_utilities.HtmlHelper;
 
 import javax.servlet.ServletException;
@@ -14,43 +13,45 @@ import javax.servlet.http.HttpSession;
 import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.http.HttpRequest;
 import java.sql.*;
 
-@WebServlet(name = "SvareForesporselServlet", value = "/admin/svare-foresporsel")
-public class SvareForesporselServlet extends HttpServlet {
+@WebServlet(name = "AvslaForesporselServlet", value = "/admin/avsla-foresporsel")
+public class AvslaForesporselServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
+        hentHTMLkode(out, null);
+
+        HttpSession session = request.getSession();
+        String foresporsel = (String) session.getAttribute("foresporselId");
 
         try{
-            seForesporsel(out);
+            slettForesporsel(out, foresporsel);
         }
         catch (SQLException ex)
         {
             out.println(ex.getMessage());
         }
 
-        hentHTMLkode(out, null);
-
-
+        try {
+            seForesporsel(out);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
+
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setContentType("text/html");
+
         PrintWriter out = response.getWriter();
 
         hentHTMLkode(out, null);
-
-        HttpSession session = request.getSession();
-        String foresporsel = request.getParameter("foresporselIdInp");
-        session.setAttribute("foresporselId", foresporsel);
-
-        response.sendRedirect("http://localhost:8081/bacit-web-1.0-SNAPSHOT/admin/avsla-foresporsel");
-
     }
 
 
@@ -61,8 +62,8 @@ public class SvareForesporselServlet extends HttpServlet {
             db = DBUtils.getINSTANCE().getConnection(out);
 
             String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
-                                "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                                "inner join Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
+                                "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                                "INNER JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
                                 "ORDER BY Foresporsel_ID ASC;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
@@ -96,25 +97,44 @@ public class SvareForesporselServlet extends HttpServlet {
         }
     }
 
+    private void slettForesporsel(PrintWriter out, String foresporsel) throws SQLException {
+        Connection db = null;
+
+
+        try {
+
+            db = DBUtils.getINSTANCE().getConnection(out);
+
+            String slettForesporsel = "DELETE FROM Foresporsel " +
+                                      "WHERE Foresporsel_ID = ?;";
+
+
+            PreparedStatement kode = db.prepareStatement(slettForesporsel);
+            kode.setString(1, foresporsel);
+
+
+            kode.executeUpdate();
+            HtmlHelper.writeHtmlNoTitle(out);
+
+            db.close();
+
+            HtmlHelper.writeHtmlEnd(out);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void hentHTMLkode(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Book utstyr");
+        HtmlHelper.writeHtmlStart(out, "Forespørselen er nå avslått");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
 
-        out.println("<h3>Her kan du svare på forespørsel</h3>");
-        out.println("<label for='foresporselIdInp'>Forespørsel ID</label>");
-
-
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/svare-foresporsel' method='POST'>");
+        out.println("Forespørselen du har ønsket å avslå er nå avslått <br>");
+        out.println("<br>");
+        out.println("Forespørselen er også fjernet fra forespørsel listen.");
         out.println("<br><br>");
-        out.println("<input type='text' name='foresporselIdInp' placeholder='Skriv inn forespørsel ID'/>");
-        out.println("<br><br>");
-        out.println("<input type='submit' value='Avslå forespørsel'/>");
-
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/aksepter-foresporsel' method='POST'>");
-        out.println("<br> <input type='submit' value='Aksepter forespørsel'/>");
-        out.println("</form>");
 
         HtmlHelper.writeHtmlEnd(out);
     }

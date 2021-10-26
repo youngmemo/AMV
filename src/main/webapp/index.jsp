@@ -29,5 +29,7 @@
 <input type="button" class="button_active" onclick="location.href='ansatt/hello-servlet';" value="HelloServlet"/>
 <br>
 <input type="button" class="button_active" onclick="location.href='lisens/booke-lisensiertutstyr';" value="Booke lisensiert utstyr"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/svare-foresporsel';" value="Gi svar på forespørsler"/>
 </body>
 </html>
