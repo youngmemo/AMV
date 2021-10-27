@@ -37,12 +37,25 @@ LIMIT 3;
 
 
 /*List all the equipment borrowed by the user with the highest number of equipment borrowed, sorted by date/time*/
-SELECT Ansatt.Fornavn, Utstyr.Utstyr_Navn
-FROM Betaling
-INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
-INNER JOIN Utstyr ON Betaling.Utstyr_ID = Utstyr.Utstyr_ID
-GROUP BY Utstyr.Utstyr_Navn
-ORDER BY Utstyr.Utstyr_Navn ASC;
+SELECT Foresporsel_ID, Ansatt.Fornavn, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato
+FROM Foresporsel
+        JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
+        JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
+where Foresporsel.Ansatt_ID = (
+          select Ansatt_ID
+          from Foresporsel
+          GROUP BY Ansatt_ID
+          ORDER BY count(Ansatt_ID) DESC
+          LIMIT 1
+      )
+ORDER BY Start_Dato;
 
+/*List all overdue equipment with their borrowers */
+SELECT Ansatt.Ansatt_ID, Ansatt.Fornavn, Utstyr.Utstyr_Navn
+FROM Foresporsel
+        JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
+        JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
+        JOIN Status on
+WHERE Status.Levert = 0;
 
 /*https://stackoverflow.com/questions/41146919/how-to-select-most-frequent-value-in-a-column-per-each-id-group
