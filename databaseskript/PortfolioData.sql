@@ -1,18 +1,3 @@
-/* 1 - ansatt *
-   2 - utstyr *
-   3 - superbruker *
-   4 - admin *
-   5 - forslag *
-   6 - betalingsmetode *
-   7 - Kategori *
-   8 - LisensiertUtstyr *
-   9 - LisensiertAnsatt *
-   10 - Status *
-   11 - Rapport *
-   12 - Forespørsel *
-   13 - Betaling *
- */
-
 USE mytestdb;
 
 INSERT INTO Kategori (Kategori)

@@ -3,15 +3,15 @@ SELECT Utstyr_Navn, Kategori_ID from Utstyr;
 
 /* List all the available (at the moment – not already borrowed) equipment */
 SELECT distinct Utstyr.Utstyr_Navn
-from Foresporsel
+FROM Foresporsel
         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
-where Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
+WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
 
 /* List all equipment that is borrowed at the moment */
 SELECT distinct Utstyr.Utstyr_Navn
-from Foresporsel
+FROM Foresporsel
          JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
-where Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
+WHERE Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
 
 /*Listing the 5 first rows of the 5 most important tables (your judgement), sorted.*/
 SELECT * FROM Ansatt
@@ -43,10 +43,10 @@ SELECT Foresporsel_ID, Ansatt.Fornavn, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dat
 FROM Foresporsel
         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
         JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
-where Foresporsel.Ansatt_ID =
+WHERE Foresporsel.Ansatt_ID =
     (
-        select Ansatt_ID
-        from Foresporsel
+        SELECT Ansatt_ID
+        FROM Foresporsel
         GROUP BY Ansatt_ID
         ORDER BY count(Ansatt_ID) DESC
         LIMIT 1
