@@ -2,13 +2,15 @@
 SELECT Utstyr_Navn, Kategori_ID from Utstyr;
 
 /* List all the available (at the moment – not already borrowed) equipment */
-SELECT distinct Utstyr_ID
+SELECT distinct Utstyr.Utstyr_Navn
 from Foresporsel
+        JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
 where Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
 
 /* List all equipment that is borrowed at the moment */
-SELECT distinct Utstyr_ID
+SELECT distinct Utstyr.Utstyr_Navn
 from Foresporsel
+         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
 where Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
 
 /*Listing the 5 first rows of the 5 most important tables (your judgement), sorted.*/
@@ -30,10 +32,10 @@ LIMIT 5;
 /*List the names and number of borrows of the three users with most equipment borrowed, sorted by number of borrows */
 SELECT Ansatt.Fornavn, COUNT(Betaling.Ansatt_ID) AS UTSTYRLANT
 FROM Betaling
-INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
-GROUP BY Betaling.Ansatt_ID
-ORDER BY UTSTYRLANT DESC
-LIMIT 3;
+        INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
+        GROUP BY Betaling.Ansatt_ID
+        ORDER BY UTSTYRLANT DESC
+        LIMIT 3;
 
 
 /*List all the equipment borrowed by the user with the highest number of equipment borrowed, sorted by date/time*/
@@ -41,21 +43,20 @@ SELECT Foresporsel_ID, Ansatt.Fornavn, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dat
 FROM Foresporsel
         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
         JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
-where Foresporsel.Ansatt_ID = (
-          select Ansatt_ID
-          from Foresporsel
-          GROUP BY Ansatt_ID
-          ORDER BY count(Ansatt_ID) DESC
-          LIMIT 1
-      )
+where Foresporsel.Ansatt_ID =
+    (
+        select Ansatt_ID
+        from Foresporsel
+        GROUP BY Ansatt_ID
+        ORDER BY count(Ansatt_ID) DESC
+        LIMIT 1
+    )
 ORDER BY Start_Dato;
 
 /*List all overdue equipment with their borrowers */
 SELECT Ansatt.Ansatt_ID, Ansatt.Fornavn, Utstyr.Utstyr_Navn
 FROM Foresporsel
-        JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
-        JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
-        JOIN Status on
-WHERE Status.Levert = 0;
-
-/*https://stackoverflow.com/questions/41146919/how-to-select-most-frequent-value-in-a-column-per-each-id-group
+         JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
+         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
+         JOIN Status on Foresporsel.Foresporsel_ID = Status.Foresporsel_ID
+WHERE Status.Levert = 0 AND Slutt_Dato < CAST(current_date AS DATE);
