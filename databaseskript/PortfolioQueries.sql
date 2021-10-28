@@ -1,5 +1,6 @@
 /*List all equipment in the system with their type*/
-SELECT Utstyr_Navn, Kategori_ID from Utstyr;
+SELECT Utstyr_Navn, Kategori.Kategori from Utstyr
+        JOIN Kategori on Utstyr.Kategori_ID = Kategori.Kategori_ID;
 
 /* List all the available (at the moment – not already borrowed) equipment */
 SELECT distinct Utstyr.Utstyr_Navn
