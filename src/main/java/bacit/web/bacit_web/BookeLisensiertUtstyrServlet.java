@@ -74,6 +74,7 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
 
         out.println("<label for='utstyrValg'>Velg et utstyr:</label>");
         out.println("<select name='utstyrid' id='utstyrid'>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg lisensiert utstyr</option>");
         out.println("<option value='7'>Personløfter</option>");
         out.println("<option value='8'>Gaffeltruck</option>");
         out.println("</select>");
@@ -88,6 +89,7 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
         out.println("<br><br>");
         out.println("<label for='betalingsmetode'>Velg betalingsmetode:</label>");
         out.println("<select name='betalingsmetode' id='betalingsmetode'>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg betalingsmetode</option>");
         out.println("<option value='1'>Kort</option>");
         out.println("<option value='2'>Faktura</option>");
         out.println("</select>");
@@ -101,12 +103,9 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            ResultSet rs;
 
             String betalingKode = "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID) values(?,?,?);";
-            String statusKode = "INSERT INTO Status (Start_Dato, Slutt_Dato, Utstyr_ID) values(?,?,?);";
-            String sisteStatusKode = "SELECT Status_ID FROM Status WHERE Status_ID=(SELECT max(Status_ID) FROM Status);";
-            String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Status_ID) values(?,?,?);";
+            String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato) values(?,?,?,?);";
 
             PreparedStatement bkode = db.prepareStatement(betalingKode);
             bkode.setString(1, model.getAnsattNummer());
@@ -114,29 +113,18 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
             bkode.setString(3, model.getBetalingsMetode());
             bkode.executeUpdate();
 
-            PreparedStatement skode = db.prepareStatement(statusKode);
-            skode.setString(1, model.getStartDato());
-            skode.setString(2, model.getSluttDato());
-            skode.setString(3, model.getUtstyrId());
-            skode.executeUpdate();
-
-            PreparedStatement sskode = db.prepareStatement(sisteStatusKode);
-            rs = sskode.executeQuery();
-            rs.next();
-
-            int sisteStatus = rs.getInt("Status_ID");
-
-
             PreparedStatement fkode = db.prepareStatement(foresporselKode);
             fkode.setString(1, model.getAnsattNummer());
             fkode.setString(2, model.getUtstyrId());
-            fkode.setInt(3, sisteStatus);
+            fkode.setString(3, model.getStartDato());
+            fkode.setString(4, model.getSluttDato());
             fkode.executeUpdate();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     public boolean sjekkInput(BookeUtstyrModel model) {
         if(model.getUtstyrId()==null)
             return false;
