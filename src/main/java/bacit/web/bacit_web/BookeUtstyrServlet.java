@@ -56,7 +56,7 @@ public class BookeUtstyrServlet extends HttpServlet {
 
     }
 
-    private void hentUtstyrSkjema(PrintWriter out, String feilMelding) {
+    public void hentUtstyrSkjema(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStart(out, "Book utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
@@ -106,7 +106,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         HtmlHelper.writeHtmlEnd(out);
     }
 
-    private void sendInnUtstyr(BookeUtstyrModel model, PrintWriter out) throws SQLException {
+    public void sendInnUtstyr(BookeUtstyrModel model, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
