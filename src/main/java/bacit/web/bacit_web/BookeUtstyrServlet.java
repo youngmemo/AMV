@@ -111,9 +111,9 @@ public class BookeUtstyrServlet extends HttpServlet {
             ResultSet rs;
 
             String betalingKode = "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID) values(?,?,?);";
-            String statusKode = "INSERT INTO Status (Start_Dato, Slutt_Dato, Utstyr_ID) values(?,?,?);";
+            String statusKode = "INSERT INTO Status (Status_ID, Foresporsel_ID, Ansatt_ID, Utstyr_ID) values(?,?,?);";
             String sisteStatusKode = "SELECT Status_ID FROM Status WHERE Status_ID=(SELECT max(Status_ID) FROM Status);";
-            String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Status_ID) values(?,?,?);";
+            String foresporselKode = "INSERT INTO Foresporsel (Foresporsel_ID,Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_dato) values(?,?,?,?);";
 
             PreparedStatement bkode = db.prepareStatement(betalingKode);
             bkode.setString(1, model.getAnsattNummer());
@@ -122,8 +122,8 @@ public class BookeUtstyrServlet extends HttpServlet {
             bkode.executeUpdate();
 
             PreparedStatement skode = db.prepareStatement(statusKode);
-            skode.setString(1, model.getStartDato());
-            skode.setString(2, model.getSluttDato());
+            skode.setString(1, model.getForesporselID());
+            skode.setString(2, model.getAnsattNummer());
             skode.setString(3, model.getUtstyrId());
             skode.executeUpdate();
 
@@ -137,7 +137,8 @@ public class BookeUtstyrServlet extends HttpServlet {
             PreparedStatement fkode = db.prepareStatement(foresporselKode);
             fkode.setString(1, model.getAnsattNummer());
             fkode.setString(2, model.getUtstyrId());
-            fkode.setInt(3, sisteStatus);
+            fkode.setString(3, model.getStartDato());
+            fkode.setString(4, model.getSluttDato());
             fkode.executeUpdate();
 
         } catch (ClassNotFoundException e) {

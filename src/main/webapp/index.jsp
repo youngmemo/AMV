@@ -27,5 +27,8 @@
 <input type="button" class="button_active" onclick="location.href='admin/endre-data';" value="Endre data"/>
 <br><br>
 <input type="button" class="button_active" onclick="location.href='ansatt/Kansellereutstyr';" value="Kansellere utstyr"/>
+<br><br>
+<input type="button" class="button_active" onclick="location.href='admin/svare-foresporsel';" value="Svare på foresporsel"/>
+
 </body>
 </html>

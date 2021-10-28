@@ -50,9 +50,10 @@ public class KansellereUtstyrServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt kansellert");
-            out.println("under ser du hvilket utstyr du som har blitt kansellert: <br>" +
-                    "<br> Foresporsel ID" + Model.getForesporselID());
+
+            HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt kansellert!");
+            out.println("under ser du hvilket utstyr som ble kansellert: <br>" +
+                    "<br> Foresporsel ID " + Model.getForesporselID());
 
 
             writeHtmlEnd(out);
