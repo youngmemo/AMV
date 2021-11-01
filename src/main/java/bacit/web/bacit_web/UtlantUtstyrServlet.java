@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "UtlantUtstyrServlet", value = "/utlant-utstyr")
+@WebServlet(name = "UtlantUtstyrServlet", value = "/admin/utlant-utstyr")
 public class UtlantUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
