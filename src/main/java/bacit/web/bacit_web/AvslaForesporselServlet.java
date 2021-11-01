@@ -74,7 +74,7 @@ public class AvslaForesporselServlet extends HttpServlet {
                     "<tr>" +
                     "<th>Forespørsel ID</th>" +
                     "<th>Ansatt ID</th>" +
-                    "<th>Utstyr Navn</th>" +
+                    "<th>Utstyr navn</th>" +
                     "<th>Start Dato</th>" +
                     "<th>Slutt Dato</th>" +
                     "</tr>");

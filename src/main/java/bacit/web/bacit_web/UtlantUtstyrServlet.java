@@ -53,11 +53,14 @@ public class UtlantUtstyrServlet extends HttpServlet {
             ResultSet rs;
             rs = kode.executeQuery();
             HtmlHelper.writeHtmlNoTitle(out);
+            out.println("<h1>Oversikt over utstyr som er utlånt</h1>");
+            out.println("<p>Under kan dere se tabellen av utstyr som er utlånt akkurat nå sortert på foresporsel id i stigende rekkefølge");
+            out.println("<br><br>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Forespørsel ID</th>" +
                     "<th>Ansatt ID</th>" +
-                    "<th>Utstyr Navn</th>" +
+                    "<th>Utstyr navn</th>" +
                     "<th>Start Dato</th>" +
                     "<th>Slutt Dato</th>" +
                     "</tr>");
