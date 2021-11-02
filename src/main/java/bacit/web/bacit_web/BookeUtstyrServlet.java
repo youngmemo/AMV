@@ -48,8 +48,8 @@ public class BookeUtstyrServlet extends HttpServlet {
             {
                 out.println(ex.getMessage());
             }
-            HtmlHelper.writeHtmlStart(out, "Gratulerer, dine ønskede utstyr er nå sendt inn for godkjenning!");
-            out.println("Din ansattnummer: "+model.getAnsattNummer());
+            HtmlHelper.writeHtmlStart(out, "Gratulerer, ditt ønskede utstyr er nå sendt inn for godkjenning!");
+            out.println("Ditt ansattnummer: "+model.getAnsattNummer());
             out.println("<br>Du kan hente ønskede utstyr hvis bekreftet dato: " + model.getStartDato());
             out.println("<br>Husk å levere ønskede utstyr hvis bekreftet dato: " +model.getSluttDato());
         }
@@ -75,6 +75,7 @@ public class BookeUtstyrServlet extends HttpServlet {
 
         out.println("<label for='utstyrValg'>Velg et utstyr:</label>");
         out.println("<select name='utstyrid' id='utstyrid'>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg utstyr</option>");
         out.println("<option value='1'>Eksentersliper</option>");
         out.println("<option value='2'>Båndsliper</option>");
         out.println("<option value='3'>Vinkelsliper</option>");
@@ -95,6 +96,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         out.println("<br><br>");
         out.println("<label for='betalingsmetode'>Velg betalingsmetode:</label>");
         out.println("<select name='betalingsmetode' id='betalingsmetode'>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg betalingsmetode</option>");
         out.println("<option value='1'>Kort</option>");
         out.println("<option value='2'>Faktura</option>");
         out.println("</select>");
@@ -108,31 +110,15 @@ public class BookeUtstyrServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            ResultSet rs;
 
             String betalingKode = "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID) values(?,?,?);";
-            String statusKode = "INSERT INTO Status (Status_ID, Foresporsel_ID, Ansatt_ID, Utstyr_ID) values(?,?,?);";
-            String sisteStatusKode = "SELECT Status_ID FROM Status WHERE Status_ID=(SELECT max(Status_ID) FROM Status);";
-            String foresporselKode = "INSERT INTO Foresporsel (Foresporsel_ID,Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_dato) values(?,?,?,?);";
+            String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato) values(?,?,?,?);";
 
             PreparedStatement bkode = db.prepareStatement(betalingKode);
             bkode.setString(1, model.getAnsattNummer());
             bkode.setString(2, model.getUtstyrId());
             bkode.setString(3, model.getBetalingsMetode());
             bkode.executeUpdate();
-
-            PreparedStatement skode = db.prepareStatement(statusKode);
-            skode.setString(1, model.getForesporselID());
-            skode.setString(2, model.getAnsattNummer());
-            skode.setString(3, model.getUtstyrId());
-            skode.executeUpdate();
-
-            PreparedStatement sskode = db.prepareStatement(sisteStatusKode);
-            rs = sskode.executeQuery();
-            rs.next();
-
-            int sisteStatus = rs.getInt("Status_ID");
-
 
             PreparedStatement fkode = db.prepareStatement(foresporselKode);
             fkode.setString(1, model.getAnsattNummer());
@@ -145,6 +131,7 @@ public class BookeUtstyrServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     public boolean sjekkInput(BookeUtstyrModel model) {
         if(model.getUtstyrId()==null)
             return false;

@@ -2,21 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>\n
-    td {
-    padding: 0 25px;
-    }
-     body {
-     background-color:goldenrod;
-        }
-         h1 {
-         color: midnightblue;
-
-         }
-
-    </style>
-
-
     <title>JSP - Hello World</title>
 </head>
 <body>
