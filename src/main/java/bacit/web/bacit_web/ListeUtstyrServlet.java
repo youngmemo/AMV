@@ -61,7 +61,7 @@ public class ListeUtstyrServlet extends HttpServlet {
                     "    background-color:goldenrod;\n" +
                     "}"+
                    "h1 {" +
-                    "color: maroon;" +
+                    "color: midnightblue;" +
                     "\n"  +
             "}" +
 

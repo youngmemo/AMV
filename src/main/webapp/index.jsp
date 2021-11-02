@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>\n
+    <style>
     td {
     padding: 0 25px;
     }
@@ -33,7 +33,7 @@
 <br><br>
 <h1> <%= "Våre egne Servlets"%>
 </h1>
-<input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>'
+<input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>
 <br><br>
 <input type="button" class="button_active" onclick="location.href='admin/Fjerneutstyr';" value="Fjerne utstyr"/>
 <br><br>
