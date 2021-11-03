@@ -1,6 +1,18 @@
 
 <html lang="en">
 <head>
+  <style>\n
+  td {
+    padding: 0 25px;
+  }
+  body {
+    background-color:goldenrod;
+    background-image: url("https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: 100px 50px;
+  }
+  </style>
   <meta charset="UTF-8">
   <title>Logg-inn side</title>
 </head>
@@ -8,18 +20,18 @@
 <form method="POST" action="j_security_check">
   <table>
     <tr>
-      <td colspan="2">Vennligst logg inn med ditt ansattnummer og passord</td>
+      <td colspan="2" style="color: midnightblue;">Vennligst logg inn med ditt ansattnummer og passord</td>
     </tr>
     <tr>
-      <td>Ansattnummer:</td>
+      <td style="color: midnightblue;">Ansattnummer:</td>
       <td><input type="text" name="j_username" placeholder="Skriv inn ansattnummer"/></td>
     </tr>
     <tr>
-      <td>Passord:</td>
+      <td style="color: midnightblue;">Passord:</td>
       <td><input type="password" name="j_password" placeholder="Skriv inn passord"/></td>
     </tr>
     <tr>
-      <td colspan="2"><input type="submit"  value="Trykk her for å logge inn" /></td>
+      <td colspan="2" ><input type="submit"  value="Trykk her for å logge inn" /></td>
     </tr>
   </table>
 </form>
