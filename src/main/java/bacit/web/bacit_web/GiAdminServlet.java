@@ -47,6 +47,28 @@ public class GiAdminServlet extends HttpServlet {
                     "<br><b>Admins navn:</b> " +Admin.getAnsattID()+
                     "<br><b>Kommentar: </b>" + Admin.getKommentar());
             HtmlHelper.writeHtmlEnd(out);
+            out.println("<html><head>");
+
+            out.println("<style>\n" +
+                    "  td {\n" +
+                    "    padding: 0 25px;\n" +
+                    "  }\n" +
+                    "  body {" +
+                    "    background-color:goldenrod;\n" +
+                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
+                    "background-repeat: no-repeat;\n"+
+                    "background-position: right top;\n"+
+                    "background-size: 100px 50px;\n"+
+                    "}"+
+                    "h1 {" +
+                    "color: midnightblue;" +
+                    "\n"  +
+                    "}" +
+
+                    "</style>");
+
+            out.println("</head>");
+            out.println("<body>");
 
 
         } else {
@@ -86,23 +108,33 @@ public class GiAdminServlet extends HttpServlet {
         out.println("<br><br> <input type='submit' value='Godta'/>");
         out.println("</form>");
         HtmlHelper.writeHtmlEnd(out);
+        out.println("<html><head>");
+
+        out.println("<style>\n" +
+                "  td {\n" +
+                "    padding: 0 25px;\n" +
+                "  }\n" +
+                "  body {" +
+                "    background-color:goldenrod;\n" +
+                "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
+                "background-repeat: no-repeat;\n"+
+                "background-position: right top;\n"+
+                "background-size: 100px 50px;\n"+
+                "}"+
+                "h1 {" +
+                "color: midnightblue;" +
+                "\n"  +
+                "}" +
+
+                "</style>");
+
+        out.println("</head>");
+        out.println("<body>");
         return false;
     }
 
 
-    private void writeHtmlStart (PrintWriter out, String title){
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
-    }
 
-    private void writeHtmlEnd (PrintWriter out){
-        out.println("</body>");
-        out.println("</html>");
-    }
 
     private boolean CheckAdmin (AdminModel Admin) {
         if (Admin.getAnsattID() == null)
