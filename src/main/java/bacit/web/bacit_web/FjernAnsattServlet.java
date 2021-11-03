@@ -39,8 +39,29 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         HtmlHelper.writeHtmlStart(out, "Ansatt er fjernet!");
         out.println("<br><b>Ansattnummeret</b>" + model.getAnsatt_ID());
 
-        HtmlHelper.writeHtmlEnd(out);
-        ;
+        HtmlHelper.writeHtmlEnd(out);;
+        out.println("<html><head>");
+
+        out.println("<style>\n" +
+                "  td {\n" +
+                "    padding: 0 25px;\n" +
+                "  }\n" +
+                "  body {" +
+                "    background-color:goldenrod;\n" +
+                "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
+                "background-repeat: no-repeat;\n"+
+                "background-position: right top;\n"+
+                "background-size: 100px 50px;\n"+
+                "}"+
+                "h1 {" +
+                "color: midnightblue;" +
+                "\n"  +
+                "}" +
+
+                "</style>");
+
+        out.println("</head>");
+        out.println("<body>");
 
     } else {
         FjernAnsattInput(out, "Det har oppstått noe feil");
@@ -72,22 +93,32 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             out.println("</form>");
 
             HtmlHelper.writeHtmlEnd(out);
+            out.println("<html><head>");
+
+            out.println("<style>\n" +
+                    "  td {\n" +
+                    "    padding: 0 25px;\n" +
+                    "  }\n" +
+                    "  body {" +
+                    "    background-color:goldenrod;\n" +
+                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
+                    "background-repeat: no-repeat;\n"+
+                    "background-position: right top;\n"+
+                    "background-size: 100px 50px;\n"+
+                    "}"+
+                    "h1 {" +
+                    "color: midnightblue;" +
+                    "\n"  +
+                    "}" +
+
+                    "</style>");
+
+            out.println("</head>");
+            out.println("<body>");
 
         }
 }
-    private void writeHtmlStart (PrintWriter out, String title){
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
-    }
 
-    private void writeHtmlEnd (PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
 
     private boolean CheckFjernAnsatt(FjernAnsattModel model) {
         if(model.getAnsatt_ID() == null)
