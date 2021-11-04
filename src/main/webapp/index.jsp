@@ -54,7 +54,7 @@
 <input type="button" class="button_active" onclick="location.href='ansatt/RapporterUtstyret';" value="Rapporter utstyret"/>
 
 <div id="right-bottom">
-    <input type="button" class="button"  value="Logg ut"/>
+    <input type="button" class="button_active" onclick="location.href='ansatt/LoggeUt';"  value="Logg ut"/>
 </div>
 
 
