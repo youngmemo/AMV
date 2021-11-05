@@ -60,10 +60,19 @@ public class ListeUtstyrServlet extends HttpServlet {
                     "  body {" +
                     "    background-color:goldenrod;\n" +
                     "}"+
-                   "h1 {" +
-                    "color: midnightblue;" +
-                    "\n"  +
+
+                    "h1 {" +
+                    "color: midnightblue;\n"  +
+                    "text-align:center;\n" +
+                    "font-family:Arial-BoldMT, Arial, Arial;\n" +
             "}" +
+                    "p {" +
+                    "color:midnightblue;\n" +
+                    "text-align:center;\n" +
+                    "font-family:Arial-BoldMT, Arial, Arial;\n" +
+        "}" +
+                    "table {" +
+                    "text-align:center;\n" +
 
             "</style>");
 
@@ -77,8 +86,8 @@ public class ListeUtstyrServlet extends HttpServlet {
                     "<th>Utstyr navn</th>" +
                     "<th>Utstyr ID</th>" +
                     "</tr>");
-            out.println("<tr><tr><tr></tr>");
-            out.println("<td><td><td></td>");
+            out.println("<tr><tr><tr><tr><tr><tr></tr>");
+            out.println("<td><td><td><td><td><td></td>");
 
             while (rs.next()) {
                 out.println("<tr>" +

@@ -52,6 +52,23 @@ public class BookeUtstyrServlet extends HttpServlet {
             out.println("Ditt ansattnummer: "+model.getAnsattNummer());
             out.println("<br>Du kan hente ønskede utstyr hvis bekreftet dato: " + model.getStartDato());
             out.println("<br>Husk å levere ønskede utstyr hvis bekreftet dato: " +model.getSluttDato());
+            out.println("<style>\n" +
+                    "  td {\n" +
+                    "    padding: 0 25px;\n" +
+                    "  }\n" +
+                    "  body {" +
+                    "    background-color:goldenrod;\n" +
+                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
+                    "background-repeat: no-repeat;\n"+
+                    "background-position: right top;\n"+
+                    "background-size: 200px 50px;\n"+
+                    "}"+
+                    "h1 {" +
+                    "color: midnightblue;" +
+                    "\n"  +
+                    "}" +
+
+                    "</style>");
         }
 
     }
@@ -104,6 +121,23 @@ public class BookeUtstyrServlet extends HttpServlet {
         out.println("<br><br> <input type='submit' value='Book utstyr'/>");
         out.println("</form>");
         HtmlHelper.writeHtmlEnd(out);
+        out.println("<style>\n" +
+                "  td {\n" +
+                "    padding: 0 25px;\n" +
+                "  }\n" +
+                "  body {" +
+                "    background-color:goldenrod;\n" +
+                "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
+                "background-repeat: no-repeat;\n"+
+                "background-position: right top;\n"+
+                "background-size: 100px 50px;\n"+
+                "}"+
+                "h1 {" +
+                "color: midnightblue;" +
+                "\n"  +
+                "}" +
+
+                "</style>");
     }
 
     private void sendInnUtstyr(BookeUtstyrModel model, PrintWriter out) throws SQLException {

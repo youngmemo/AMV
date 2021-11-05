@@ -1,7 +1,7 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.AnsattModel;
 import bacit.web.bacit_models.BookeUtstyrModel;
-import bacit.web.bacit_models.SvareForesporselModel;
+import bacit.web.bacit_models.ForesporselModel;
 import bacit.web.bacit_utilities.HtmlHelper;
 
 import javax.servlet.ServletException;
@@ -14,21 +14,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "SvareForesporselServlet", value = "/admin/svare-foresporsel")
-public class SvareForesporselServlet extends HttpServlet {
+@WebServlet(name = "UtlantUtstyrServlet", value = "/admin/utlant-utstyr")
+public class UtlantUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
         try{
-            seForesporsel(out);
+            seUtlantUtstyr(out);
         }
         catch (SQLException ex)
         {
             out.println(ex.getMessage());
         }
-        hentHTMLkode(out, null);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,7 +37,7 @@ public class SvareForesporselServlet extends HttpServlet {
     }
 
 
-    private void seForesporsel(PrintWriter out) throws SQLException {
+    private void seUtlantUtstyr (PrintWriter out) throws SQLException {
         Connection db = null;
 
         try {
@@ -47,19 +46,21 @@ public class SvareForesporselServlet extends HttpServlet {
             String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
                     "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
                     "inner join Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
+                    "where Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE) " +
                     "ORDER BY Foresporsel_ID ASC;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
-
-
             HtmlHelper.writeHtmlNoTitle(out);
+            out.println("<h1>Oversikt over utstyr som er utlånt</h1>");
+            out.println("<p>Under kan dere se tabellen av utstyr som er utlånt akkurat nå sortert på foresporsel id i stigende rekkefølge");
+            out.println("<br><br>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Forespørsel ID</th>" +
                     "<th>Ansatt ID</th>" +
-                    "<th>Utstyr Navn</th>" +
+                    "<th>Utstyr navn</th>" +
                     "<th>Start Dato</th>" +
                     "<th>Slutt Dato</th>" +
                     "</tr>");
@@ -79,25 +80,5 @@ public class SvareForesporselServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    private void hentHTMLkode(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Svare på foresporsel");
-        if (feilMelding != null) {
-            out.println("<h2>" + feilMelding + "</h2>");
-        }
-
-
-
-
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/aksepter-foresporsel' method='POST'>");
-        out.println("<br><br>");
-        out.println("<input type='text' name='ForesporselID' placeholder='Skriv inn forespørsel ID til akseptering'/>");
-        out.println("<br><br> <input type='submit' value='Aksepter forespørsel'/>");
-
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/avsla-foresporsel' method='POST'>");
-        out.println("<input type='submit' value='Avsla foresporsel'/>");
-        out.println("</form>");
-        HtmlHelper.writeHtmlEnd(out);
     }
 }
