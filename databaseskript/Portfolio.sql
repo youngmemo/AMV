@@ -34,20 +34,9 @@ CREATE OR REPLACE TABLE Utstyr
     Utstyr_ID               SMALLINT UNIQUE AUTO_INCREMENT,
     Utstyr_Navn             VARCHAR(50)     NOT NULL,
     Utstyr_Beskrivelse      VARCHAR(1000)   NOT NULL,
-    Kategori_ID             SMALLINT        NOT NULL,
+    Kategori_ID             SMALLINT,
     PRIMARY KEY (Utstyr_ID),
-    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID)
-);
-
-CREATE OR REPLACE TABLE Status
-(
-    Status_ID               SMALLINT UNIQUE AUTO_INCREMENT,
-    /* date skrives på format dd.mm.åååå */
-    Start_Dato              DATE NOT NULL,
-    Slutt_Dato              DATE NOT NULL,
-    Utstyr_ID               SMALLINT        NOT NULL,
-    PRIMARY KEY (Status_ID),
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Foresporsel
@@ -55,11 +44,22 @@ CREATE OR REPLACE TABLE Foresporsel
     Foresporsel_ID          SMALLINT UNIQUE AUTO_INCREMENT,
     Ansatt_ID               SMALLINT        NOT NULL,
     Utstyr_ID               SMALLINT        NOT NULL,
-    Status_ID               SMALLINT        NOT NULL,
+    Start_Dato              DATE            NOT NULL,
+    Slutt_Dato              DATE            NOT NULL,
     PRIMARY KEY (Foresporsel_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Status_ID) REFERENCES Status(Status_ID) ON DELETE CASCADE
+    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+);
+
+CREATE OR REPLACE TABLE Status
+(
+    Status_ID               SMALLINT UNIQUE AUTO_INCREMENT,
+    /* date skrives på format dd.mm.åååå */
+    Foresporsel_ID          SMALLINT        NOT NULL,
+    Levert                  SMALLINT,
+
+    PRIMARY KEY (Status_ID),
+    FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE LisensiertUtstyr
@@ -71,35 +71,34 @@ CREATE OR REPLACE TABLE LisensiertUtstyr
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
 );
 
-
 CREATE OR REPLACE TABLE Forslag
 (
     Forslag_ID              SMALLINT UNIQUE AUTO_INCREMENT,
     Forslag_Utstyr          VARCHAR(150)    NOT NULL,
     Forslag_Kommentar       VARCHAR(1000)   NOT NULL,
-    Ansatt_ID               SMALLINT        NOT NULL,
+    Ansatt_ID               SMALLINT,
     PRIMARY KEY (Forslag_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)
+    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Rapport
 (
     Rapport_ID              SMALLINT UNIQUE AUTO_INCREMENT,
     Rapport_Tittel          VARCHAR(150)    NOT NULL,
-    Rapport_Kommentar       VARCHAR(1000)    NOT NULL,
-    Utstyr_ID               SMALLINT        NOT NULL,
-    Ansatt_ID               SMALLINT        NOT NULL,
+    Rapport_Kommentar       VARCHAR(1000)   NOT NULL,
+    Utstyr_ID               SMALLINT,
+    Ansatt_ID               SMALLINT,
     PRIMARY KEY (Rapport_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID),
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID)
+    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
+    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Betaling
 (
     Ansatt_ID               SMALLINT        NOT NULL,
     Utstyr_ID               SMALLINT        NOT NULL,
-    Betalingsmetode_ID      SMALLINT        NOT NULL,
-    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID)
+    Betalingsmetode_ID      SMALLINT,
+    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Brukerrettigheter
@@ -107,5 +106,5 @@ CREATE OR REPLACE TABLE Brukerrettigheter
     Ansatt_ID               SMALLINT        NOT NULL,
     Rettighet               VARCHAR(50)     NOT NULL,
     Kommentar               VARCHAR(1000),
-    FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID)
+    FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );

@@ -23,6 +23,8 @@
 <input type="button" class="button_active" onclick="location.href='admin/endre-data';" value="Endre data"/>
 <br>
 <input type="button" class="button_active" onclick="location.href='admin/gi-lisens';" value="Gi lisens"/>
+<br>
+<input type="button" class="button_active" onclick="location.href='admin/svare-foresporsel';" value="Gi svar på forespørsler"/>
 <h1>Normale rettigheter</h1>
 <input type="button" class="button_active" onclick="location.href='/MinEgenServlet';" value="Min egen servlet"/>
 <br>

@@ -3,8 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Logg-inn side</title>
+    <style>
+        #bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+        }
+        #bg img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            min-width: 50%;
+            min-height: 50%;
+            opacity: 75%;
+        }
+        #altAnnet {
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
+<div id="bg">
+    <img src="bg.jpg" alt="bakgrunnsbilde">
+</div>
+
+<div id="altAnnet">
 <form method="POST" action="j_security_check">
     <table>
         <tr>
@@ -23,7 +51,7 @@
         </tr>
     </table>
 </form>
+</div>
+
 </body>
 </html>
-
-<link rel="stylesheet" href="css/style.css">
