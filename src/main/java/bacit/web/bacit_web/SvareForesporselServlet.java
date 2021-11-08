@@ -111,9 +111,6 @@ public class SvareForesporselServlet extends HttpServlet {
         out.println("<input type='text' name='foresporselIdInp' placeholder='Skriv inn forespørsel ID'/>");
         out.println("<br><br>");
         out.println("<input type='submit' value='Avslå forespørsel'/>");
-
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/aksepter-foresporsel' method='POST'>");
-        out.println("<br> <input type='submit' value='Aksepter forespørsel'/>");
         out.println("</form>");
 
         HtmlHelper.writeHtmlEnd(out);

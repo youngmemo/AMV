@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "SjekkeForesporselServlet", value = "/sjekke-foresporsel")
+@WebServlet(name = "SjekkeForesporselServlet", value = "/ansatt/sjekke-foresporsel")
 public class SjekkeForesporselServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

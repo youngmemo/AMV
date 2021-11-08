@@ -1,5 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.RegisterUserModel;
+import bacit.web.bacit_utilities.HtmlHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,14 +44,14 @@ public class RegisterUserServlet extends HttpServlet {
             {
                 out.println(ex.getMessage());
             }
-            writeHtmlStart(out, "Du er nå registrert!");
+            HtmlHelper.writeHtmlStart(out, "Du er nå registrert!");
             out.println("Disse informasjonene er ble lagret i vår database: <br>"+
                     "<br>Brukernavn: " +user.getFullName()+
                     "<br>Telefonnummer: "+user.getPhoneNumber()+
                     "<br>Brukernavn: "+user.getLoginName()+
                     "<br>Passord: "+user.getPassword()+
                     " (Passordet vises bare for å vise at passordet er også lagret!)");
-            writeHtmlEnd(out);
+            HtmlHelper.writeHtmlEnd(out);
         }
         else
         {
@@ -75,7 +76,7 @@ public class RegisterUserServlet extends HttpServlet {
         }
     }
     private void writeCreateUserForm(PrintWriter out, String errorMessage) {
-        writeHtmlStart(out, "Registrer bruker");
+        HtmlHelper.writeHtmlStart(out, "Registrer bruker");
         if(errorMessage!=null) {
             out.println("<h3>"+errorMessage+"</h3>");
         }
@@ -94,21 +95,10 @@ public class RegisterUserServlet extends HttpServlet {
 
         out.println("<br><br> <input type='submit' value='Registrer bruker'/>");
         out.println("</form>");
-        writeHtmlEnd(out);
+        HtmlHelper.writeHtmlEnd(out);
     }
 
-    private void writeHtmlStart(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>"+title+"</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>"+title+"</h3>");
-    }
-    private void writeHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
+
     private Boolean validateUser(RegisterUserModel model){
         if(model.getFullName()==null)
             return false;
