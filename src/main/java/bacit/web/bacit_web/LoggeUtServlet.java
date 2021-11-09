@@ -35,6 +35,7 @@ public class LoggeUtServlet extends HttpServlet {
                 "left: 50%;\n"+
                 "transform: translate(-50%, -50%);\n"+
                 "font-size: 60px;\n"+
+                "font-family: Arial-BoldMT, Arial, Arial;\n"+
                 "}" +
 
                 "</style>");
