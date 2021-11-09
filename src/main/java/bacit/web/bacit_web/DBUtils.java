@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class BUtils {
+public class DBUtils {
     private static final DBUtils INSTANCE = new DBUtils();
     static Connection connection;
 

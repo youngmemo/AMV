@@ -34,7 +34,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
 
         SvareForesporselModel model = new SvareForesporselModel();
 
-        model.setForesporselId(Integer.parseInt(request.getParameter("ForesporselID")));
+        model.setForesporselId(request.getParameter("ForesporselID"));
 
         PrintWriter out = response.getWriter();
         try {
@@ -58,7 +58,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
 
 
             PreparedStatement vKode= db.prepareStatement(visKode);
-            vKode.setInt(1, model.getForesporselId());
+            vKode.setInt(1, (Integer.parseInt(model.getForesporselId())));
             vKode.executeUpdate();
 
             PreparedStatement kode = db.prepareStatement(visKode);
