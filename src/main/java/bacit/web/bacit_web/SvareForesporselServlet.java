@@ -69,6 +69,7 @@ public class SvareForesporselServlet extends HttpServlet {
             ResultSet rs;
             rs = kode.executeQuery();
             HtmlHelper.writeHtmlNoTitle(out);
+            out.println("<link rel='stylesheet' href='css/style.css'>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Forespørsel ID</th>" +
