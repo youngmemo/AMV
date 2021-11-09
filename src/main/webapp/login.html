@@ -1,0 +1,59 @@
+
+<html lang="en">
+<head>
+    <style>
+        td {
+            padding: 20px;
+            text-align: center;
+        }
+        body {
+            background-color:goldenrod;
+            background-image: url("https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w");
+            background-repeat: no-repeat;
+            background-position: 10px 20px;
+            background-size: 250px 100px;
+        }
+        #center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h1 {
+            color: midnightblue;
+            font-family:Arial-BoldMT, Arial, Arial;
+            text-align: center;
+
+        }
+
+    </style>
+
+    <meta charset="UTF-8">
+    <title>Logg-inn side</title>
+</head>
+<body>
+<div id="center">
+<form method="POST" action="j_security_check">
+    <table>
+        <tr>
+            <h1> INNLOGGING
+
+            </h1>
+
+
+            <td style="color: midnightblue;"> Ansattnummer:</td>
+            <td><input type="text" name="j_username" placeholder="Skriv inn ansattnummer"/></td>
+        </tr>
+        <tr>
+            <td style="color: midnightblue;"> Passord:</td>
+            <td><input type="password" name="j_password" placeholder="Skriv inn passord"/></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit"  value="Trykk her for å logge inn" /></td>
+        </tr>
+    </table>
+</form>
+</div>
+</body>
+</html>
