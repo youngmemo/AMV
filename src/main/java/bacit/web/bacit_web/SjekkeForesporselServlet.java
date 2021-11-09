@@ -14,15 +14,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "UtlantUtstyrServlet", value = "/admin/utlant-utstyr")
-public class UtlantUtstyrServlet extends HttpServlet {
+@WebServlet(name = "SjekkeForesporselServlet", value = "/ansatt/sjekke-foresporsel")
+public class SjekkeForesporselServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
         try{
-            seUtlantUtstyr(out);
+            seForesporsel(out);
         }
         catch (SQLException ex)
         {
@@ -37,7 +37,7 @@ public class UtlantUtstyrServlet extends HttpServlet {
     }
 
 
-    private void seUtlantUtstyr (PrintWriter out) throws SQLException {
+    private void seForesporsel(PrintWriter out) throws SQLException {
         Connection db = null;
 
         try {
@@ -46,33 +46,29 @@ public class UtlantUtstyrServlet extends HttpServlet {
             String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
                                 "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
                                 "inner join Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
-                                "where Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE) " +
                                 "ORDER BY Foresporsel_ID ASC;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
             HtmlHelper.writeHtmlNoTitle(out);
-            out.println("<h1>Oversikt over utstyr som er utlånt</h1>");
-            out.println("<p>Under kan dere se tabellen av utstyr som er utlånt akkurat nå sortert på foresporsel id i stigende rekkefølge");
-            out.println("<br><br>");
             out.println("<table>" +
-                    "<tr>" +
-                    "<th>Forespørsel ID</th>" +
-                    "<th>Ansatt ID</th>" +
-                    "<th>Utstyr navn</th>" +
-                    "<th>Start Dato</th>" +
-                    "<th>Slutt Dato</th>" +
-                    "</tr>");
+                            "<tr>" +
+                                "<th>Forespørsel ID</th>" +
+                                "<th>Ansatt ID</th>" +
+                                "<th>Utstyr navn</th>" +
+                                "<th>Start Dato</th>" +
+                                "<th>Slutt Dato</th>" +
+                            "</tr>");
 
             while (rs.next()) {
                 out.println("<tr>" +
-                        "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
-                        "<td>" + rs.getString("Ansatt_ID") + "</td>" +
-                        "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
-                        "<td>" + rs.getString("Start_Dato") + "</td>" +
-                        "<td>" + rs.getString("Slutt_Dato") + "</td>" +
-                        "</tr>");
+                                "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
+                                "<td>" + rs.getString("Ansatt_ID") + "</td>" +
+                                "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
+                                "<td>" + rs.getString("Start_Dato") + "</td>" +
+                                "<td>" + rs.getString("Slutt_Dato") + "</td>" +
+                            "</tr>");
             }
 
             HtmlHelper.writeHtmlEnd(out);

@@ -62,9 +62,9 @@ public class AvslaForesporselServlet extends HttpServlet {
             db = DBUtils.getINSTANCE().getConnection(out);
 
             String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
-                    "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                    "INNER JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
-                    "ORDER BY Foresporsel_ID ASC;";
+                                "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                                "INNER JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
+                                "ORDER BY Foresporsel_ID ASC;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
@@ -106,7 +106,7 @@ public class AvslaForesporselServlet extends HttpServlet {
             db = DBUtils.getINSTANCE().getConnection(out);
 
             String slettForesporsel = "DELETE FROM Foresporsel " +
-                    "WHERE Foresporsel_ID = ?;";
+                                      "WHERE Foresporsel_ID = ?;";
 
 
             PreparedStatement kode = db.prepareStatement(slettForesporsel);

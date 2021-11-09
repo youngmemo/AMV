@@ -44,9 +44,9 @@ public class GiLisensRettighetServlet extends HttpServlet {
             }
             HtmlHelper.writeHtmlStart(out, "Den ansatte sine brukerrettigheter er nå endret!");
             out.println("Ansattnummer "+ansatt.getAnsattNummer()+" har nå blitt oppdatert i vår database, og har nå fått lisensrettigheter<br>"+
-                    "<br><b>Ansattnummer:</b> " +ansatt.getAnsattNummer()+
-                    "<br><b>Rettighet: </b>Lisens" +
-                    "<br><b>Kommentar: </b>" + ansatt.getKommentar());
+                        "<br><b>Ansattnummer:</b> " +ansatt.getAnsattNummer()+
+                        "<br><b>Rettighet: </b>Lisens" +
+                        "<br><b>Kommentar: </b>" + ansatt.getKommentar());
             HtmlHelper.writeHtmlEnd(out);
         }
         else
