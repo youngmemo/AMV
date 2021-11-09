@@ -1,11 +1,15 @@
 package bacit.web.bacit_web;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBUtils {
+public class BUtils {
     private static final DBUtils INSTANCE = new DBUtils();
     static Connection connection;
 
@@ -19,11 +23,6 @@ public class DBUtils {
     }
 
     /**
-     * Establishes a connection with a mariaDB or returns an existing one.
-     * username=root
-     * password=12345
-     * URL=jdbc:mariadb://172.17.0.1:3308/MytestDB
-     *
      * @param out for html printing in front-end e.g. (for errors or content)
      * @return connection to db
      * @throws SQLException if the connection fails
@@ -33,8 +32,8 @@ public class DBUtils {
         Class.forName("org.mariadb.jdbc.Driver");
         try {
             toReturn = (connection != null)
-                ? connection
-                : DriverManager.getConnection(
+                    ? connection
+                    : DriverManager.getConnection(
                     "jdbc:mariadb://172.17.0.1:3308/MytestDB",
                     "root",
                     "12345");

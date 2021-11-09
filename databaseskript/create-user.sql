@@ -1,26 +1,44 @@
 create database if not exists MytestDB;
 use MytestDB;
-create table if not EXISTS user
+create table if not EXISTS users
 (
-    User_id        integer UNIQUE auto_increment,
-    User_firstName varchar(255),
-    User_lastName  varchar(255),
-    User_Email     varchar(255),
-    User_password  varchar(255),
-    User_dob varchar(255),
-    CONSTRAINT U_User_ID_PK PRIMARY KEY (User_id)
+    Id              integer UNIQUE auto_increment,
+    FullName        varchar(255),
+    PhoneNumber     varchar(255),
+    LoginName       varchar(255),
+    Password        varchar(255),
+    CONSTRAINT U_User_ID_PK PRIMARY KEY (Id)
 );
 
+create table User_roles (
+  LoginName         varchar(255) not null,
+  role_name         varchar(255) not null,
+  primary key (LoginName, role_name)
+);
 
 #inserter en record av en bruker inn i databasen otra.
-insert into user (User_firstName,
-                       User_lastName,
-                       User_Email,
-                       User_password,
-                       User_dob)
+insert into users (FullName,
+                       PhoneNumber,
+                       LoginName,
+                       Password)
 values (
-        'trym',
-        'Staurheim',
-        'trym@example.com',
-        '12345',
-        '1993-25-09');
+        'Abdul Rahman Kasim',
+        '41384997',
+        'Abdul00',
+        '12345');
+
+insert into users (FullName,
+                       PhoneNumber,
+                       LoginName,
+                       Password)
+values (
+        'AbdulKasim',
+        '98643913',
+        'Abduladmin',
+        '123');
+
+insert into user_roles (LoginName, role_name) values ('Abdul00','user');
+insert into user_roles (LoginName, role_name) values ('Abduladmin','administrator');
+insert into user_roles (LoginName, role_name) values ('Abduladmin','user');
+
+
