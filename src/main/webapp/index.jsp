@@ -18,6 +18,11 @@
             top: 85%;
         }
 
+        .logout {
+            background-color: #f44336;
+            font-size: 16px;
+
+        }
 
          h1 {
          color: midnightblue;
@@ -63,7 +68,7 @@
 <br><br>
 
 <div id="right-bottom">
-    <input type="button" class="button_active" onclick="location.href='ansatt/LoggeUt';"  value="Logg ut"/>
+    <input type="button" class="logout" onclick="location.href='ansatt/LoggeUt';"  value="Logg ut"/>
 </div>
 </body>
 </html>

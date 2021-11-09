@@ -44,8 +44,8 @@ public class ListeUtstyrServlet extends HttpServlet {
             db = DBUtils.getINSTANCE().getConnection(out);
 
             String visTabell = "SELECT distinct Utstyr.Utstyr_Navn, Utstyr.Utstyr_ID FROM Foresporsel " +
-            "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-            "WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);";
+                    "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                    "WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
@@ -59,35 +59,46 @@ public class ListeUtstyrServlet extends HttpServlet {
                     "  }\n" +
                     "  body {" +
                     "    background-color:goldenrod;\n" +
-                    "}"+
+                    "}" +
 
                     "h1 {" +
-                    "color: midnightblue;\n"  +
+                    "color: midnightblue;\n" +
                     "text-align:center;\n" +
                     "font-family:Arial-BoldMT, Arial, Arial;\n" +
-            "}" +
+                    "}" +
+
                     "p {" +
                     "color:midnightblue;\n" +
                     "text-align:center;\n" +
                     "font-family:Arial-BoldMT, Arial, Arial;\n" +
-        "}" +
-                    "table {" +
-                    "text-align:center;\n" +
+                    "}" +
 
-            "</style>");
+                    "#table {" +
+                    "margin-left: auto;\n" +
+                    "margin-right: auto;\n" +
+                    "display:flex;\n" +
+                    "justify-content: center;\n" +
+
+
+
+        "}" +
+
+
+                    "</style>");
 
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Oversikt over utstyr som ikke er lånt</h1>");
             out.println("<p>Under kan dere se hvilke utstyr som kan lånes");
             out.println("<br><br>");
+            out.println("<div id=table>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Utstyr navn</th>" +
                     "<th>Utstyr ID</th>" +
                     "</tr>");
-            out.println("<tr><tr><tr><tr><tr><tr></tr>");
-            out.println("<td><td><td><td><td><td></td>");
+
+
 
             while (rs.next()) {
                 out.println("<tr>" +
@@ -95,6 +106,7 @@ public class ListeUtstyrServlet extends HttpServlet {
                         "<td>" + rs.getString("Utstyr_ID") + "</td>" +
                         "</tr>");
             }
+            out.println("</div>");
 
             HtmlHelper.writeHtmlEnd(out);
 
