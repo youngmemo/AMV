@@ -4,18 +4,25 @@
 <head>
     <style>
 
-        body {
-            background-color:goldenrod;
-            background-image: url("https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w");
-            background-repeat: no-repeat;
-            background-position: 10px 20px;
-            background-size: 250px 100px;
+        #inputOgKnapper {
             text-align: center;
+            z-index: 10000;
         }
+
         #right-bottom {
             position: absolute;
             right: 10%;
             top: 85%;
+        }
+
+        body {
+            background-color: goldenrod;
+        }
+
+        .imgLogo {
+
+            z-index: 1;
+            width: 10%;
         }
 
         .logout {
@@ -40,6 +47,9 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
+<img src=https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w" class="imgLogo" alt="logo">
+
+<div id="inputOgKnapper">
 <h1><%= "Hjemmeside" %>
 </h1>
 <br><br>
@@ -67,8 +77,11 @@
 <input type="button" class="button_active" onclick="location.href='admin/utlant-utstyr';" value="utlånt utstyr"/>
 <br><br>
 
+</div>
+
 <div id="right-bottom">
     <input type="button" class="logout" onclick="location.href='ansatt/LoggeUt';"  value="Logg ut"/>
 </div>
+
 </body>
 </html>
