@@ -1,6 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.ForslagsBoksModel;
-import bacit_utilities.HtmlHelper;
+import bacit.web.bacit_utilities.HtmlHelper;
 
 
 import javax.servlet.ServletException;
@@ -121,18 +121,15 @@ public class ForslagsBoksServlet extends HttpServlet{
             out.println("<html><head>");
 
             out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
                     "  body {" +
                     "    background-color:goldenrod;\n" +
                     "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
                     "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
+                    "background-size: 150px;\n"+
                     "position: absolute;\n"+
                     "top: 35%;\n"+
                     "left: 50%;\n"+
+                    "background-position: 10px 20px;\n"+
                     "transform: translate(-50%, -50%);\n"+
                     "}"+
                     "h2 {" +

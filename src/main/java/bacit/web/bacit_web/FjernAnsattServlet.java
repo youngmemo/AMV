@@ -1,6 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.FjernAnsattModel;
-import bacit_utilities.HtmlHelper;
+import bacit.web.bacit_utilities.HtmlHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
