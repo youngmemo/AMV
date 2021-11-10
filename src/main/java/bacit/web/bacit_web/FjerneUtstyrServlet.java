@@ -60,6 +60,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
 
             kode.executeUpdate();
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

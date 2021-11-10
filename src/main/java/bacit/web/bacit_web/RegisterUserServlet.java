@@ -70,6 +70,7 @@ public class RegisterUserServlet extends HttpServlet {
             statement.setString(4, user.getPassword());
 
             statement.executeUpdate();
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
 

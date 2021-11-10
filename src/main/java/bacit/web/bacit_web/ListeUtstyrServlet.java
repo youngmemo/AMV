@@ -108,6 +108,7 @@ public class ListeUtstyrServlet extends HttpServlet {
             }
             out.println("</div>");
 
+            db.close();
             HtmlHelper.writeHtmlEnd(out);
 
         } catch (ClassNotFoundException e) {

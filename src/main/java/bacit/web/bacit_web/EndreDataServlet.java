@@ -74,6 +74,8 @@ public class EndreDataServlet extends HttpServlet {
             kode.setString(5, ansatt.getAnsattNummer());
 
             kode.executeUpdate();
+
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -74,6 +74,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
 
 
             kode.executeUpdate();
+            db.close();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

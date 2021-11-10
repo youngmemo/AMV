@@ -88,6 +88,8 @@ public class OpprettAnsattServlet extends HttpServlet {
 
             kode.executeUpdate();
             rettighetKode.executeUpdate();
+            db.close();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

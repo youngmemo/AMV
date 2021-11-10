@@ -50,7 +50,7 @@
 <img src=https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w" class="imgLogo" alt="logo">
 
 <div id="inputOgKnapper">
-<h1><%= "Hjemmeside" %>
+<h1><%= "HJEMMESIDE" %>
 </h1>
 <br><br>
 <p>Du er nå logget inn. </p>

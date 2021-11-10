@@ -121,6 +121,8 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
             fkode.setString(4, model.getSluttDato());
             fkode.executeUpdate();
 
+            db.close();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

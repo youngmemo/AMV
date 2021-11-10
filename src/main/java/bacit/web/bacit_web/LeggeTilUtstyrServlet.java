@@ -66,6 +66,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
 
             kode.executeUpdate();
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -84,6 +84,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
                         "</tr>");
             }
 
+            db.close();
             HtmlHelper.writeHtmlEnd(out);
 
         } catch (ClassNotFoundException e) {

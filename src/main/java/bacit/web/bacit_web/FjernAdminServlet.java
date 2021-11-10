@@ -61,6 +61,7 @@ public class FjernAdminServlet extends HttpServlet {
 
 
             kode.executeUpdate();
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

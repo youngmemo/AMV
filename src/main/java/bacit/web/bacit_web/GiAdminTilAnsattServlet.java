@@ -65,6 +65,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
             kode.setString(2, ansatt.getKommentar());
 
             kode.executeUpdate();
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
