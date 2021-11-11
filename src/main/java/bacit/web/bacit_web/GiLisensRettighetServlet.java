@@ -73,7 +73,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
     }
 
     private void hentAnsattSkjema(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Gi lisensrettigheter til en ansatt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Gi lisensrettigheter til en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

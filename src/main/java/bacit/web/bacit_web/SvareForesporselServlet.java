@@ -69,7 +69,6 @@ public class SvareForesporselServlet extends HttpServlet {
             ResultSet rs;
             rs = kode.executeQuery();
             HtmlHelper.writeHtmlNoTitle(out);
-            out.println("<link rel='stylesheet' href='css/style.css'>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Forespørsel ID</th>" +
@@ -98,7 +97,7 @@ public class SvareForesporselServlet extends HttpServlet {
     }
 
     private void hentHTMLkode(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Book utstyr");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Book utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

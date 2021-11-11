@@ -1,5 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.LeggeTilUtstyrModel;
+import bacit.web.bacit_utilities.HtmlHelper;
 
 
 import javax.servlet.ServletException;
@@ -42,19 +43,19 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            writeHtmlStart(out, "Utstyret har nå blitt lagt til!");
+            HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt lagt til!");
             out.println("under ser du hvilket utstyr som ble lagt til: <br>" +
                     "<br>Utstyr navn: " + Utstyr.getUtstyr() +
                     "<br>Utstyr beskrivelse: " + Utstyr.getUtstyrBeskrivelse() +
                     "<br>Kategori ID: " + Utstyr.getKategoriID());
 
-            writeHtmlEnd(out);
+            HtmlHelper.writeHtmlEnd(out);
         } else {
             leggtilUtstyrInput(out, "Det oppsto noe feil");
         }
     }
 
-    private void LeggTilNyUtstyr(LeggeTilUtstyrModel Utstyr, PrintWriter out) throws SQLException {
+    public void LeggTilNyUtstyr(LeggeTilUtstyrModel Utstyr, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -73,8 +74,8 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
     }
 
-    private void leggtilUtstyrInput(PrintWriter out, String feilMelding) {
-        writeHtmlStart(out, "Legg til Utstyr");
+    public void leggtilUtstyrInput(PrintWriter out, String feilMelding) {
+        HtmlHelper.writeHtmlStartCssTitle(out, "Legg til Utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
@@ -92,22 +93,8 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
         out.println("<br><br> <input type='submit' value='Legg til Utstyr'/>");
         out.println("</form>");
-        writeHtmlEnd(out);
+        HtmlHelper.writeHtmlEnd(out);
 
-    }
-
-    private void writeHtmlStart(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
-    }
-
-    private void writeHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
     }
 
     private boolean SeUtstyr(LeggeTilUtstyrModel model) {

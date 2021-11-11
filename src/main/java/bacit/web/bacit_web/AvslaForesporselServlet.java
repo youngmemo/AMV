@@ -126,7 +126,7 @@ public class AvslaForesporselServlet extends HttpServlet {
     }
 
     private void hentHTMLkode(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Forespørselen er nå avslått");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Forespørselen er nå avslått");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

@@ -73,7 +73,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
     }
 
     private void hentAnsattSkjema(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Gi adminrettigheter til en ansatt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Gi adminrettigheter til en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

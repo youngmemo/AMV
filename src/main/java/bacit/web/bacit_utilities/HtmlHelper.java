@@ -20,12 +20,22 @@ public class HtmlHelper {
         out.println("<body>");
     }
 
-    public static void writeHtmlStartCss(PrintWriter out, String cssName) {
+    public static void writeHtmlStartCss(PrintWriter out) {
         out.println("<html>");
         out.println("<head>");
-        out.println("<link rel=\"stylesheet\" href=\"/css/style.css\">");
+        out.println("<link rel=\"stylesheet\" href=\"style.css\">");
         out.println("</head>");
         out.println("<body>");
+    }
+
+    public static void writeHtmlStartCssTitle(PrintWriter out, String title) {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<link rel=\"stylesheet\" href=\"style.css\">");
+        out.println("<title>" + title + "</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h3>" + title + "</h3>");
     }
 
     public static void writeHtmlOnlyHead(PrintWriter out, String title) {

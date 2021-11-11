@@ -50,8 +50,7 @@
 <img src=https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w" class="imgLogo" alt="logo">
 
 <div id="inputOgKnapper">
-<h1><%= "HJEMMESIDE" %>
-</h1>
+<h1>HJEMMESIDE</h1>
 <br><br>
 <p>Du er nå logget inn. </p>
 <p>Under kan du velge hva du ønsker å gjøre.</p>
@@ -62,8 +61,7 @@
 <br><br>
 <input type="button" class="button_active" onclick="location.href='admin/registrer-ansatt';" value="Registrer ansatt"/>
 <br><br>
-<h1> <%= "Våre egne Servlets"%>
-</h1>
+<h1>Våre egne Servlets</h1>
 <input type="button" class="button_active" onclick="location.href='admin/Leggetilutstyr';" value="Legg til utstyr"/>
 <input type="button" class="button_active" onclick="location.href='admin/Fjerneutstyr';" value="Fjerne utstyr"/>
 <br><br>

@@ -57,7 +57,7 @@ public class BookeUtstyrServlet extends HttpServlet {
     }
 
     public void hentUtstyrSkjema(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Book utstyr");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Book utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

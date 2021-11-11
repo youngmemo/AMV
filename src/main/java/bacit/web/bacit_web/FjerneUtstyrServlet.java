@@ -1,5 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.FjerneUtstyrModel;
+import bacit.web.bacit_utilities.HtmlHelper;
 
 
 import javax.servlet.ServletException;
@@ -40,11 +41,11 @@ public class FjerneUtstyrServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            writeHtmlStart(out, "Utstyret har nå blitt fjernet");
+            HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt fjernet");
             out.println("under ser du hvilket utstyr du som har blitt fjernet: <br>" +
                     "<br>Utstyr navn: " + Utstyr.getUtstyr());
 
-            writeHtmlEnd(out);
+            HtmlHelper.writeHtmlEnd(out);
         } else {
             SlettUtstyrInput(out, "Det oppsto noe feil");
         }
@@ -68,7 +69,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
     }
 
     private void SlettUtstyrInput(PrintWriter out, String feilMelding) {
-        writeHtmlStart(out, "Fjerne Utstyr");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Fjerne Utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
@@ -80,23 +81,10 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         out.println("<br><br> <input type='submit' value='Fjern utstyr'/>");
         out.println("</form>");
-        writeHtmlEnd(out);
+        HtmlHelper.writeHtmlEnd(out);
 
     }
 
-    private void writeHtmlStart(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
-    }
-
-    private void writeHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
 
     private boolean SjekkUtstyr(FjerneUtstyrModel model) {
         if (model.getUtstyr() == null)

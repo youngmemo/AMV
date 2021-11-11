@@ -85,7 +85,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         }
     }
     private void FjernAnsattInput(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Fjern Ansatt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Fjern Ansatt");
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
             out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/FjerneAnsatt' method='POST'>");

@@ -93,7 +93,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
     }
 
     private void hentHTMLkode(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Forespørselet har nå blitt akseptert!");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Forespørselet har nå blitt akseptert!");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

@@ -83,7 +83,7 @@ public class EndreDataServlet extends HttpServlet {
     }
 
     private void hentAnsattSkjema(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Endre data på en ansatt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Endre data på en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

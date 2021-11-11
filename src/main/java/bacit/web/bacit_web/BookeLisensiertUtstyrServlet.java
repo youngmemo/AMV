@@ -56,7 +56,7 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
     }
 
     private void hentUtstyrSkjema(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Book lisensiert utstyr");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Book lisensiert utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

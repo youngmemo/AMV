@@ -52,7 +52,7 @@ public class UtlantUtstyrServlet extends HttpServlet {
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
-            HtmlHelper.writeHtmlNoTitle(out);
+            HtmlHelper.writeHtmlStartCss(out);
             out.println("<h1>Oversikt over utstyr som er utlånt</h1>");
             out.println("<p>Under kan dere se tabellen av utstyr som er utlånt akkurat nå sortert på foresporsel id i stigende rekkefølge");
             out.println("<br><br>");

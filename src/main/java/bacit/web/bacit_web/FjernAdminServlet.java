@@ -1,6 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.FjernAdminModel;
-
+import bacit.web.bacit_utilities.HtmlHelper;
 
 
 import javax.servlet.ServletException;
@@ -41,11 +41,11 @@ public class FjernAdminServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            writeHtmlStart(out, "Admin har nå blitt fjernet");
+            HtmlHelper.writeHtmlStart(out, "Admin har nå blitt fjernet");
             out.println("under ser du hvilket utstyr du som har blitt fjernet: <br>" +
                     "<br>Admin navn: " + Admin.getAdmin());
 
-            writeHtmlEnd(out);
+            HtmlHelper.writeHtmlEnd(out);
         } else {
             SlettAdminInput(out, "Det oppsto noe feil");
         }
@@ -69,7 +69,7 @@ public class FjernAdminServlet extends HttpServlet {
     }
 
     private void SlettAdminInput(PrintWriter out, String feilMelding) {
-        writeHtmlStart(out, "Fjerne Admin");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Fjerne Admin");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
@@ -81,23 +81,10 @@ public class FjernAdminServlet extends HttpServlet {
 
         out.println("<br><br> <input type='submit' value='Fjern Admin'/>");
         out.println("</form>");
-        writeHtmlEnd(out);
+        HtmlHelper.writeHtmlEnd(out);
 
     }
 
-    private void writeHtmlStart(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
-    }
-
-    private void writeHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
 
     private boolean SjekkAdmin(FjernAdminModel model) {
         if (model.getAdmin() == null)

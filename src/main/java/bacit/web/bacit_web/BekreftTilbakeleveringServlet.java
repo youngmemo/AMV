@@ -92,7 +92,7 @@ import java.sql.SQLException;
             }
 
             private void BekreftsProsessInput(PrintWriter out, String feilMelding) {
-                HtmlHelper.writeHtmlStart(out, "Bekrefter tilbakelevering av utstyret");
+                HtmlHelper.writeHtmlStartCssTitle(out, "Bekrefter tilbakelevering av utstyret");
                 {
                     {
                         if (feilMelding != null)

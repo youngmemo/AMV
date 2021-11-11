@@ -100,7 +100,7 @@ public class ForslagsBoksServlet extends HttpServlet{
         }
     }
     private void ForslagsBoksInput(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Skriv forslaget ditt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Skriv forslaget ditt");
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
             out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/ForslagsBoks' method='POST'>");

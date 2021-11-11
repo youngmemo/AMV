@@ -51,7 +51,7 @@ public class SjekkeForesporselServlet extends HttpServlet {
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
-            HtmlHelper.writeHtmlNoTitle(out);
+            HtmlHelper.writeHtmlStartCss(out);
             out.println("<table>" +
                             "<tr>" +
                                 "<th>Forespørsel ID</th>" +

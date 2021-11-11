@@ -56,7 +56,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
                     "<br> Foresporsel ID " + Model.getForesporselID());
 
 
-            writeHtmlEnd(out);
+            HtmlHelper.writeHtmlEnd(out);
         } else {
             KansellereUtstyrInput(out, "Det oppsto noe feil");
         }
@@ -146,7 +146,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
     }
 
     private void KansellereUtstyrInput(PrintWriter out, String feilMelding) {
-        writeHtmlStart(out, "");
+        HtmlHelper.writeHtmlStartCss(out);
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
@@ -159,23 +159,10 @@ public class KansellereUtstyrServlet extends HttpServlet {
 
         out.println("<br><br> <input type='submit' value='Kansellere utstyr'/>");
         out.println("</form>");
-        writeHtmlEnd(out);
+        HtmlHelper.writeHtmlEnd(out);
 
     }
 
-    private void writeHtmlStart(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
-    }
-
-    private void writeHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
 
     private boolean SjekkKansellere(KansellereUtstyrModel Model) {
 

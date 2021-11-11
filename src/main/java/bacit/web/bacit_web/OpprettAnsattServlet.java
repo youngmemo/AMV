@@ -97,7 +97,7 @@ public class OpprettAnsattServlet extends HttpServlet {
     }
 
     private void lagAnsattSkjema(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Opprett ansatt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Opprett ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }

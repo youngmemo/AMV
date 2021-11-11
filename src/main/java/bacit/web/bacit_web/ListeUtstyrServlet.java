@@ -43,9 +43,9 @@ public class ListeUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell = "SELECT distinct Utstyr.Utstyr_Navn, Utstyr.Utstyr_ID FROM Foresporsel " +
-                    "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                    "WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);";
+            String visTabell =  "SELECT distinct Utstyr.Utstyr_Navn, Utstyr.Utstyr_ID FROM Foresporsel " +
+                                "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                                "WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
