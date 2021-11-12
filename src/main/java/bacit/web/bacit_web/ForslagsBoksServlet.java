@@ -94,6 +94,8 @@ public class ForslagsBoksServlet extends HttpServlet{
             kode.setString(2, model.getForslag_Kommentar());
 
             kode.executeUpdate();
+            db.close();
+
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -66,6 +66,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
             kode.setString(4, model.getAnsatt_ID());
 
             kode.executeUpdate();
+            db.close();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
