@@ -28,7 +28,7 @@ public class FileUploadServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        HtmlHelper.writeHtmlStart(out, "Upload a file");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Upload a file");
         writeFileUploadForm(out,null);
         HtmlHelper.writeHtmlEnd(out);
     }
@@ -36,10 +36,16 @@ public class FileUploadServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        HtmlHelper.writeHtmlStart(out, "Upload a file");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Upload a file");
         try{
             Part filePart = request.getPart("file");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            if(fileName.equals("")) {
+                out.println("Du har ikke lastet opp noen filer,eller noe feil har skjedd. Prøv på nytt.");
+            }
+            else{
+                out.println("Filen din er nå lastet opp!");
+            }
             InputStream fileContent = filePart.getInputStream();
             byte[] fileBytes = fileContent.readAllBytes();
 
@@ -70,7 +76,7 @@ public class FileUploadServlet extends HttpServlet {
         }
         out.println("<form action='fileUpload' method='POST' enctype='multipart/form-data'>");
         out.println("<label for='file'>Upload a file</label> ");
-        out.println("<input type='file' name='file'/>");
+        out.println("<input type='file' name='file'/><br>");
         out.println("<input type='submit' value='Upload file'/>");
         out.println("</form>");
     }

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "Liste Alle Ulånt Utstyr", value = "/admin/Liste-alle-utstyr")
+@WebServlet(name = "Liste Alle Ulånt Utstyr", value = "/ansatt/ulante-utstyr")
 public class ListeUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

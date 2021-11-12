@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "SjekkeForesporselServlet", value = "/ansatt/sjekke-foresporsel")
+@WebServlet(name = "SjekkeForesporselServlet", value = "/admin/sjekk-foresporsel")
 public class SjekkeForesporselServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,7 +37,7 @@ public class SjekkeForesporselServlet extends HttpServlet {
     }
 
 
-    private void seForesporsel(PrintWriter out) throws SQLException {
+    public void seForesporsel(PrintWriter out) throws SQLException {
         Connection db = null;
 
         try {

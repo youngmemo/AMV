@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-@WebServlet(name = "LoggUtServlet", value = "/LoggeUt")
+@WebServlet(name = "LoggUtServlet", value = "/logge-ut")
 public class LoggUtServlet extends HttpServlet {
     private String message;
 

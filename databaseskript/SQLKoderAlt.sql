@@ -146,7 +146,7 @@ VALUES  ('Eksentersliper 230 VAC', 'Børsteløs motor som gjør den vedlikeholds
         ('Personløfter 230 VAC', 'Personløft som er en enkel og sikker utstyr som du kan bruke til å komme deg opp i høyden', 2),
         ('Gaffeltruck', 'En kraftig og rubust gaffeltruck med dieselmotor som kan brukes i alle lagermiljøer og står for kvalitet, effektivitet og pålitelighet', 2),
         ('Motorisert trillebår', 'Motorisert trillebår som er ypperlig for transport av varer etc.', 1),
-        ('Spikerpistol, Milwaukee stor' , 'Dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1)
+        ('Spikerpistol, Milwaukee stor' , 'Dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1),
         ('Spikerpistol, Milwaukee mellom', 'Beskrivelse', 1),
         ('Spikerpistol, Milwaukee liten', 'Beskrivelse', 1),
         ('Spikerpistol liten (luft)', 'Beskrivelse', 1),

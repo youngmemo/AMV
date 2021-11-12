@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name = "FjerneUtstyr", value = "/admin/Fjerneutstyr")
+@WebServlet(name = "FjerneUtstyr", value = "/admin/fjerne-utstyr")
 public class FjerneUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -74,7 +74,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
             out.println("<h2>" + feilMelding + "</h2>");
         }
 
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/Fjerneutstyr' method='POST'>");
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/fjerne-utstyr' method='POST'>");
         out.println("<br><br> <label for='utstyr navn'>Utstyr navn</label>");
         out.println("<input type='text' name='utstyrnavn' placeholder='Skriv inn navnet'/>");
 

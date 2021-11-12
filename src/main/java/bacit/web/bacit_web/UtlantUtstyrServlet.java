@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "UtlantUtstyrServlet", value = "/admin/utlant-utstyr")
+@WebServlet(name = "UtlantUtstyrServlet", value = "/ansatt/utlant-utstyr")
 public class UtlantUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -43,7 +43,7 @@ public class UtlantUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
+            String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Ansatt.Fornavn, Ansatt.Etternavn, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
                                 "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
                                 "inner join Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
                                 "where Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE) " +
@@ -60,7 +60,9 @@ public class UtlantUtstyrServlet extends HttpServlet {
                     "<tr>" +
                     "<th>Forespørsel ID</th>" +
                     "<th>Ansatt ID</th>" +
-                    "<th>Utstyr navn</th>" +
+                    "<th>Fornavn</th>" +
+                    "<th>Etternavn</th>" +
+                    "<th>Utstyr Navn</th>" +
                     "<th>Start Dato</th>" +
                     "<th>Slutt Dato</th>" +
                     "</tr>");
@@ -69,6 +71,8 @@ public class UtlantUtstyrServlet extends HttpServlet {
                 out.println("<tr>" +
                         "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
                         "<td>" + rs.getString("Ansatt_ID") + "</td>" +
+                        "<td>" + rs.getString("Fornavn") + "</td>" +
+                        "<td>" + rs.getString("Etternavn") + "</td>" +
                         "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
                         "<td>" + rs.getString("Start_Dato") + "</td>" +
                         "<td>" + rs.getString("Slutt_Dato") + "</td>" +

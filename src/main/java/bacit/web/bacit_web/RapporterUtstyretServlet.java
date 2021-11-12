@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name= "RapporterUtstyretServlet", value = "/ansatt/RapporterUtstyret")
+@WebServlet(name= "RapporterUtstyretServlet", value = "/ansatt/rapporter-utstyr")
 public class RapporterUtstyretServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -76,7 +76,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
             HtmlHelper.writeHtmlStart(out, "Her kan du rapportere utstyret du har lånt:");
             { {if(feilMelding !=null)
                 out.println("<h2>" + feilMelding + "</h2>");}
-                out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/RapporterUtstyret' method='POST'>");
+                out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/rapporter-utstyr' method='POST'>");
 
                 out.println("<br><br> <label for ='Tittel'> Tittel</label>");
                 out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn tittelen'/>");

@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "Kansellere Utstyr", value = "/ansatt/Kansellereutstyr")
+@WebServlet(name = "Kansellere Utstyr", value = "/ansatt/kanseller-utstyr")
 public class KansellereUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -150,13 +150,13 @@ public class KansellereUtstyrServlet extends HttpServlet {
             out.println("<h2>" + feilMelding + "</h2>");
         }
 
-        out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/Kansellereutstyr' method='POST'>");
+        out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/kanseller-utstyr' method='POST'>");
 
         out.println("<br><br> <label for='ForesporselID'>Foresporsel ID</label>");
         out.println("<input type='text' name='ForesporselID' placeholder='skriv inn ForesporselID'/>");
 
 
-        out.println("<br><br> <input type='submit' value='Kansellere utstyr'/>");
+        out.println("<br><br> <input type='submit' value='Kanseller utstyr'/>");
         out.println("</form>");
         HtmlHelper.writeHtmlEnd(out);
 
