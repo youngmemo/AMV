@@ -109,7 +109,14 @@ CREATE OR REPLACE TABLE Brukerrettigheter
     FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
 
-USE mytestdb;
+
+CREATE OR REPLACE TABLE Files(
+    Id                      SMALLINT UNIQUE auto_increment,
+    Name                    VARCHAR(255)    NOT NULL,
+    Content                 LONGBLOB        NOT NULL,
+    ContentType             VARCHAR(255)    NOT NULL,
+    PRIMARY KEY (Id)
+);
 
 INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
