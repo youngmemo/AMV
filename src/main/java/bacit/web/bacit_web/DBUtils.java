@@ -43,5 +43,15 @@ public class DBUtils {
         }
         return toReturn;
     }
+
+    public Connection getConnection() throws Exception {
+
+        Context initCtx = new InitialContext();
+        Context envCtx = (Context) initCtx.lookup("java:comp/env");
+        DataSource ds = (DataSource)envCtx.lookup("jdbc/database");
+
+        return ds.getConnection();
+    }
+
 }
 

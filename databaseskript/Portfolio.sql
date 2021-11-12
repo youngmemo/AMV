@@ -108,3 +108,12 @@ CREATE OR REPLACE TABLE Brukerrettigheter
     Kommentar               VARCHAR(1000),
     FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
+
+CREATE OR REPLACE TABLE Files
+(
+    Id              SMALLINT UNIQUE auto_increment,
+    Name            varchar(255)            NOT NULL,
+    Content         LONGBLOB                NOT NULL,
+    ContentType varchar(255)                NOT NULL,
+    PRIMARY KEY (Id)
+);

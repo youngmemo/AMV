@@ -1,5 +1,6 @@
 package bacit.web.bacit_web;
 
+import bacit.web.bacit_DAO.FileDAO;
 import bacit.web.bacit_models.FileModel;
 import bacit.web.bacit_utilities.HtmlHelper;
 
@@ -16,7 +17,7 @@ import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 
-@WebServlet(name = "fileUpload", value = "/fileUpload")
+@WebServlet(name = "fileUpload", value = "/ansatt/fileUpload")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class FileUploadServlet extends HttpServlet {
 
@@ -42,9 +43,15 @@ public class FileUploadServlet extends HttpServlet {
             InputStream fileContent = filePart.getInputStream();
             byte[] fileBytes = fileContent.readAllBytes();
 
-            FileModel fileModel = new FileModel(fileName, fileBytes, filePart.getContentType());
+            FileModel fileModel = new FileModel(
+                    fileName,
+                    fileBytes,
+                    filePart.getContentType());
 
-            logger.info("Received file with name: "+fileModel.getName()+ "with the length of: "+fileModel.getContents().length+" bytes");
+            FileDAO dao = new FileDAO();
+            dao.persistFile(fileModel);
+
+        logger.info("Received file with name: "+fileModel.getName()+ "with the length of: "+fileModel.getContents().length+" bytes");
         }
         catch(Exception ex)
         {
