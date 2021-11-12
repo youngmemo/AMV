@@ -110,7 +110,8 @@ CREATE OR REPLACE TABLE Brukerrettigheter
 );
 
 
-CREATE OR REPLACE TABLE Files(
+CREATE OR REPLACE TABLE Files
+(
     Id                      SMALLINT UNIQUE auto_increment,
     Name                    VARCHAR(255)    NOT NULL,
     Content                 LONGBLOB        NOT NULL,
