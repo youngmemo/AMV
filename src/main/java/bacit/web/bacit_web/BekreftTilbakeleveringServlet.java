@@ -85,6 +85,8 @@ import java.sql.SQLException;
                     PreparedStatement kode = db.prepareStatement(leggeTilKode);
                     kode.setString(1, model.getForesporsel_ID());
                     kode.executeUpdate();
+                    db.close();
+
 
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
