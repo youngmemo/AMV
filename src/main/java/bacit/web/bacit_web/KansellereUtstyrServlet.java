@@ -51,7 +51,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
 
-            HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt kansellert!");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Utstyret har nå blitt kansellert!");
             out.println("under ser du hvilket utstyr som ble kansellert: <br>" +
                     "<br> Foresporsel ID " + Model.getForesporselID());
 
@@ -86,12 +86,11 @@ public class KansellereUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
             String foresporselKode = "select Foresporsel_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
-                    "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                    "where Ansatt_ID = ?;";
+                    "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID;";
+
 
             PreparedStatement kode = db.prepareStatement(foresporselKode);
             ResultSet rs;
-            kode.setString(1,Model.getAnsattID());
             rs = kode.executeQuery();
             out.println("<html>\n" +
                     "<head>\n" +
