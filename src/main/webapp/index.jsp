@@ -83,7 +83,7 @@
 </div>
 
 <div id="right-bottom">
-    <input type="button" class="logout" onclick="location.href='ansatt/LoggeUt';"  value="Logg ut"/>
+    <input type="button" class="logout" onclick="location.href='LoggeUt';"  value="Logg ut"/>
 </div>
 
 </body>

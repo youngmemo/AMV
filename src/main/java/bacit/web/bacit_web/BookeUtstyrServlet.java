@@ -76,14 +76,51 @@ public class BookeUtstyrServlet extends HttpServlet {
         out.println("<label for='utstyrValg'>Velg et utstyr:</label>");
         out.println("<select name='utstyrid' id='utstyrid'>");
         out.println("<option selected='true' value='0' disabled='disabled'>Velg utstyr</option>");
+
+        out.println("<optgroup label='Slipere'>");
         out.println("<option value='1'>Eksentersliper</option>");
         out.println("<option value='2'>Båndsliper</option>");
         out.println("<option value='3'>Vinkelsliper</option>");
+        out.println("</optgroup>");
+
+        out.println("<optgroup label='Spikerpistoler'>");
+        out.println("<option value='10'>Spikerpistol, Milwaukee stor</option>");
+        out.println("<option value='11'>Spikerpistol, Milwaukee mellom</option>");
+        out.println("<option value='12'>Spikerpistol, Milwaukee liten</option>");
+        out.println("<option value='13'>Spikerpistol liten (luft)</option>");
+        out.println("</optgroup>");
+
+        out.println("<optgroup label='Tilhengere'>");
+        out.println("<option value='20'>Tilhenger boggi</option>");
+        out.println("<option value='21'>Tilhenger liten</option>");
+        out.println("</optgroup>");
+
+        out.println("<optgroup label='Andre utstyr'>");
         out.println("<option value='4'>Meislemaskin</option>");
         out.println("<option value='5'>Slagdrill</option>");
         out.println("<option value='6'>Kantklipper</option>");
         out.println("<option value='9'>Motorisert trillebår</option>");
-        out.println("<option value='10'>Spikerpistol</option>");
+        out.println("<option value='14'>Skruautomat</option>");
+        out.println("<option value='15'>Fein Multimaskin</option>");
+        out.println("<option value='16'>Flisekutter</option>");
+        out.println("<option value='17'>Høvel 230 VAC</option>");
+        out.println("<option value='18'>Gjære-/kombisag 230 VAC</option>");
+        out.println("<option value='19'>Vedkløyver (bensin)</option>");
+        out.println("<option value='22'>Kompressor 230 VAC</option>");
+        out.println("<option value='23'>Hoppetusse (bensin)</option>");
+        out.println("<option value='24'>Flisekutter for trevirke</option>");
+        out.println("<option value='25'>Strømaggregat 3,7 kW</option>");
+        out.println("<option value='26'>Dekkmaskin</option>");
+        out.println("<option value='27'>Bildiagnose</option>");
+        out.println("<option value='28'>Leirduekaster</option>");
+        out.println("<option value='29'>Leica snekker laser</option>");
+        out.println("<option value='30'>Skaphenger</option>");
+        out.println("</optgroup>");
+
+        out.println("<optgroup label='Diverse'>");
+        out.println("<option value='31'>Bluetooth høyttaler SOUNDBOKS</option>");
+        out.println("</optgroup>");
+
         out.println("</select>");
         out.println("<br><br>");
 
