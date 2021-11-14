@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name = "FjerneAdmin", value = "/admin/FjerneAdmin")
+@WebServlet(name = "FjerneAdmin", value = "/admin/fjerne-admin")
 public class FjernAdminServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

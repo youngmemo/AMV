@@ -82,9 +82,12 @@ import java.sql.SQLException;
                 try {
                     db = DBUtils.getINSTANCE().getConnection(out);
                     String leggeTilKode = "update Status set Levert = true where Foresporsel_ID = ?;";
-                    PreparedStatement kode = db.prepareStatement(leggeTilKode);
-                    kode.setString(1, model.getForesporsel_ID());
-                    kode.executeUpdate();
+
+                    PreparedStatement leggInnKode = db.prepareStatement(leggeTilKode);
+
+                    leggInnKode.setString(1, model.getForesporsel_ID());
+
+                    leggInnKode.executeUpdate();
                     db.close();
 
 

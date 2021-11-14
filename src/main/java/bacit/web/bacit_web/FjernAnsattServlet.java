@@ -80,6 +80,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             kode.setString(1, model.getAnsatt_ID());
 
             kode.executeUpdate();
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

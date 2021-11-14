@@ -22,6 +22,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
         KansellereUtstyrModel am = new KansellereUtstyrModel();
         am.setAnsattID("4");
         try {
@@ -86,36 +87,14 @@ public class KansellereUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
             String foresporselKode = "select Foresporsel_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
-                    "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID;";
+                                     "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID;";
 
 
             PreparedStatement kode = db.prepareStatement(foresporselKode);
             ResultSet rs;
             rs = kode.executeQuery();
-            out.println("<html>\n" +
-                    "<head>\n" +
-                    "<style>\n" +
-                    "table {\n" +
-                    "  font-family: arial, sans-serif;\n" +
-                    "  border-collapse: collapse;\n" +
-                    "  width: 100%;\n" +
-                    "}\n" +
-                    "\n" +
-                    "td, th {\n" +
-                    "  border: 1px solid #dddddd;\n" +
-                    "  text-align: left;\n" +
-                    "  padding: 8px;\n" +
-                    "}\n" +
-                    "\n" +
-                    "tr:nth-child(even) {\n" +
-                    "  background-color: #dddddd;\n" +
-                    "}\n" +
-                    "</style>\n" +
-                    "</head>\n" +
-                    "<body>\n" +
-                    "\n" +
-                    "<h2>Velg utstyret du ønsker å kansellere under</h2>\n" +
-                    "\n" +
+            HtmlHelper.writeHtmlStartCss(out);
+            out.println(
                     "<table>\n" +
                     "  <tr>\n" +
                     "    <th>Foresporsel_ID</th>\n" +

@@ -80,8 +80,6 @@
 
     <input type="button" class="button_active" onclick="location.href='admin/avsla-foresporsel';" value="Avslå forespørsler"/>
     <input type="button" class="button_active" onclick="location.href='admin/aksepter-foresporsel';" value="Aksepter forespørsler"/>
-    <input type="button" class="button_active" onclick="location.href='admin/svare-foresporsel';" value="Svar forespørsler"/>
-    <input type="button" class="button_active" onclick="location.href='admin/sjekk-foresporsel';" value="Sjekk forespørsler"/>
     <br><br>
 
 
