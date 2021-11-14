@@ -82,9 +82,14 @@ import java.sql.SQLException;
                 try {
                     db = DBUtils.getINSTANCE().getConnection(out);
                     String leggeTilKode = "update Status set Levert = true where Foresporsel_ID = ?;";
-                    PreparedStatement kode = db.prepareStatement(leggeTilKode);
-                    kode.setString(1, model.getForesporsel_ID());
-                    kode.executeUpdate();
+
+                    PreparedStatement leggInnKode = db.prepareStatement(leggeTilKode);
+
+                    leggInnKode.setString(1, model.getForesporsel_ID());
+
+                    leggInnKode.executeUpdate();
+                    db.close();
+
 
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
@@ -92,7 +97,7 @@ import java.sql.SQLException;
             }
 
             private void BekreftsProsessInput(PrintWriter out, String feilMelding) {
-                HtmlHelper.writeHtmlStart(out, "Bekrefter tilbakelevering av utstyret");
+                HtmlHelper.writeHtmlStartCssTitle(out, "Bekrefter tilbakelevering av utstyret");
                 {
                     {
                         if (feilMelding != null)

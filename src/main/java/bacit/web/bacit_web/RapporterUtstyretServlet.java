@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name= "RapporterUtstyretServlet", value = "/ansatt/RapporterUtstyret")
+@WebServlet(name= "RapporterUtstyretServlet", value = "/ansatt/rapporter-utstyr")
 public class RapporterUtstyretServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -40,7 +40,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            HtmlHelper.writeHtmlStart(out, "Rapporten er nå sendt inn!");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Rapporten er nå sendt inn!");
 
            out.println("<br><b>Tittel: </b> " +model.getRapport_Tittel());
            out.println("<br><b>RapportKommentar: </b> " +model.getRapport_Kommentar());
@@ -48,32 +48,6 @@ public class RapporterUtstyretServlet extends HttpServlet {
            out.println("<br><b>Ansatt: </b> " +model.getAnsatt_ID());
 
             HtmlHelper.writeHtmlEnd(out);
-            out.println("<html><head>");
-
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
 
         } else {
             RapporterUtstyrInput(out, "Ops!!! Det skjedde noe feil..");
@@ -92,6 +66,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
             kode.setString(4, model.getAnsatt_ID());
 
             kode.executeUpdate();
+            db.close();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -101,7 +76,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
             HtmlHelper.writeHtmlStart(out, "Her kan du rapportere utstyret du har lånt:");
             { {if(feilMelding !=null)
                 out.println("<h2>" + feilMelding + "</h2>");}
-                out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/RapporterUtstyret' method='POST'>");
+                out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/rapporter-utstyr' method='POST'>");
 
                 out.println("<br><br> <label for ='Tittel'> Tittel</label>");
                 out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn tittelen'/>");

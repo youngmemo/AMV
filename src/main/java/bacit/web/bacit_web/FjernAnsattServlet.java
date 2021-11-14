@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@WebServlet(name= "FjernAnsattServlet", value = "/admin/FjerneAnsatt")
+@WebServlet(name= "FjernAnsattServlet", value = "/admin/fjerne-ansatt")
 public class FjernAnsattServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -80,15 +80,16 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             kode.setString(1, model.getAnsatt_ID());
 
             kode.executeUpdate();
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
     private void FjernAnsattInput(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Fjern Ansatt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Fjern Ansatt");
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
-            out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/FjerneAnsatt' method='POST'>");
+            out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/fjerne-ansatt' method='POST'>");
 
             out.println("<br><br> <label for='Ansattnummeret'> Ansattnummeret</label>");
             out.println("<input type='text' name='Ansattnummeret' placeholder='Skriv inn ansattnummeret'/>");

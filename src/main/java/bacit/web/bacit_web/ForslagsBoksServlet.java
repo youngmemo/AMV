@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 
 
-@WebServlet(name = "ForslagsBoksServlet", value = "/ansatt/ForslagsBoks")
+@WebServlet(name = "ForslagsBoksServlet", value = "/ansatt/forslags-boks")
 public class ForslagsBoksServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
         response.setContentType("text/html");
@@ -94,16 +94,18 @@ public class ForslagsBoksServlet extends HttpServlet{
             kode.setString(2, model.getForslag_Kommentar());
 
             kode.executeUpdate();
+            db.close();
+
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
     private void ForslagsBoksInput(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStart(out, "Skriv forslaget ditt");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Skriv forslaget ditt");
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
-            out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/ForslagsBoks' method='POST'>");
+            out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/forslags-boks' method='POST'>");
 
             out.println("<br><br> <label for='Ansattnummeret'> Ansattnummeret</label>");
             out.println("<input type='text' name='Ansattnummeret' placeholder='Skriv inn ansattnummeret'/>");
