@@ -1,4 +1,4 @@
-USE mytestdb;
+use mytestdb;
 
 INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
@@ -17,16 +17,38 @@ VALUES  (1, 'Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 'meheks1', 46464646, '
         (10, 'Janis', 'Gailis', 'janis.gailis@uia.no', 'jangai1', 38141562, 'Elvegaten 10', 'Kristiansand', 4609);
 
 INSERT INTO Utstyr (Utstyr_Navn, Utstyr_Beskrivelse, Kategori_ID)
-VALUES  ('Eksentersliper', 'Børsteløs motor som gjør den vedlikeholdsfri og gir den lengre levetid og battertid.', 1),
-        ('Båndsliper', 'Denne effektive båndsliperen garanterer et jevnt og pent resultat. 650W med en bånddimensjon på 76x457 mm.', 1),
+VALUES  ('Eksentersliper 230 VAC', 'Børsteløs motor som gjør den vedlikeholdsfri og gir den lengre levetid og battertid.', 1),
+        ('Båndsliper 230 VAC', 'Denne effektive båndsliperen garanterer et jevnt og pent resultat. 650W med en bånddimensjon på 76x457 mm.', 1),
         ('Vinkelsliper', '150 mm batteridrevet vinkelsliper med turtallsvalg og økt brukerbeskyttelse', 1),
         ('Meislemaskin', 'Topp ytelse ved boring og meisling med 1500 wats motor og 12,5 joule enkeltslagenergi', 1),
-        ('Slagdrill', 'Slagdrill med på 18 V med 13 mm hurtigchuch og batteriindikator', 1),
-        ('Kantklipper', 'Elektrisk kantklipper som hjelper deg med de utfordrende kantene langs veier, trær,murer', 1),
-        ('Personløfter', 'Personløft som er en enkel og sikker utstyr som du kan bruke til å komme deg opp i høyden', 2),
+        ('Slagdrill Milwaukee', 'Slagdrill med på 18 V med 13 mm hurtigchuch og batteriindikator', 1),
+        ('Kantklipper (bensin)', 'Elektrisk kantklipper som hjelper deg med de utfordrende kantene langs veier, trær,murer', 1),
+        ('Personløfter 230 VAC', 'Personløft som er en enkel og sikker utstyr som du kan bruke til å komme deg opp i høyden', 2),
         ('Gaffeltruck', 'En kraftig og rubust gaffeltruck med dieselmotor som kan brukes i alle lagermiljøer og står for kvalitet, effektivitet og pålitelighet', 2),
         ('Motorisert trillebår', 'Motorisert trillebår som er ypperlig for transport av varer etc.', 1),
-        ('Spikerpistol, stor' , 'Dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1);
+        ('Spikerpistol, Milwaukee stor' , 'Dykkertlengde mellom 15-50 mm. utstyrt med ergonomisk håndtak for komfortabel arbeidsstilling', 1),
+        ('Spikerpistol, Milwaukee mellom', 'Beskrivelse', 1),
+        ('Spikerpistol, Milwaukee liten', 'Beskrivelse', 1),
+        ('Spikerpistol liten (luft)', 'Beskrivelse', 1),
+        ('Skruautomat', 'Beskrivelse', 1),
+        ('Fein Multimaskin', 'Beskrivelse', 1),
+        ('Flisekutter, keramiske fliser', 'Beskrivelse', 1),
+        ('Høvel 230 VAC', 'Beskrivelse', 1),
+        ('Gjære-/kombisag 230 VAC', 'Beskrivelse', 1),
+        ('Vedkløyver (bensin)', 'Beskrivelse', 1),
+        ('Tilhenger boggi, RC987', 'Beskrivelse', 1),
+        ('Tilhenger liten, RC8834', 'Beskrivelse', 1),
+        ('Kompressor 230 VAC', 'Beskrivelse', 1),
+        ('Hoppetusse" (bensin)', 'Beskrivelse', 1),
+        ('Flisekutter for trevirke', 'Beskrivelse', 1),
+        ('Strømaggregat 3,7 kW', 'Beskrivelse', 1),
+        ('Dekkmaskin', 'Beskrivelse', 1),
+        ('Bildiagnose', 'Beskrivelse', 1),
+        ('Leirduekaster', 'Beskrivelse', 1),
+        ('Leica snekker laser', 'Beskrivelse', 1),
+        ('Skaphenger', 'Beskrivelse', 1),
+        ('Bluetooth høyttaler SOUNDBOKS', 'Beskrivelse', 1);
+
 
 INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
 VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
@@ -139,10 +161,4 @@ VALUES  (1, 'normal', ''),  (2, 'normal', ''),
         (10, 'administrator', 'superbruker skal ha tilgang her'),
 
         (10, 'superbruker', 'Grunnleggeren av systemet');
-
-
-
-
-
-
 

@@ -1,3 +1,4 @@
+drop database if exists mytestdb;
 create database if not exists mytestdb;
 use mytestdb;
 CREATE OR REPLACE TABLE Ansatt
@@ -109,11 +110,12 @@ CREATE OR REPLACE TABLE Brukerrettigheter
     FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
 
+
 CREATE OR REPLACE TABLE Files
 (
-    Id              SMALLINT UNIQUE auto_increment,
-    Name            varchar(255)            NOT NULL,
-    Content         LONGBLOB                NOT NULL,
-    ContentType varchar(255)                NOT NULL,
+    Id                      SMALLINT UNIQUE auto_increment,
+    Name                    VARCHAR(255)    NOT NULL,
+    Content                 LONGBLOB        NOT NULL,
+    ContentType             VARCHAR(255)    NOT NULL,
     PRIMARY KEY (Id)
 );
