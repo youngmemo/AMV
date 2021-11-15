@@ -51,7 +51,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
         }
     }
 
-    private void FjernUtstyr(FjerneUtstyrModel Utstyr, PrintWriter out) throws SQLException {
+    public void FjernUtstyr(FjerneUtstyrModel Utstyr, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -68,7 +68,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
     }
 
-    private void SlettUtstyrInput(PrintWriter out, String feilMelding) {
+    public void SlettUtstyrInput(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Fjerne Utstyr");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
@@ -86,7 +86,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
     }
 
 
-    private boolean SjekkUtstyr(FjerneUtstyrModel model) {
+    public boolean SjekkUtstyr(FjerneUtstyrModel model) {
         if (model.getUtstyr() == null)
             return false;
         if (model.getUtstyr().trim().equalsIgnoreCase(""))

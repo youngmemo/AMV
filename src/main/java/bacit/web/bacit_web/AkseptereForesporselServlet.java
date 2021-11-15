@@ -58,7 +58,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
 
     }
 
-    private void leggInnForesporsel(SvareForesporselModel model, PrintWriter out) throws SQLException {
+    public void leggInnForesporsel(SvareForesporselModel model, PrintWriter out) throws SQLException {
         Connection db = null;
 
         try {
@@ -145,7 +145,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
         }
     }
 
-    private void hentHTMLkode(PrintWriter out, String feilMelding) {
+    public void hentHTMLkode(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Aksepter forespørselen til en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");

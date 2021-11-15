@@ -51,7 +51,7 @@ public class FjernAdminServlet extends HttpServlet {
         }
     }
 
-    private void FjernAdmin(FjernAdminModel Admin, PrintWriter out) throws SQLException {
+    public void FjernAdmin(FjernAdminModel Admin, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -68,7 +68,7 @@ public class FjernAdminServlet extends HttpServlet {
 
     }
 
-    private void SlettAdminInput(PrintWriter out, String feilMelding) {
+    public void SlettAdminInput(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Fjerne Admin");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
@@ -86,7 +86,7 @@ public class FjernAdminServlet extends HttpServlet {
     }
 
 
-    private boolean SjekkAdmin(FjernAdminModel model) {
+    public boolean SjekkAdmin(FjernAdminModel model) {
         if (model.getAdmin() == null)
             return false;
         if (model.getAdmin().trim().equalsIgnoreCase(""))

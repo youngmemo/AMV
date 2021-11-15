@@ -37,7 +37,7 @@ public class UtlantUtstyrServlet extends HttpServlet {
     }
 
 
-    private void seUtlantUtstyr (PrintWriter out) throws SQLException {
+    public void seUtlantUtstyr (PrintWriter out) throws SQLException {
         Connection db = null;
 
         try {

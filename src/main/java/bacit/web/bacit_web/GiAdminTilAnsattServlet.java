@@ -55,7 +55,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         }
     }
 
-    private void giAdminTilAnsatt(AnsattModel ansatt, PrintWriter out) throws SQLException {
+    public void giAdminTilAnsatt(AnsattModel ansatt, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -72,7 +72,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
 
     }
 
-    private void hentAnsattSkjema(PrintWriter out, String feilMelding) {
+    public void hentAnsattSkjema(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Gi adminrettigheter til en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");

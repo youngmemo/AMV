@@ -63,7 +63,7 @@ public class AvslaForesporselServlet extends HttpServlet {
 
     }
 
-    private void slettForesporsel(PrintWriter out, String foresporsel) throws SQLException {
+    public void slettForesporsel(PrintWriter out, String foresporsel) throws SQLException {
         Connection db = null;
 
         try {
@@ -127,7 +127,7 @@ public class AvslaForesporselServlet extends HttpServlet {
     }
 
 
-    private void hentHTMLkode(PrintWriter out, String feilMelding) {
+    public void hentHTMLkode(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Avslå forespørselen til en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");

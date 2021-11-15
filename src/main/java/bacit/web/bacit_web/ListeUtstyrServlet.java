@@ -78,11 +78,7 @@ public class ListeUtstyrServlet extends HttpServlet {
                     "margin-right: auto;\n" +
                     "display:flex;\n" +
                     "justify-content: center;\n" +
-
-
-
-        "}" +
-
+                    "}" +
 
                     "</style>");
 
@@ -97,8 +93,6 @@ public class ListeUtstyrServlet extends HttpServlet {
                     "<th>Utstyr navn</th>" +
                     "<th>Utstyr ID</th>" +
                     "</tr>");
-
-
 
             while (rs.next()) {
                 out.println("<tr>" +

@@ -71,7 +71,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         FjernAnsattInput(out, "Det har oppstått noe feil");
     }
 }
-    private void AnsattFjernet(FjernAnsattModel model, PrintWriter out) throws SQLException {
+    public void AnsattFjernet(FjernAnsattModel model, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -85,7 +85,8 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             e.printStackTrace();
         }
     }
-    private void FjernAnsattInput(PrintWriter out, String feilMelding) {
+
+    public void FjernAnsattInput(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Fjern Ansatt");
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
@@ -128,8 +129,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         }
 }
 
-
-    private boolean CheckFjernAnsatt(FjernAnsattModel model) {
+    public boolean CheckFjernAnsatt(FjernAnsattModel model) {
         if(model.getAnsatt_ID() == null)
             return false;
         if(model.getAnsatt_ID().trim().equalsIgnoreCase(""))
