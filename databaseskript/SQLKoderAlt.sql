@@ -47,6 +47,7 @@ CREATE OR REPLACE TABLE Foresporsel
     Utstyr_ID               SMALLINT        NOT NULL,
     Start_Dato              DATE            NOT NULL,
     Slutt_Dato              DATE            NOT NULL,
+    Akseptert               SMALLINT        DEFAULT 0,
     PRIMARY KEY (Foresporsel_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name= "BekreftTilbakeleveringServlet", value = "/ansatt/tilbake-levering")
@@ -19,12 +20,26 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
+        String innloggetAnsatt = request.getUserPrincipal().getName();
+
+        try {
+            seEgneForesporsel(out, innloggetAnsatt);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         BekreftsProsessInput(out, null);
+        out.println("<br><br>");
+        out.println("Ingen utstyr nedenfor? <br> Det betyr du er good to go!");
+        out.println("<br><br><br><br>");
+
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
 
         response.setContentType("text/html");
         BekreftTilbakeleveringModel model = new BekreftTilbakeleveringModel();
@@ -43,7 +58,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
             }
             HtmlHelper.writeHtmlStart(out, "Tilbakeleveringen er bekreftet!");
 
-            out.println("<br><b>Statusen:</b>" + model.getForesporsel_ID());
+            out.println("<br><b>Forespørsel:</b>" + model.getForesporsel_ID());
 
             HtmlHelper.writeHtmlEnd(out);
             out.println("<html><head>");
@@ -81,13 +96,13 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "update Status set Levert = true where Foresporsel_ID = ?;";
+            String tilbakeLeveringKode = "UPDATE Status SET Levert = true where Foresporsel_ID = ?;";
 
-            PreparedStatement leggInnKode = db.prepareStatement(leggeTilKode);
-
+            PreparedStatement leggInnKode = db.prepareStatement(tilbakeLeveringKode);
             leggInnKode.setString(1, model.getForesporsel_ID());
-
             leggInnKode.executeUpdate();
+
+
             db.close();
 
 
@@ -143,7 +158,55 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
             out.println("<body>");
         }
 
-         }
+    }
+
+    public void seEgneForesporsel(PrintWriter out, String ansatt) throws SQLException {
+        Connection db = null;
+
+
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+
+            String visTabell =  "select Foresporsel.Foresporsel_ID, Utstyr.Utstyr_Navn, Foresporsel.Start_Dato, Foresporsel.Slutt_Dato from Foresporsel " +
+                                "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                                "inner join Status on Foresporsel.Foresporsel_ID = Status.Foresporsel_ID " +
+                                "WHERE Status.Levert = 0 AND Foresporsel.Ansatt_ID = ? " +
+                                "ORDER BY Foresporsel.Foresporsel_ID ASC;";
+
+
+
+            PreparedStatement kode = db.prepareStatement(visTabell);
+            kode.setString(1, ansatt);
+
+            ResultSet rs;
+            rs = kode.executeQuery();
+            HtmlHelper.writeHtmlNoTitle(out);
+            out.println("<table>" +
+                    "<tr>" +
+                    "<th>Forespørsel ID</th>" +
+                    "<th>Utstyr navn</th>" +
+                    "<th>Start Dato</th>" +
+                    "<th>Slutt Dato</th>" +
+                    "</tr>");
+
+            while (rs.next()) {
+                out.println("<tr>" +
+                        "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
+                        "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
+                        "<td>" + rs.getString("Start_Dato") + "</td>" +
+                        "<td>" + rs.getString("Slutt_Dato") + "</td>" +
+                        "</tr>");
+            }
+            db.close();
+
+            HtmlHelper.writeHtmlEnd(out);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public boolean CheckBekreftTilbakelevering(BekreftTilbakeleveringModel model){
 
             if(model.getForesporsel_ID() == null)
