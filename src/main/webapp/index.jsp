@@ -10,10 +10,10 @@
             z-index: 10000;
         }
 
-        #right-bottom {
+        #right-top {
             position: absolute;
-            right: 10%;
-            top: 85%;
+            right: 3%;
+            top: 5%;
         }
 
         body {
@@ -40,6 +40,7 @@
         }
         p {
             font-family: Arial-BoldMT, Arial, Arial;
+            color: midnightblue;
         }
 
     </style>
@@ -113,7 +114,7 @@
 
 </div>
 
-<div id="right-bottom">
+<div id="right-top">
     <input type="button" class="logout" onclick="location.href='logge-ut';"  value="Logg ut"/>
 </div>
 
