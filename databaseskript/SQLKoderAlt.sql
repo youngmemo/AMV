@@ -8,7 +8,6 @@ CREATE OR REPLACE TABLE Ansatt
     Etternavn               VARCHAR(30)     NOT NULL,
     Mobilnummer             INTEGER         NOT NULL,
     Epost                   VARCHAR(255)    NOT NULL,
-    Ansattnummer            SMALLINT        NOT NULL,
     Passord                 VARCHAR(255)    NOT NULL,
     Adresse                 VARCHAR(50)     NOT NULL,
     Bynavn                  VARCHAR(50)     NOT NULL,
@@ -95,14 +94,6 @@ CREATE OR REPLACE TABLE Rapport
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
 );
 
-CREATE OR REPLACE TABLE Betaling
-(
-    Ansatt_ID               SMALLINT        NOT NULL,
-    Utstyr_ID               SMALLINT        NOT NULL,
-    Betalingsmetode_ID      SMALLINT,
-    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL
-);
-
 CREATE OR REPLACE TABLE Brukerrettigheter
 (
     Ansatt_ID               SMALLINT        NOT NULL,
@@ -111,14 +102,14 @@ CREATE OR REPLACE TABLE Brukerrettigheter
     FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
 
-
-CREATE OR REPLACE TABLE Files
+CREATE OR REPLACE TABLE Betaling
 (
-    Id                      SMALLINT UNIQUE auto_increment,
-    Name                    VARCHAR(255)    NOT NULL,
-    Content                 LONGBLOB        NOT NULL,
-    ContentType             VARCHAR(255)    NOT NULL,
-    PRIMARY KEY (Id)
+    Ansatt_ID               SMALLINT        NOT NULL,
+    Utstyr_ID               SMALLINT        NOT NULL,
+    Betalingsmetode_ID      SMALLINT,
+    Foresporsel_ID          SMALLINT        NOT NULL,
+    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL,
+    FOREIGN KEY(Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
 
 
@@ -126,17 +117,18 @@ INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
        ('Kjøretøy');
 
-INSERT INTO Ansatt (Ansattnummer, Fornavn, Etternavn, Epost, Passord, Mobilnummer, Adresse, Bynavn, Postnummer)
-VALUES  (1, 'Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 'meheks1', 46464646, 'Markens gate 19', 'Kristiansand', 4600),
-        (2, 'Osamah', 'Almaliki', 'osamah2001@hotmail.com', 'osaalm1', 46276313, 'Holbergs gate 8', 'Kristiansand', 4601),
-        (3, 'Tina', 'Ruud', 'tinamruud@gmail.com', 'tinruu1', 88745219, 'Henrik wergelandsgate 1', 'Kristiansand', 4602),
-        (4, 'Abdul Rahman', 'Kasim', 'abdul-rahman-kasim@hotmail.com', 'abdrah1', 44444444, 'Vestre strandgate 42', 'Kristiansand', 4603),
-        (5, 'Ømer', 'Fener', 'omer99fe@hotmail.com', 'omefen1', 56565656, 'Dronningens gate 31', 'Kristiansand', 4604),
-        (6, 'Berat', 'Gunes', 'beratg12@hotmail.com', 'bergun1', 77777777, 'Kongens gate 1', 'Kristiansand', 4605),
-        (7, 'Terje', 'Gjøsæter', 'terje.gjøsæter@uia.no', 'tegjo1', 12345678, 'Gyldenløvens gate 12', 'Kristiansand', 4606),
-        (8, 'Geir', 'Hausvik', 'geir.i.hausvik@uia.no', 'geihau1', 89898989, 'Tollbodgaten 60', 'Kristiansand', 4607),
-        (9, 'Espen', 'Limi', 'espen.limi@uia.no','esplim1', 87654321, 'Rådhusgaten 7', 'Kristiansand', 4608),
-        (10, 'Janis', 'Gailis', 'janis.gailis@uia.no', 'jangai1', 38141562, 'Elvegaten 10', 'Kristiansand', 4609);
+INSERT INTO Ansatt (Fornavn, Etternavn, Epost, Passord, Mobilnummer, Adresse, Bynavn, Postnummer)
+VALUES  ('Mehmet', 'Eksi', 'mehmeteksi99@hotmail.com', 'meheks1', 46464646, 'Markens gate 19', 'Kristiansand', 4600),
+        ('Osamah', 'Almaliki', 'osamah2001@hotmail.com', 'osaalm1', 46276313, 'Holbergs gate 8', 'Kristiansand', 4601),
+        ('Tina', 'Ruud', 'tinamruud@gmail.com', 'tinruu1', 88745219, 'Henrik wergelandsgate 1', 'Kristiansand', 4602),
+        ('Abdul Rahman', 'Kasim', 'abdul-rahman-kasim@hotmail.com', 'abdrah1', 44444444, 'Vestre strandgate 42', 'Kristiansand', 4603),
+        ('Ømer', 'Fener', 'omer99fe@hotmail.com', 'omefen1', 56565656, 'Dronningens gate 31', 'Kristiansand', 4604),
+        ('Berat', 'Gunes', 'beratg12@hotmail.com', 'bergun1', 77777777, 'Kongens gate 1', 'Kristiansand', 4605),
+        ('Terje', 'Gjøsæter', 'terje.gjøsæter@uia.no', 'tegjo1', 12345678, 'Gyldenløvens gate 12', 'Kristiansand', 4606),
+        ('Geir', 'Hausvik', 'geir.i.hausvik@uia.no', 'geihau1', 89898989, 'Tollbodgaten 60', 'Kristiansand', 4607),
+        ('Espen', 'Limi', 'espen.limi@uia.no','esplim1', 87654321, 'Rådhusgaten 7', 'Kristiansand', 4608),
+        ('Janis', 'Gailis', 'janis.gailis@uia.no', 'jangai1', 38141562, 'Elvegaten 10', 'Kristiansand', 4609),
+        ('Test', 'Bruker', 'testbruker@uia.no', 'test',  38141563, 'Test 10', 'Test', 0000);
 
 INSERT INTO Utstyr (Utstyr_Navn, Utstyr_Beskrivelse, Kategori_ID)
 VALUES  ('Eksentersliper 230 VAC', 'Børsteløs motor som gjør den vedlikeholdsfri og gir den lengre levetid og battertid.', 1),
@@ -204,29 +196,48 @@ INSERT INTO LisensiertUtstyr(Utstyr_Kommentar, Utstyr_ID)
 VALUES ('Trengs fullført og bestått kurs', 7),
        ('Trengs truckførerbevis', 8);
 
-INSERT INTO Foresporsel(Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato)
-VALUES  (1,1,'2021-10-08', '2021-10-12'),
-        (2,1,'2021-10-02', '2022-10-16'),
-        (3,3,'2021-10-08', '2020-10-12'),
-        (1,4,'2021-10-08', '2020-10-16'),
-        (5,1,'2021-10-03', '2020-10-12'),
-        (1,1,'2021-10-10', '2021-10-14'),
-        (7,7,'2021-10-08', '2020-10-18'),
-        (1,8,'2021-10-08', '2022-10-19'),
-        (9,9,'2021-10-08', '2021-10-11'),
-        (10,10,'2021-10-08', '2021-10-13');
+INSERT INTO Foresporsel(Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato, Akseptert)
+VALUES  (11,1, '2021-02-02', '2021-02-04', 1),  (11,2, '2021-02-02', '2021-02-04', 1),
+        (11,3, '2021-02-02', '2021-02-04', 1),  (11,4, '2021-02-02', '2021-02-04', 1),
+        (11,5, '2021-02-02', '2021-02-04', 1),  (11,6, '2021-02-02', '2021-02-04', 1),
+        (11,7, '2021-02-02', '2021-02-04', 1),  (11,8, '2021-02-02', '2021-02-04', 1),
+        (11,9, '2021-02-02', '2021-02-04', 1),  (11,10,'2021-02-02', '2021-02-04', 1),
+        (11,11,'2021-02-02', '2021-02-04', 1),  (11,12,'2021-02-02', '2021-02-04', 1),
+        (11,13,'2021-02-02', '2021-02-04', 1),  (11,14,'2021-02-02', '2021-02-04', 1),
+        (11,15,'2021-02-02', '2021-02-04', 1),  (11,16,'2021-02-02', '2021-02-04', 1),
+        (11,17,'2021-02-02', '2021-02-04', 1),  (11,18,'2021-02-02', '2021-02-04', 1),
+        (11,19,'2021-02-02', '2021-02-04', 1),  (11,20,'2021-02-02', '2021-02-04', 1),
+        (11,21,'2021-02-02', '2021-02-04', 1),  (11,22,'2021-02-02', '2021-02-04', 1),
+        (11,23,'2021-02-02', '2021-02-04', 1),  (11,24,'2021-02-02', '2021-02-04', 1),
+        (11,25,'2021-02-02', '2021-02-04', 1),  (11,26,'2021-02-02', '2021-02-04', 1),
+        (11,27,'2021-02-02', '2021-02-04', 1),  (11,28,'2021-02-02', '2021-02-04', 1),
+        (11,29,'2021-02-02', '2021-02-04', 1),  (11,30,'2021-02-02', '2021-02-04', 1),
+        (11,31,'2021-02-02', '2021-02-04', 1),
+
+        (1,1,  '2021-11-15', '2021-11-19', 1),
+        (2,1,  '2021-11-15', '2021-11-19', 1),
+        (3,3,  '2021-11-15', '2021-11-19', 1),
+        (1,4,  '2021-11-15', '2021-11-19', 1),
+        (5,1,  '2021-11-15', '2021-11-19', 1),
+        (1,1,  '2021-10-10', '2021-10-14', 0),
+        (7,7,  '2021-10-08', '2021-10-18', 0),
+        (1,8,  '2021-10-08', '2021-10-19', 0),
+        (9,9,  '2021-10-08', '2021-10-11', 0),
+        (10,10,'2021-10-08', '2021-10-13', 0);
 
 INSERT INTO Status (Foresporsel_ID, Levert)
-VALUES  (1,1),
-        (2,1),
-        (3,1),
-        (4,0),
-        (5,0),
-        (6,1),
-        (7,0),
-        (8,1),
-        (9,1),
-        (10,1);
+VALUES  (1,0),   (2,0),   (3,0),   (4,0),
+        (5,0),   (6,0),   (7,0),   (8,0),
+        (9,0),   (10,0),  (11,0),  (12,0),
+        (13,0),  (14,0),  (15,0),  (16,0),
+        (17,0),  (18,0),  (19,0),  (20,0),
+        (21,0),  (22,0),  (23,0),  (24,0),
+        (25,0),  (26,0),  (27,0),  (28,0),
+        (29,0),  (30,0),  (31,0),
+
+        (32,0),  (33,0),  (34,0),  (35,0),
+        (36,0),  (37,1),  (38,1),  (39,1),
+        (40,1),  (41,1);
 
 
 INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
@@ -253,17 +264,17 @@ VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
         ('Tørrsuger','Kan anta mange av oss maler hjemme, hadde vært greit å få tørket malinga fortere',9),
         ('Rotasjonslaser','Greit når man jobber hjemme.',10);
 
-INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID)
-VALUES  (3, 1, 1),
-        (8, 2, 1),
-        (5, 4, 2),
-        (8, 9, 1),
-        (8, 2, 2),
-        (5, 6, 2),
-        (8, 7, 1),
-        (5, 5, 2),
-        (3, 2, 2),
-        (1, 2, 2);
+INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID)
+VALUES  (3, 1, 1, 1),
+        (8, 2, 1, 1),
+        (5, 4, 2, 1),
+        (8, 9, 1, 1),
+        (8, 2, 2, 1),
+        (5, 6, 2, 1),
+        (8, 7, 1, 1),
+        (5, 5, 2, 1),
+        (3, 2, 2, 1),
+        (1, 2, 2, 1);
 
 INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
 VALUES  (1, 'normal', ''),  (2, 'normal', ''),
@@ -284,3 +295,11 @@ VALUES  (1, 'normal', ''),  (2, 'normal', ''),
 
         (10, 'superbruker', 'Grunnleggeren av systemet');
 
+/*CREATE OR REPLACE TABLE Files
+(
+    Id                      SMALLINT UNIQUE auto_increment,
+    Name                    VARCHAR(255)    NOT NULL,
+    Content                 LONGBLOB        NOT NULL,
+    ContentType             VARCHAR(255)    NOT NULL,
+    PRIMARY KEY (Id)
+);*/

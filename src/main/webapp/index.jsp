@@ -109,11 +109,12 @@
     <input type="button" class="button_active" onclick="location.href='ansatt/forslags-boks';" value="Send inn forslag"/>
     <br><br>
 
-    <h1>Last ned og last opp filer</h1>
+<%--    <h1>Last ned og last opp filer</h1>
     <input type="text" id="myText" placeholder="Skriv inn ID">
     <input type="button" class="button_active" onclick="myFunction();" value="Last ned fil"/>
     <input type="button" class="button_active" onclick="location.href='ansatt/fileUpload'" value="Last opp fil"/>
     <p id="feilMelding"></p>
+--%>
 
 </div>
 
