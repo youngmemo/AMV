@@ -92,6 +92,7 @@
 
     <input type="button" class="button_active" onclick="location.href='admin/legge-til-utstyr';" value="Legg til utstyr"/>
     <input type="button" class="button_active" onclick="location.href='admin/se-forslag';" value="Se forslagene fra brukerne"/>
+    <input type="button" class="button_active" onclick="location.href='admin/se-rapport';" value="Se rapportene for utstyrene"/>
 
     <br><br>
 
