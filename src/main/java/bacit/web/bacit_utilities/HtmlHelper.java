@@ -27,6 +27,14 @@ public class HtmlHelper {
         out.println("</head>");
         out.println("<body>");
     }
+    public static void writeHtmlStartLogo(PrintWriter out) {
+        out.println("<html>");
+        out.println("<head>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<img src='https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w' class='imgLogo' alt='logo'>");
+
+    }
 
     public static void writeHtmlStartCssTitle(PrintWriter out, String title) {
         out.println("<html>");
