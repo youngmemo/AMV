@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "Liste Alle Ulånt Utstyr", value = "/ansatt/ulante-utstyr")
-public class ListeUtstyrServlet extends HttpServlet {
+@WebServlet(name = "Liste Alle Ulånt Utstyr", value = "/ansatt/ikke-lante-utstyr")
+public class IkkeLanteUtstyrServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
@@ -43,7 +43,7 @@ public class ListeUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT distinct Utstyr.Utstyr_Navn, Utstyr.Utstyr_ID FROM Foresporsel " +
+            String visTabell =  "SELECT distinct Utstyr_ID, Utstyr_Navn FROM Utstyr " +
                                 "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
                                 "WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);";
 

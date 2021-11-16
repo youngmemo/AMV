@@ -23,6 +23,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
+
         hentUtstyrSkjema(out, null);
     }
 
@@ -35,7 +36,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         model.setUtstyrId(request.getParameter("utstyrid"));
         model.setStartDato(request.getParameter("startdato"));
         model.setSluttDato(request.getParameter("sluttdato"));
-        model.setAnsattNummer(request.getParameter("ansattnummer"));
+        model.setAnsattNummer(request.getUserPrincipal().getName());
         model.setBetalingsMetode(request.getParameter("betalingsmetode"));
 
         PrintWriter out = response.getWriter();
@@ -48,7 +49,7 @@ public class BookeUtstyrServlet extends HttpServlet {
             {
                 out.println(ex.getMessage());
             }
-            HtmlHelper.writeHtmlStart(out, "Gratulerer, ditt ønskede utstyr er nå sendt inn for godkjenning!");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Gratulerer, ditt ønskede utstyr er nå sendt inn for godkjenning!");
             out.println("Ditt ansattnummer: "+model.getAnsattNummer());
             out.println("<br>Du kan hente ønskede utstyr hvis bekreftet dato: " + model.getStartDato());
             out.println("<br>Husk å levere ønskede utstyr hvis bekreftet dato: " +model.getSluttDato());
@@ -65,12 +66,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/booke-utstyr' method='POST'>");
 
         out.println("<h3>Her kan du booke utstyr</h3>");
-        out.println("<h3>Skriv inn ansattnummeret ditt under</h3>");
-
-        out.println("<label for='ansattnummer'>Ansattnummer</label>");
-        out.println("<input type='text' name='ansattnummer' placeholder='Skriv inn ansattnummer'/>");
-
-        out.println("<br><br><br>");
+        out.println("<br><br>");
         out.println("<h3>Vennligst velg utstyret du ønsker å låne</h3>");
 
         out.println("<label for='utstyrValg'>Velg et utstyr:</label>");

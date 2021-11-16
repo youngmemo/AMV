@@ -22,6 +22,8 @@ public class KansellereUtstyrServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        KansellereUtstyrModel model = new KansellereUtstyrModel();
+        model.setAnsattID(request.getUserPrincipal().getName());
 
         HtmlHelper.writeHtmlStartNoTitle(out);
         out.println("<h1>Kanseller utstyr</h1>");
@@ -29,7 +31,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
 
 
         try {
-            listForesporsel(out);
+            listForesporsel(out, model);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,21 +46,23 @@ public class KansellereUtstyrServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
-        KansellereUtstyrModel Model = new KansellereUtstyrModel();
+        KansellereUtstyrModel model = new KansellereUtstyrModel();
 
-        Model.setForesporselID(request.getParameter("ForesporselID"));
+        model.setForesporselID(request.getParameter("ForesporselID"));
+        model.setAnsattID(request.getUserPrincipal().getName());
+
         PrintWriter out = response.getWriter();
 
-        if (SjekkKansellere(Model)) {
+        if (SjekkKansellere(model)) {
             try {
-                KansellereUtstyr(Model, out);
+                KansellereUtstyr(model, out);
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
 
             HtmlHelper.writeHtmlStartCssTitle(out, "Utstyret har nå blitt kansellert!");
-            out.println("under ser du hvilket utstyr som ble kansellert: <br>" +
-                    "<br> Foresporsel ID " + Model.getForesporselID());
+            out.println("Under ser du hvilket utstyr som ble kansellert: <br>" +
+                    "<br> Foresporsel ID " + model.getForesporselID());
 
 
             HtmlHelper.writeHtmlEnd(out);
@@ -67,14 +71,14 @@ public class KansellereUtstyrServlet extends HttpServlet {
         }
     }
 
-    public void KansellereUtstyr(KansellereUtstyrModel Model, PrintWriter out) throws SQLException {
+    public void KansellereUtstyr(KansellereUtstyrModel model, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
             String statusKode = "DELETE FROM Foresporsel WHERE Foresporsel_ID = ?;";
 
             PreparedStatement kode = db.prepareStatement(statusKode);
-            kode.setString(1,Model.getForesporselID());
+            kode.setString(1,model.getForesporselID());
 
 
 
@@ -87,15 +91,17 @@ public class KansellereUtstyrServlet extends HttpServlet {
 
     }
 
-    public void listForesporsel(PrintWriter out) throws SQLException {
+    public void listForesporsel(PrintWriter out, KansellereUtstyrModel model) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String foresporselKode = "select Foresporsel_ID, Ansatt_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
-                                     "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID;";
+            String foresporselKode = "select Foresporsel_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
+                                     "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                                     "where Foresporsel.Ansatt_ID = ?";
 
 
             PreparedStatement kode = db.prepareStatement(foresporselKode);
+            kode.setString(1, model.getAnsattID());
             ResultSet rs;
             rs = kode.executeQuery();
             HtmlHelper.writeHtmlStartCss(out);
@@ -103,7 +109,6 @@ public class KansellereUtstyrServlet extends HttpServlet {
                     "<table>\n" +
                     "  <tr>\n" +
                     "    <th>Foresporsel ID</th>\n" +
-                    "    <th>Ansatt ID</th>\n" +
                     "    <th>Utstyr Navn</th>\n" +
                     "    <th>Start Dato</th>\n" +
                     "    <th>Slutt Dato</th>\n" +
@@ -112,7 +117,6 @@ public class KansellereUtstyrServlet extends HttpServlet {
 
             while(rs.next()) {
                 out.println("    <tr><td> " + rs.getInt("Foresporsel_ID") + " </td>\n" +
-                        "    <td> " + rs.getString("Ansatt_ID") +  "  </td>\n" +
                         "    <td> " + rs.getString("Utstyr_Navn") +  "  </td>\n" +
                         "    <td> " + rs.getString("Start_Dato") + " </td>\n" +
                         "    <td> " + rs.getString("Slutt_Dato") + " </td></tr>\n");
@@ -141,7 +145,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/kanseller-utstyr' method='POST'>");
 
         out.print("<br><br>");
-        out.println("Under kan du skrive forespørselen din som du ønsker å kansellere");
+        out.println("Under kan du skrive forespørselsnummeret som du ønsker å kansellere");
         out.println("<br><br> <label for='ForesporselID'>Foresporsel ID</label>");
         out.println("<input type='text' name='ForesporselID' placeholder='Skriv inn forespørsel ID'/>");
 
@@ -153,11 +157,11 @@ public class KansellereUtstyrServlet extends HttpServlet {
     }
 
 
-    public boolean SjekkKansellere(KansellereUtstyrModel Model) {
+    public boolean SjekkKansellere(KansellereUtstyrModel model) {
 
-        if (Model.getForesporselID() == null)
+        if (model.getForesporselID() == null)
             return false;
-        if (Model.getForesporselID().trim().equalsIgnoreCase(""))
+        if (model.getForesporselID().trim().equalsIgnoreCase(""))
             return false;
 
 
