@@ -54,7 +54,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
 
         }
     }
-        private void RapporteringAvUtstyr(RapportereUtstyrModel model, PrintWriter out) throws SQLException {
+    public void RapporteringAvUtstyr(RapportereUtstyrModel model, PrintWriter out) throws SQLException {
         Connection db = null;
         try{
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -72,7 +72,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
             e.printStackTrace();
         }
 }
-        private void RapporterUtstyrInput(PrintWriter out, String feilMelding) {
+    public void RapporterUtstyrInput(PrintWriter out, String feilMelding) {
             HtmlHelper.writeHtmlStart(out, "Her kan du rapportere utstyret du har lånt:");
             { {if(feilMelding !=null)
                 out.println("<h2>" + feilMelding + "</h2>");}
@@ -125,7 +125,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
 
 
 
-    private boolean checkRapporterUtstyr(RapportereUtstyrModel model) {
+    public boolean checkRapporterUtstyr(RapportereUtstyrModel model) {
     if (model.getRapport_Tittel() == null)
         return false;
     if (model.getRapport_Tittel().trim().equalsIgnoreCase(""))

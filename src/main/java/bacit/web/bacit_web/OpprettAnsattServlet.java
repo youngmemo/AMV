@@ -65,7 +65,7 @@ public class OpprettAnsattServlet extends HttpServlet {
         }
     }
 
-    private void leggTilAnsatt(AnsattModel ansatt, PrintWriter out) throws SQLException {
+    public void leggTilAnsatt(AnsattModel ansatt, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -96,7 +96,7 @@ public class OpprettAnsattServlet extends HttpServlet {
 
     }
 
-    private void lagAnsattSkjema(PrintWriter out, String feilMelding) {
+    public void lagAnsattSkjema(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Opprett ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");

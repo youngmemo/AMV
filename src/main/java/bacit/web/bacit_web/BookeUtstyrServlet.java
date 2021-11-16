@@ -150,8 +150,6 @@ public class BookeUtstyrServlet extends HttpServlet {
 
             String betalingKode = "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID) values(?,?,?);";
             String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato) values(?,?,?,?);";
-            String statusKode = "INSERT INTO Status (Foresporsel_ID, Levert) " +
-                                "SELECT MAX(Foresporsel_ID), false FROM Foresporsel;";
 
             PreparedStatement bkode = db.prepareStatement(betalingKode);
             bkode.setString(1, model.getAnsattNummer());
@@ -165,9 +163,6 @@ public class BookeUtstyrServlet extends HttpServlet {
             fkode.setString(3, model.getStartDato());
             fkode.setString(4, model.getSluttDato());
             fkode.executeUpdate();
-
-            PreparedStatement skode = db.prepareStatement(statusKode);
-            skode.executeUpdate();
 
             db.close();
         } catch (ClassNotFoundException e) {

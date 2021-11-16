@@ -97,7 +97,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
     }
 
-    private boolean SeUtstyr(LeggeTilUtstyrModel model) {
+    public boolean SeUtstyr(LeggeTilUtstyrModel model) {
         if (model.getUtstyr() == null)
             return false;
         if (model.getUtstyr().trim().equalsIgnoreCase(""))

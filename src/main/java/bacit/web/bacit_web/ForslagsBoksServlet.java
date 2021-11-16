@@ -83,7 +83,7 @@ public class ForslagsBoksServlet extends HttpServlet{
             ForslagsBoksInput(out, "Ops! Det skjedde noe feil..");
         }
     }
-    private void Forslagene(ForslagsBoksModel model, PrintWriter out) throws SQLException {
+    public void Forslagene(ForslagsBoksModel model, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -101,7 +101,7 @@ public class ForslagsBoksServlet extends HttpServlet{
             e.printStackTrace();
         }
     }
-    private void ForslagsBoksInput(PrintWriter out, String feilMelding) {
+    public void ForslagsBoksInput(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Skriv forslaget ditt");
         { {if(feilMelding !=null)
             out.println("<h2>" + feilMelding + "</h2>");}
@@ -149,7 +149,7 @@ public class ForslagsBoksServlet extends HttpServlet{
 
 
 
-        private boolean CheckForslag (ForslagsBoksModel model) {
+    public boolean CheckForslag (ForslagsBoksModel model) {
             if(model.getAnsatt_ID() == null)
                 return false;
             if(model.getAnsatt_ID().trim().equalsIgnoreCase(""))

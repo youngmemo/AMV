@@ -63,7 +63,7 @@ public class AvslaForesporselServlet extends HttpServlet {
 
     }
 
-    private void slettForesporsel(PrintWriter out, String foresporsel) throws SQLException {
+    public void slettForesporsel(PrintWriter out, String foresporsel) throws SQLException {
         Connection db = null;
 
         try {
@@ -89,11 +89,10 @@ public class AvslaForesporselServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "select Status.Foresporsel_ID, Utstyr.Utstyr_Navn, Foresporsel.Start_Dato, Foresporsel.Slutt_Dato from Foresporsel " +
+            String visTabell =  "select Foresporsel_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
                                 "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                                "inner join Status on Foresporsel.Foresporsel_ID = Status.Foresporsel_ID " +
-                                "WHERE NOT Levert = 1 " +
-                                "ORDER BY Status.Foresporsel_ID ASC;";
+                                "WHERE Akseptert = false " +
+                                "ORDER BY Foresporsel_ID ASC;";
 
 
 
@@ -127,7 +126,7 @@ public class AvslaForesporselServlet extends HttpServlet {
     }
 
 
-    private void hentHTMLkode(PrintWriter out, String feilMelding) {
+    public void hentHTMLkode(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Avslå forespørselen til en ansatt");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");

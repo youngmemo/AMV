@@ -22,7 +22,8 @@ public class LoggUtServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("<h1>" + message + "</h1>");
-        out.println("<style>\n" +
+        out.println(
+                "<style>\n" +
                 "td {\n" +
             "padding: 20px;\n" +
             "text-align: center;\n" +
@@ -44,10 +45,8 @@ public class LoggUtServlet extends HttpServlet {
                 "left: 50%;\n"+
                 "transform: translate(-50%, -50%);\n"+
                 "font-size: 60px;\n"+
-                        "font-family:Arial-BoldMT, Arial, Arial;\n" +
-
-
-        "}" +
+                "font-family:Arial-BoldMT, Arial, Arial;\n" +
+                "}" +
 
     "</style>");
 
@@ -60,6 +59,5 @@ public class LoggUtServlet extends HttpServlet {
         out.println("</body></html>");
     }
 
-    public void destroy() {
-    }
+
 }
