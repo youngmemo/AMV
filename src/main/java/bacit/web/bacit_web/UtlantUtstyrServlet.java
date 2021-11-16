@@ -43,10 +43,11 @@ public class UtlantUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT Foresporsel_ID, Ansatt.Ansatt_ID, Ansatt.Fornavn, Ansatt.Etternavn, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
+            String visTabell =  "SELECT Foresporsel.Foresporsel_ID, Ansatt.Ansatt_ID, Ansatt.Fornavn, Ansatt.Etternavn, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato FROM Foresporsel " +
                                 "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
+                                "inner join Status on Foresporsel.Foresporsel_ID = Status.Foresporsel_ID" +
                                 "inner join Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID " +
-                                "where Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE) " +
+                                "where Foresporsel.Akseptert = 1 AND Status.Levert = 0 AND Slutt_Dato > CAST(current_date AS DATE) AND Start_Dato < CAST(current_date AS DATE) " +
                                 "ORDER BY Foresporsel_ID ASC;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);

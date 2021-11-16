@@ -144,8 +144,14 @@ public class BookeUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String betalingKode = "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID) values(?,?,?);";
             String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato) values(?,?,?,?);";
+            String betalingKode =    "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID) values(?,?,?,(SELECT MAX(Foresporsel_ID) FROM Foresporsel));";
+            PreparedStatement fkode = db.prepareStatement(foresporselKode);
+            fkode.setString(1, model.getAnsattNummer());
+            fkode.setString(2, model.getUtstyrId());
+            fkode.setString(3, model.getStartDato());
+            fkode.setString(4, model.getSluttDato());
+            fkode.executeUpdate();
 
             PreparedStatement bkode = db.prepareStatement(betalingKode);
             bkode.setString(1, model.getAnsattNummer());
@@ -153,12 +159,6 @@ public class BookeUtstyrServlet extends HttpServlet {
             bkode.setString(3, model.getBetalingsMetode());
             bkode.executeUpdate();
 
-            PreparedStatement fkode = db.prepareStatement(foresporselKode);
-            fkode.setString(1, model.getAnsattNummer());
-            fkode.setString(2, model.getUtstyrId());
-            fkode.setString(3, model.getStartDato());
-            fkode.setString(4, model.getSluttDato());
-            fkode.executeUpdate();
 
             db.close();
         } catch (ClassNotFoundException e) {
