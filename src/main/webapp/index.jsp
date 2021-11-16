@@ -91,6 +91,8 @@
     <br><br>
 
     <input type="button" class="button_active" onclick="location.href='admin/legge-til-utstyr';" value="Legg til utstyr"/>
+    <input type="button" class="button_active" onclick="location.href='admin/se-forslag';" value="Se forslagene fra brukerne"/>
+
     <br><br>
 
     <h1>Normale rettigheter</h1>
