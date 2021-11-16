@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 @WebServlet(name= "FjernAnsattServlet", value = "/admin/fjerne-ansatt")
 public class FjernAnsattServlet extends HttpServlet {
@@ -19,7 +21,12 @@ public class FjernAnsattServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         FjernAnsattInput(out, null);
-}
+        try {
+            visTabell(out);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 @Override
 public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +36,6 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
     model.setAnsatt_ID(request.getParameter("Ansattnummeret"));
 
     PrintWriter out = response.getWriter();
-
     if (CheckFjernAnsatt(model)) {
         try {
             AnsattFjernet(model, out);
@@ -39,7 +45,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         HtmlHelper.writeHtmlStart(out, "Ansatt er fjernet!");
         out.println("<br><b>Ansattnummeret</b>" + model.getAnsatt_ID());
 
-        HtmlHelper.writeHtmlEnd(out);;
+        HtmlHelper.writeHtmlEnd(out);
         out.println("<html><head>");
 
         out.println("<style>\n" +
@@ -99,35 +105,49 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             out.println("</form>");
 
             HtmlHelper.writeHtmlEnd(out);
-            out.println("<html><head>");
 
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
 
         }
 }
+    public void visTabell(PrintWriter out) throws SQLException{
+        Connection db = null;
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+            String ShowTable = "SELECT distinct Ansatt_ID, Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer FROM Ansatt";
+            PreparedStatement kode = db.prepareStatement(ShowTable);
+            ResultSet rs;
+            rs = kode.executeQuery();
+            HtmlHelper.writeHtmlNoTitle(out);
+            out.println("<table>" +
+                    "<tr>" +
+                    "<th>Ansatt ID</th>" +
+                    "<th>Fornavn</th>" +
+                    "<th>Etternavn</th>" +
+                    "<th>Mobilnummer</th>" +
+                    "<th>Epost</th>" +
+                    "<th>Adresse</th>" +
+                    "<th>Bynavn</th>" +
+                    "<th>Postnummer</th>"+
+                    "</tr>");
+            while(rs.next()){
+                out.println("<tr>"+
+                        "<td>" + rs.getInt("Ansatt_ID") + "</td>" +
+                        "<td>" + rs.getString("Fornavn") + "</td>" +
+                        "<td>" + rs.getString("Etternavn") + "</td>" +
+                        "<td>" + rs.getInt("Mobilnummer") + "</td>" +
+                        "<td>" + rs.getString("Epost") + "</td>" +
+                        "<td>" + rs.getString("Adresse") + "</td>" +
+                        "<td>" + rs.getString("Bynavn") + "</td>" +
+                        "<td>" + rs.getInt("Postnummer") + "</td>" +
+                        "</tr>");
+            }
+            db.close();
+            HtmlHelper.writeHtmlEnd(out);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean CheckFjernAnsatt(FjernAnsattModel model) {
         if(model.getAnsatt_ID() == null)
