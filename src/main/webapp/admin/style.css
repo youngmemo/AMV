@@ -1,11 +1,25 @@
 body {
     background-color: goldenrod;
+    text-align: center;
+    margin: auto;
+    max-width: 500px;
 }
+h1 {
+    color: midnightblue;
+    text-align: center;
+    font-family: Arial-BoldMT, Arial, Arial;
+
+}
+
 
 table {
     font-family: arial, sans-serif;
-    border-collapse: collapse;
+    border-collapse: separate;
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display:flex;
+    justify-content: center;
 }
 
 td, th {

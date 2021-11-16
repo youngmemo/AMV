@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name = "FjerneUtstyr", value = "/admin/fjerne-utstyr")
@@ -23,7 +24,15 @@ public class FjerneUtstyrServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         SlettUtstyrInput(out, null);
 
+
+        try {
+        Vistabell(out);
     }
+        catch (SQLException ex)
+    {
+        out.println(ex.getMessage());
+    }
+}
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +50,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt fjernet");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Utstyret har nå blitt fjernet");
             out.println("under ser du hvilket utstyr du som har blitt fjernet: <br>" +
                     "<br>Utstyr navn: " + Utstyr.getUtstyr());
 
@@ -68,12 +77,54 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
     }
 
-    public void SlettUtstyrInput(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStartCssTitle(out, "Fjerne Utstyr");
-        if (feilMelding != null) {
-            out.println("<h2>" + feilMelding + "</h2>");
+    public void Vistabell(PrintWriter out) throws SQLException {
+        Connection db = null;
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+            String Showtable = "SELECT * FROM Utstyr;";
+
+
+
+            PreparedStatement kode = db.prepareStatement(Showtable);
+            ResultSet rs;
+            rs = kode.executeQuery();
+
+
+            out.println("<table>" +
+                    "<tr>" +
+                    "<th>Utstyr navn</th>" +
+                    "<th>Utstyr ID</th>" +
+                    "<th>Kategori ID</th>" +
+                    "</tr>");
+
+            while (rs.next()) {
+                out.println("<tr>" +
+                        "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
+                        "<td>" + rs.getString("Utstyr_ID") + "</td>" +
+                        "<td>" + rs.getString("Kategori_ID") + "</td>" +
+                        "</tr>");
+            }
+
+
+            db.close();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
+
+
+    }
+
+    public void SlettUtstyrInput(PrintWriter out, String feilMelding) {
+        HtmlHelper.writeHtmlStartCss(out);
+        if (feilMelding != null) {
+            out.println("<h3>" + feilMelding + "</h3>");
+
+        }
+
+        out.println("<h1> Fjerne Utstyr </h1>");
+        out.println("Vennligst skriv under hvilket utstyr du ønsker å fjerne");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/fjerne-utstyr' method='POST'>");
         out.println("<br><br> <label for='utstyr navn'>Utstyr navn</label>");
         out.println("<input type='text' name='utstyrnavn' placeholder='Skriv inn navnet'/>");
@@ -81,6 +132,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         out.println("<br><br> <input type='submit' value='Fjern utstyr'/>");
         out.println("</form>");
+
         HtmlHelper.writeHtmlEnd(out);
 
     }
