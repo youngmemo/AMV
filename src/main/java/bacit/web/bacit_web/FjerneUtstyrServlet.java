@@ -89,7 +89,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
             ResultSet rs;
             rs = kode.executeQuery();
 
-
+            out.println("<div id=Sentrere>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Utstyr navn</th>" +
@@ -104,7 +104,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
                         "<td>" + rs.getString("Kategori_ID") + "</td>" +
                         "</tr>");
             }
-
+            out.println("</div>");
 
             db.close();
 
