@@ -79,21 +79,24 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
-
+        out.println("<h1> Skriv inn opplysninger under for å legge til utstyr </h1>");
+        out.println("<div id=feltned>");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/legge-til-utstyr' method='POST'>");
         out.println("<br><br> <label for='utstyr navn'>Utstyr navn</label>");
         out.println("<input type='text' name='utstyrnavn' placeholder='Skriv inn navnet'/>");
 
-        out.println("<br><br> <label for='utstyrBeskrivelse'>Utstyr beskrivelse</label>");
+        out.println("<br><br><br><br> <label for='utstyrBeskrivelse'>Utstyr beskrivelse</label>");
         out.println("<input type='text' name='utstyrBeskrivelse' placeholder='beskrivelse'/>");
 
-        out.println("<br><br> <label for='KategoriID'>Kategori ID</label>");
+        out.println("<br><br><br><br> <label for='KategoriID'>Kategori ID</label>");
         out.println("<input type='text' name='KategoriID' placeholder='ID'/>");
 
 
         out.println("<br><br> <input type='submit' value='Legg til Utstyr'/>");
         out.println("</form>");
+        out.println("</div>");
         HtmlHelper.writeHtmlEnd(out);
+
 
     }
 

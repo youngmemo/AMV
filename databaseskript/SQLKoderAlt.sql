@@ -121,6 +121,7 @@ CREATE OR REPLACE TABLE Files
     PRIMARY KEY (Id)
 );
 
+
 INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
        ('Kjøretøy');

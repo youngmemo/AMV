@@ -5,6 +5,15 @@ body {
     max-width: 500px;
 
 
+
+}
+h3 {
+    position: relative;
+    font-size: 50px;
+    color: midnightblue;
+    text-align: center;
+    font-family: Arial-BoldMT, Arial, Arial;
+    margin-top: 50px;
 }
 h1 {
     position: relative;
@@ -50,6 +59,11 @@ table {
     left: 5px;
     z-index: 2;
     width: 10%;
+}
+
+#feltned {
+    margin-top: 120px;
+
 }
 td, th {
 text-align: left;
