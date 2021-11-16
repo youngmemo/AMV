@@ -3,8 +3,12 @@ body {
     text-align: center;
     margin: auto;
     max-width: 500px;
+
+
 }
 h1 {
+    position: relative;
+    top: 15px;
     color: midnightblue;
     text-align: center;
     font-family: Arial-BoldMT, Arial, Arial;
@@ -22,6 +26,13 @@ h1 {
     display:flex;
     justify-content: center;
 }
+#submit center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display:flex;
+    justify-content: center;
+}
 
 table {
     font-family: arial, sans-serif;
@@ -33,6 +44,13 @@ table {
     justify-content: center;
 }
 
+.imgLogo {
+    position: fixed;
+    top: 3px;
+    left: 5px;
+    z-index: 2;
+    width: 10%;
+}
 td, th {
 text-align: left;
 padding: 8px;

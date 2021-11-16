@@ -23,6 +23,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         SlettUtstyrInput(out, null);
+        HtmlHelper.writeHtmlStartLogo(out);
 
 
         try {
@@ -124,14 +125,17 @@ public class FjerneUtstyrServlet extends HttpServlet {
         }
 
         out.println("<h1> Fjerne Utstyr </h1>");
-        out.println("Vennligst skriv under hvilket utstyr du ønsker å fjerne");
+        out.println("<br><br>");
+        out.println("<h3> Vennligst skriv under hvilket utstyr du ønsker å fjerne </h3>");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/fjerne-utstyr' method='POST'>");
         out.println("<br><br> <label for='utstyr navn'>Utstyr navn</label>");
+        out.println("<br><br>");
         out.println("<input type='text' name='utstyrnavn' placeholder='Skriv inn navnet'/>");
 
-
-        out.println("<br><br> <input type='submit' value='Fjern utstyr'/>");
+        out.println("<div id=submit center>");
+        out.println("<br> <input type='submit' value='Fjern utstyr'/>");
         out.println("</form>");
+        out.println("</div>");
 
         HtmlHelper.writeHtmlEnd(out);
 
