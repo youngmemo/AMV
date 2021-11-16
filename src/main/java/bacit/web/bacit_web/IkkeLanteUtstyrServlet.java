@@ -43,9 +43,10 @@ public class IkkeLanteUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT distinct Utstyr_ID, Utstyr_Navn FROM Utstyr " +
-                                "INNER JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                                "WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);";
+            String visTabell =  "SELECT distinct Utstyr.Utstyr_ID, Utstyr_Navn FROM Utstyr " +
+                                "INNER JOIN Foresporsel ON Utstyr.Utstyr_ID = Foresporsel.Utstyr_ID " +
+                                "INNER JOIN Status ON Foresporsel.Foresporsel_ID = Status.Foresporsel_ID " +
+                                "WHERE Status.Levert = true AND Foresporsel.Akseptert = false;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
@@ -96,8 +97,8 @@ public class IkkeLanteUtstyrServlet extends HttpServlet {
 
             while (rs.next()) {
                 out.println("<tr>" +
-                        "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
                         "<td>" + rs.getString("Utstyr_ID") + "</td>" +
+                        "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
                         "</tr>");
             }
             out.println("</div>");
