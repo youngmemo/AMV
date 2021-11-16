@@ -94,6 +94,8 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             ResultSet rs;
             rs = kode.executeQuery();
 
+
+
             out.println("<div id=Sentrere>");
             out.println("<table>" +
                     "<tr>" +
@@ -119,6 +121,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
                         "</tr>");
             }
             out.println("</div>");
+
 
             db.close();
 
