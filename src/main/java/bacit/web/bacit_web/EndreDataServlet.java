@@ -33,7 +33,7 @@ public class EndreDataServlet extends HttpServlet {
         ansatt.setAdresse(request.getParameter("adresse"));
         ansatt.setPostNummer(request.getParameter("postnummer"));
         ansatt.setPassord(request.getParameter("passord"));
-        ansatt.setAnsattNummer(request.getParameter("ansattnummer"));
+        ansatt.setAnsattID(request.getParameter("ansattnummer"));
 
         PrintWriter out = response.getWriter();
 
@@ -46,7 +46,7 @@ public class EndreDataServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStart(out, "Den ansatte sine data er nå endret!");
-            out.println("Disse informasjonene av ansattnummer "+ansatt.getAnsattNummer()+" ble oppdatert i vår database<br>"+
+            out.println("Disse informasjonene av ansattnummer "+ansatt.getAnsattID()+" ble oppdatert i vår database<br>"+
                     "<br>Epost: " +ansatt.getEpost()+
                     "<br>Adresse: "+ansatt.getAdresse()+
                     "<br>Postnummer: "+ansatt.getPostNummer()+
@@ -64,14 +64,14 @@ public class EndreDataServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "UPDATE ansatt SET Epost = ?, Adresse = ?, Post_nummer = ?, Passord = ? WHERE Ansatt_Nummer = ?";
+            String leggeTilKode = "UPDATE ansatt SET Epost = ?, Adresse = ?, Post_nummer = ?, Passord = ? WHERE Ansatt_ID = ?";
             //String leggeTilKode = "insert into ansatt (Epost, Adresse, Post_nummer, Passord),  values(?,?,?,?);";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, ansatt.getEpost());
             kode.setString(2, ansatt.getAdresse());
             kode.setString(3, ansatt.getPostNummer());
             kode.setString(4, ansatt.getPassord());
-            kode.setString(5, ansatt.getAnsattNummer());
+            kode.setString(5, ansatt.getAnsattID());
 
             kode.executeUpdate();
 
@@ -128,9 +128,9 @@ public class EndreDataServlet extends HttpServlet {
             return false;
         if(ansatt.getPostNummer().trim().equalsIgnoreCase(""))
             return false;
-        if(ansatt.getAnsattNummer()==null)
+        if(ansatt.getAnsattID()==null)
             return false;
-        if(ansatt.getAnsattNummer().trim().equalsIgnoreCase(""))
+        if(ansatt.getAnsattID().trim().equalsIgnoreCase(""))
             return false;
         if(ansatt.getPassord()==null)
             return false;

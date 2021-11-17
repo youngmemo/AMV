@@ -96,7 +96,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
 
 
 
-            out.println("<div id=Sentrere>");
+            out.println("<div id=FjernAnsattSentrering>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Ansatt ID</th>" +
@@ -109,6 +109,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
                     "<th>Postnummer</th>"+
                     "</tr>");
             while(rs.next()){
+                out.println("<div id=FjernAnsattSentrering>");
                 out.println("<tr>"+
                         "<td>" + rs.getInt("Ansatt_ID") + "</td>" +
                         "<td>" + rs.getString("Fornavn") + "</td>" +
