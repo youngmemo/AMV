@@ -21,6 +21,7 @@ public class FjernAnsattServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         FjernAnsattInput(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         try {
             visTabell(out);
