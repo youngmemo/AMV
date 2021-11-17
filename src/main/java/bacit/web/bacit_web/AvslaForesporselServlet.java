@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import javax.xml.transform.Result;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.http.HttpRequest;
 import java.sql.*;
 
 @WebServlet(name = "AvslaForesporselServlet", value = "/admin/avsla-foresporsel")

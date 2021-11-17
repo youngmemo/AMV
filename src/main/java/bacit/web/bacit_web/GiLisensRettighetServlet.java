@@ -29,7 +29,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
         response.setContentType("text/html");
         AnsattModel ansatt = new AnsattModel();
 
-        ansatt.setAnsattNummer(request.getParameter("ansattnummer"));
+        ansatt.setAnsattID(request.getParameter("ansattid"));
         ansatt.setKommentar(request.getParameter("kommentar"));
 
         PrintWriter out = response.getWriter();
@@ -43,8 +43,8 @@ public class GiLisensRettighetServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStart(out, "Den ansatte sine brukerrettigheter er nå endret!");
-            out.println("Ansattnummer "+ansatt.getAnsattNummer()+" har nå blitt oppdatert i vår database, og har nå fått lisensrettigheter<br>"+
-                        "<br><b>Ansattnummer:</b> " +ansatt.getAnsattNummer()+
+            out.println("AnsattID "+ansatt.getAnsattID()+" har nå blitt oppdatert i vår database, og har nå fått lisensrettigheter<br>"+
+                        "<br><b>AnsattID:</b> " +ansatt.getAnsattID()+
                         "<br><b>Rettighet: </b>Lisens" +
                         "<br><b>Kommentar: </b>" + ansatt.getKommentar());
             HtmlHelper.writeHtmlEnd(out);
@@ -61,7 +61,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
             db = DBUtils.getINSTANCE().getConnection(out);
             String giLisensKode = "INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar) VALUES(?,'lisens',?)";
             PreparedStatement kode = db.prepareStatement(giLisensKode);
-            kode.setString(1, ansatt.getAnsattNummer());
+            kode.setString(1, ansatt.getAnsattID());
             kode.setString(2, ansatt.getKommentar());
 
             kode.executeUpdate();
@@ -81,10 +81,10 @@ public class GiLisensRettighetServlet extends HttpServlet {
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/gi-lisens' method='POST'>");
 
         out.println("<h3>Her kan du gi lisensrettigheter til en ansatt</h3>");
-        out.println("<p>Skriv inn ansattnummeret på den ansatte og deretter fyll inn kommentar hvis ønsket</p>");
+        out.println("<p>Skriv inn ansattiden på den ansatte og deretter fyll inn kommentar hvis ønsket</p>");
 
-        out.println("<label for='ansattnummer'>Ansattnummer</label>");
-        out.println("<input type='text' name='ansattnummer' placeholder='Skriv inn ansattnummer '/>");
+        out.println("<label for='ansattid'>AnsattID</label>");
+        out.println("<input type='text' name='ansattid' placeholder='Skriv inn ansattid '/>");
 
         out.println("<br><br>");
         out.println("<label for='kommentar'>Kommentar</label>");
@@ -97,9 +97,9 @@ public class GiLisensRettighetServlet extends HttpServlet {
     }
 
     public boolean sjekkAnsatt(AnsattModel ansatt) {
-        if(ansatt.getAnsattNummer()==null)
+        if(ansatt.getAnsattID()==null)
             return false;
-        if(ansatt.getAnsattNummer().trim().equalsIgnoreCase(""))
+        if(ansatt.getAnsattID().trim().equalsIgnoreCase(""))
             return false;
         if(ansatt.getKommentar()==null)
             return false;

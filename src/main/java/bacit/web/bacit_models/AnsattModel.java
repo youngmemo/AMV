@@ -8,7 +8,7 @@ public class AnsattModel {
     private String adresse;
     private String by;
     private String postNummer;
-    private String ansattNummer;
+    private String ansattID;
     private String passord;
     private String kommentar;
 
@@ -68,12 +68,12 @@ public class AnsattModel {
         this.postNummer = postNummer;
     }
 
-    public String getAnsattNummer() {
-        return ansattNummer;
+    public String getAnsattID() {
+        return ansattID;
     }
 
-    public void setAnsattNummer(String ansattNummer) {
-        this.ansattNummer = ansattNummer;
+    public void setAnsattID(String ansattNummer) {
+        this.ansattID = ansattID;
     }
 
     public String getBy() {
