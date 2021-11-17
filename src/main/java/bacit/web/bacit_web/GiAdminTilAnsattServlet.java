@@ -21,6 +21,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         hentAnsattSkjema(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,6 +34,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         ansatt.setKommentar(request.getParameter("kommentar"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if(sjekkAnsatt(ansatt)){
             try{

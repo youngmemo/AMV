@@ -24,6 +24,7 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         hentUtstyrSkjema(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +40,7 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
         model.setBetalingsMetode(request.getParameter("betalingsmetode"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
         if(sjekkInput(model)){
             try{
                 sendInnUtstyr(model, out);

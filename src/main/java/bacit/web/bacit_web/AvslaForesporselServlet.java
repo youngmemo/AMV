@@ -31,6 +31,7 @@ public class AvslaForesporselServlet extends HttpServlet {
         }
 
         hentHTMLkode(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 
@@ -59,6 +60,7 @@ public class AvslaForesporselServlet extends HttpServlet {
         {
             out.println(ex.getMessage());
         }
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 

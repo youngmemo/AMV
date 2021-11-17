@@ -37,6 +37,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
         Utstyr.setUtstyrBeskrivelse(request.getParameter("utstyrBeskrivelse"));
         Utstyr.setKategoriID(request.getParameter("KategoriID"));
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if (SeUtstyr(Utstyr)) {
             try {

@@ -21,6 +21,7 @@ public class EndreDataServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         hentAnsattSkjema(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,6 +37,7 @@ public class EndreDataServlet extends HttpServlet {
         ansatt.setAnsattID(request.getParameter("ansattnummer"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if(sjekkAnsatt(ansatt)){
             try{

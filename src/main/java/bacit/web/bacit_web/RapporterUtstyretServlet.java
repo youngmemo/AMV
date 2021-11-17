@@ -19,6 +19,8 @@ public class RapporterUtstyretServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         RapporterUtstyrInput(out,null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
     }
 
     @Override
@@ -33,6 +35,8 @@ public class RapporterUtstyretServlet extends HttpServlet {
         model.setAnsatt_ID(request.getParameter("Ansatt"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
 
         if(checkRapporterUtstyr(model)) {
             try {

@@ -25,6 +25,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         hentUtstyrSkjema(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,6 +41,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         model.setBetalingsMetode(request.getParameter("betalingsmetode"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if(sjekkInput(model)){
             try{
@@ -54,6 +56,7 @@ public class BookeUtstyrServlet extends HttpServlet {
             out.println("<br>Du kan hente ønskede utstyr hvis bekreftet dato: " + model.getStartDato());
             out.println("<br>Husk å levere ønskede utstyr hvis bekreftet dato: " +model.getSluttDato());
         }
+
 
     }
 

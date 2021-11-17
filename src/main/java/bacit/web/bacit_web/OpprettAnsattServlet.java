@@ -21,6 +21,8 @@ public class OpprettAnsattServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         lagAnsattSkjema(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
     }
 
     @Override
@@ -41,6 +43,8 @@ public class OpprettAnsattServlet extends HttpServlet {
         ansatt.setPassord(request.getParameter("passord"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
 
         if (sjekkAnsatt(ansatt)) {
             try {

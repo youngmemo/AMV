@@ -21,6 +21,8 @@ public class ForslagsBoksServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
         ForslagsBoksInput(out, null);
     }
 
@@ -38,6 +40,9 @@ public class ForslagsBoksServlet extends HttpServlet{
 
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
+
 
         if (CheckForslag(model)) {
             try {

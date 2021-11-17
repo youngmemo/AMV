@@ -29,6 +29,7 @@ public class FjernAdminServlet extends HttpServlet {
             e.printStackTrace();
         }
         SlettAdminInput(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
     }
 
     @Override
@@ -36,10 +37,13 @@ public class FjernAdminServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
         FjernAdminModel Admin = new FjernAdminModel();
 
+
         Admin.setAdmin(request.getParameter("AnsattID"));
-        PrintWriter out = response.getWriter();
 
         if (SjekkAdmin(Admin)) {
             try {

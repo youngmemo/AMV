@@ -34,6 +34,8 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
         out.println("Ingen utstyr nedenfor? <br> Det betyr du er good to go!");
         out.println("<br><br><br><br>");
 
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
     }
 
     @Override
@@ -49,6 +51,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if (CheckBekreftTilbakelevering(model)) {
             try {

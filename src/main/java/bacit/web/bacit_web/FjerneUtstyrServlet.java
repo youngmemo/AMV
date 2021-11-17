@@ -44,6 +44,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         Utstyr.setUtstyr(request.getParameter("utstyrnavn"));
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if (SjekkUtstyr(Utstyr)) {
             try {

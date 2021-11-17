@@ -21,6 +21,7 @@ public class FjernAnsattServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         FjernAnsattInput(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         try {
             visTabell(out);
@@ -37,6 +38,8 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
     model.setAnsatt_ID(request.getParameter("Ansattnummeret"));
 
     PrintWriter out = response.getWriter();
+    HtmlHelper.writeHtmlStartKnappLogo(out);
+
     if (CheckFjernAnsatt(model)) {
         try {
             AnsattFjernet(model, out);

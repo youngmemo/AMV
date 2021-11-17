@@ -20,6 +20,8 @@ public class SeForslagServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
         try{
             seForslagene(out);
         }

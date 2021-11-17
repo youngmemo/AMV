@@ -28,6 +28,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
         HtmlHelper.writeHtmlStartNoTitle(out);
         out.println("<h1>Kanseller utstyr</h1>");
         HtmlHelper.writeHtmlEnd(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
 
         try {
@@ -52,6 +53,8 @@ public class KansellereUtstyrServlet extends HttpServlet {
         model.setAnsattID(request.getUserPrincipal().getName());
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
 
         if (SjekkKansellere(model)) {
             try {

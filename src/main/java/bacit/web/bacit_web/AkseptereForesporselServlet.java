@@ -29,6 +29,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
         }
 
         hentHTMLkode(out, null);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 
@@ -55,6 +56,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 
