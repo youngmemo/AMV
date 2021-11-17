@@ -7,7 +7,7 @@ body {
 
 
 }
-h3 {
+h2 {
     position: relative;
     font-size: 50px;
     color: midnightblue;
@@ -62,7 +62,7 @@ table {
 }
 
 #feltned {
-    margin-top: 120px;
+    margin-top: 25px;
 
 }
 td, th {
@@ -72,6 +72,28 @@ padding: 8px;
 
 tr:nth-child(even) {
 background-color: #dddddd;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=submit] {
+    width: 100%;
+    background-color: midnightblue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: darkslateblue;
 }
 
 /* Husk å legge inn CSS fil for hver rolle */

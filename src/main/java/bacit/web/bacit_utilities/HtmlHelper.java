@@ -43,7 +43,7 @@ public class HtmlHelper {
         out.println("<title>" + title + "</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h3>" + title + "</h3>");
+        out.println("<h2>" + title + "</h2>");
     }
 
     public static void writeHtmlOnlyHead(PrintWriter out, String title) {
