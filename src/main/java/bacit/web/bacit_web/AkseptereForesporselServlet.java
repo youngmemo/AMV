@@ -21,6 +21,8 @@ public class AkseptereForesporselServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         try {
             seForesporsel(out);
@@ -29,7 +31,6 @@ public class AkseptereForesporselServlet extends HttpServlet {
         }
 
         hentHTMLkode(out, null);
-        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 
@@ -38,6 +39,9 @@ public class AkseptereForesporselServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         SvareForesporselModel model = new SvareForesporselModel();
         String foresporsel = request.getParameter("foresporselIdInp");
@@ -56,7 +60,6 @@ public class AkseptereForesporselServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 

@@ -20,8 +20,10 @@ public class EndreDataServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        hentAnsattSkjema(out, null);
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
+
+        hentAnsattSkjema(out, null);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -37,6 +39,7 @@ public class EndreDataServlet extends HttpServlet {
         ansatt.setAnsattID(request.getParameter("ansattnummer"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if(sjekkAnsatt(ansatt)){

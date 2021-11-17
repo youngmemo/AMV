@@ -22,6 +22,8 @@ public class FjernAdminServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         try {
             ListOppAdmin(out);
@@ -29,7 +31,6 @@ public class FjernAdminServlet extends HttpServlet {
             e.printStackTrace();
         }
         SlettAdminInput(out, null);
-        HtmlHelper.writeHtmlStartKnappLogo(out);
     }
 
     @Override
@@ -38,6 +39,7 @@ public class FjernAdminServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         FjernAdminModel Admin = new FjernAdminModel();

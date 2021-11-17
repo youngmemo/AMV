@@ -21,6 +21,7 @@ public class OpprettAnsattServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         lagAnsattSkjema(out, null);
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
@@ -43,6 +44,7 @@ public class OpprettAnsattServlet extends HttpServlet {
         ansatt.setPassord(request.getParameter("passord"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
 

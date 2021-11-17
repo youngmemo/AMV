@@ -23,9 +23,11 @@ public class BookeUtstyrServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         hentUtstyrSkjema(out, null);
-        HtmlHelper.writeHtmlStartKnappLogo(out);
+
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,6 +43,7 @@ public class BookeUtstyrServlet extends HttpServlet {
         model.setBetalingsMetode(request.getParameter("betalingsmetode"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if(sjekkInput(model)){

@@ -23,6 +23,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         SlettUtstyrInput(out, null);
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
 
@@ -44,6 +45,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         Utstyr.setUtstyr(request.getParameter("utstyrnavn"));
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if (SjekkUtstyr(Utstyr)) {

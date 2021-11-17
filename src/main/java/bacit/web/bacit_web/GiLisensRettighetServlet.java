@@ -21,6 +21,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         hentAnsattSkjema(out, null);
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
@@ -35,6 +36,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
         ansatt.setKommentar(request.getParameter("kommentar"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if(sjekkAnsatt(ansatt)){

@@ -23,6 +23,8 @@ public class AvslaForesporselServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         try {
             seForesporsel(out);
@@ -31,7 +33,7 @@ public class AvslaForesporselServlet extends HttpServlet {
         }
 
         hentHTMLkode(out, null);
-        HtmlHelper.writeHtmlStartKnappLogo(out);
+
 
     }
 
@@ -40,6 +42,9 @@ public class AvslaForesporselServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
 
         SvareForesporselModel model = new SvareForesporselModel();
         String foresporsel = request.getParameter("foresporselIdInp");
@@ -60,7 +65,6 @@ public class AvslaForesporselServlet extends HttpServlet {
         {
             out.println(ex.getMessage());
         }
-        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 

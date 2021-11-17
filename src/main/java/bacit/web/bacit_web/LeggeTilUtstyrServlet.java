@@ -22,6 +22,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         leggtilUtstyrInput(out, null);
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
@@ -37,6 +38,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
         Utstyr.setUtstyrBeskrivelse(request.getParameter("utstyrBeskrivelse"));
         Utstyr.setKategoriID(request.getParameter("KategoriID"));
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if (SeUtstyr(Utstyr)) {

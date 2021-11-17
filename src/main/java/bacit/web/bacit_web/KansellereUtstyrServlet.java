@@ -22,13 +22,15 @@ public class KansellereUtstyrServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
+
         KansellereUtstyrModel model = new KansellereUtstyrModel();
         model.setAnsattID(request.getUserPrincipal().getName());
 
         HtmlHelper.writeHtmlStartNoTitle(out);
         out.println("<h1>Kanseller utstyr</h1>");
         HtmlHelper.writeHtmlEnd(out);
-        HtmlHelper.writeHtmlStartKnappLogo(out);
 
 
         try {
@@ -53,6 +55,7 @@ public class KansellereUtstyrServlet extends HttpServlet {
         model.setAnsattID(request.getUserPrincipal().getName());
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
 

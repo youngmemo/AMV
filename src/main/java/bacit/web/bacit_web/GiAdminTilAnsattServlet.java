@@ -20,8 +20,10 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        hentAnsattSkjema(out, null);
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
+
+        hentAnsattSkjema(out, null);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -34,6 +36,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         ansatt.setKommentar(request.getParameter("kommentar"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if(sjekkAnsatt(ansatt)){

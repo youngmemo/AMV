@@ -20,6 +20,8 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
         String innloggetAnsatt = request.getUserPrincipal().getName();
 
@@ -34,7 +36,6 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
         out.println("Ingen utstyr nedenfor? <br> Det betyr du er good to go!");
         out.println("<br><br><br><br>");
 
-        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 
@@ -51,6 +52,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
         if (CheckBekreftTilbakelevering(model)) {

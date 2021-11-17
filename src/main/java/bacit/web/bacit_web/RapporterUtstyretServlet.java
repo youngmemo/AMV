@@ -18,8 +18,10 @@ public class RapporterUtstyretServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        RapporterUtstyrInput(out,null);
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
+
+        RapporterUtstyrInput(out,null);
 
     }
 
@@ -35,6 +37,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
         model.setAnsatt_ID(request.getParameter("Ansatt"));
 
         PrintWriter out = response.getWriter();
+        HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
 
