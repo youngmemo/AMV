@@ -7,6 +7,12 @@ body {
 
 
 }
+h3 {
+
+    font-size: 30px;
+    text-align: center;
+    font-family: Arial-BoldMT, Arial, Arial;
+}
 h2 {
     position: relative;
     font-size: 50px;
@@ -74,6 +80,15 @@ tr:nth-child(even) {
 background-color: #dddddd;
 }
 input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

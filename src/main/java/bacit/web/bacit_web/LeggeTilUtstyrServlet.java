@@ -22,6 +22,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         leggtilUtstyrInput(out, null);
+        HtmlHelper.writeHtmlStartLogo(out);
 
     }
 
@@ -44,7 +45,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt lagt til!");
-            out.println("under ser du hvilket utstyr som ble lagt til: <br>" +
+            out.println("under ser du hvilket utstyr som ble lagt til:  <br>" +
                     "<br>Utstyr navn: " + Utstyr.getUtstyr() +
                     "<br>Utstyr beskrivelse: " + Utstyr.getUtstyrBeskrivelse() +
                     "<br>Kategori ID: " + Utstyr.getKategoriID());
@@ -79,17 +80,15 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
-        out.println("Skriv inn opplysninger under for å legge til utstyr");
+        out.println("<h3> Skriv inn opplysninger under for å legge til utstyr </h3>");
         out.println("<div id=feltned>");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/legge-til-utstyr' method='POST'>");
-        out.println("<br><br> <label for='utstyr navn'>Utstyr navn</label>");
-        out.println("<input type='text' name='utstyrnavn' placeholder='vennligst skriv navnet på utstyret'/>");
 
-        out.println("<br><br><br><br> <label for='utstyrBeskrivelse'>Utstyr beskrivelse</label>");
-        out.println("<input type='text' name='utstyrBeskrivelse' placeholder='vennligst beskriv utstyret'/>");
+        out.println("<br><br><br><input type='text' name='utstyrnavn' placeholder='Skriv inn utstyr navn'/>");
 
-        out.println("<br><br><br><br> <label for='KategoriID'>Kategori ID</label>");
-        out.println("<input type='text' name='KategoriID' placeholder='vennligst skriv inn kategori ID'/>");
+        out.println("<br><br><br><input type='text' name='utstyrBeskrivelse' placeholder='Skriv inn Utstyr beskrivelse'/>");
+
+        out.println("<br><br><br><input type='text' name='KategoriID' placeholder='Skriv inn kategori ID'/>");
 
 
         out.println("<br><br> <input type='submit' value='Legg til Utstyr'/>");
