@@ -23,7 +23,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         SlettUtstyrInput(out, null);
-        HtmlHelper.writeHtmlStartLogo(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
 
         try {

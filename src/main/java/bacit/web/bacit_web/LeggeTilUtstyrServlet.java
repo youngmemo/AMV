@@ -22,7 +22,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         leggtilUtstyrInput(out, null);
-        HtmlHelper.writeHtmlStartLogo(out);
+        HtmlHelper.writeHtmlStartKnappLogo(out);
 
     }
 
