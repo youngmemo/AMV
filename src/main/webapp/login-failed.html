@@ -1,14 +1,16 @@
 <html lang="en">
 <head>
     <style>
-        p {
-            position: absolute;
-            color: midnightblue;
-            font-family: Arial-BoldMT, Arial, Arial;
+        #midtstilt {
             top: 30%;
             left: 50%;
-            font-size: 30px;
             transform: translate(-50%, -50%);
+            position: absolute;
+        }
+        p {
+            color: midnightblue;
+            font-family: Arial-BoldMT, Arial, Arial;
+            font-size: 30px;
         }
         .imgLogo {
 
@@ -17,6 +19,14 @@
         }
         body {
             background-color: goldenrod;
+
+        }
+        #midtstillKnapp {
+            margin: auto;
+            display: block;
+        }
+        a {
+            text-decoration: none;
         }
 
     </style>
@@ -25,9 +35,13 @@
 </head>
 <body>
 <img src=https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w" class="imgLogo" alt="logo">
-
+<div id="midtstilt">
 <p>
     Feil brukernavn og passord.
 </p>
+<a href="login.html">
+    <input type="button" value="Tilbake til logg inn side" id="midtstillKnapp">
+</a>
+</div>
 </body>
 </html>
