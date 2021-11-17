@@ -40,6 +40,7 @@ public class HtmlHelper {
                 "\t<a class=\"logoutbutton\" href=\"/bacit-web-1.0-SNAPSHOT/index.jsp\">\n"+
                 "\t<img src=\"https://media.discordapp.net/attachments/657625173629075456/910493763279941673/output-onlinepngtools_1.png\" class=\"buttonimage\">\n"+
                 "<div class=\"logouttext\">HJEM</div></a></div>\n"+
+
                 "\t<a class=\"logoutbutton\" href=\"/bacit-web-1.0-SNAPSHOT/logge-ut\">\n" +
                 "  \t<img src=\"https://media.discordapp.net/attachments/657625173629075456/910490746711339058/output-onlinepngtools.png\" class=\"buttonimage\">\n" +
                 "  \n" +
