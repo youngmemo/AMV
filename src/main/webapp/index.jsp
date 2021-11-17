@@ -3,49 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-
-        #inputOgKnapper {
-            text-align: center;
-            z-index: 10000;
-        }
-
-        #right-top {
-            position: absolute;
-            right: 3%;
-            top: 5%;
-        }
-
-        body {
-            background-color: goldenrod;
-        }
-
-        .imgLogo {
-
-            z-index: 1;
-            width: 10%;
-        }
-
-        .logout {
-            background-color: #f44336;
-            font-size: 16px;
-
-        }
-
-        h1 {
-            color: midnightblue;
-            font-family:Arial-BoldMT, Arial, Arial;
-            text-align: center;
-
-        }
-        p {
-            font-family: Arial-BoldMT, Arial, Arial;
-            color: midnightblue;
-        }
-
-    </style>
 
     <title>JSP - Hello World</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <script>
@@ -120,7 +80,17 @@
 </div>
 
 <div id="right-top">
-    <input type="button" class="logout" onclick="location.href='logge-ut';"  value="Logg ut"/>
+    <div class="navigation">
+
+    <a class="logoutbutton" href="/bacit-web-1.0-SNAPSHOT/logge-ut">
+      <img src="https://media.discordapp.net/attachments/657625173629075456/910490746711339058/output-onlinepngtools.png" class="buttonimage">
+
+      <div class="logouttext">UTLOGGING</div>
+
+    </a>
+
+    </div>
+    <div class="logouttext">UTLOGGING </div>
 </div>
 
 </body>
