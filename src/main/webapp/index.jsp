@@ -104,6 +104,7 @@
     <input type="button" class="button_active" onclick="location.href='ansatt/kanseller-utstyr';" value="Kanseller utstyr"/>
     <input type="button" class="button_active" onclick="location.href='ansatt/ulante-utstyr';" value="Se utstyr som er ledig"/>
     <input type="button" class="button_active" onclick="location.href='ansatt/utlant-utstyr';" value="Se utstyr som er lånt ut"/>
+    <input type="button" class="button_active" onclick="location.href='ansatt/rapporter-utstyr';" value="Rapporter et utstyr"/>
     <br><br>
 
     <input type="button" class="button_active" onclick="location.href='ansatt/forslags-boks';" value="Send inn forslag"/>
