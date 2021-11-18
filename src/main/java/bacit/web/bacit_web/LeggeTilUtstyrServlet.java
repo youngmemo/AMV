@@ -63,7 +63,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into Utstyr (Utstyr_Navn,Utstyr_Beskrivelse,Kategori_ID) values(?,?,?);";
+            String leggeTilKode = "INSERT INTO Utstyr (Utstyr_Navn,Utstyr_Beskrivelse,Kategori_ID) VALUES(?,?,?);";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, Utstyr.getUtstyr());
             kode.setString(2, Utstyr.getUtstyrBeskrivelse());

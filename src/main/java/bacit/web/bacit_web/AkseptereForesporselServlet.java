@@ -69,8 +69,8 @@ public class AkseptereForesporselServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visKode = "INSERT INTO Status (Foresporsel_ID, Levert) values(?, 0);";
-            String aksepterKode = "UPDATE Foresporsel SET Akseptert = true WHERE Foresporsel_ID = ?;";
+            String visKode = "INSERT INTO Status (Foresporsel_ID, Levert) VALUES(?, 0);";
+            String aksepterKode = "UPDATE Foresporsel SET Akseptert = TRUE WHERE Foresporsel_ID = ?;";
 
 
             PreparedStatement vKode= db.prepareStatement(visKode);
@@ -118,9 +118,9 @@ public class AkseptereForesporselServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "select Foresporsel_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
-                                "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                                "WHERE Akseptert = false " +
+            String visTabell =  "SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
+                                "INNER JOIN Utstyr U ON Foresporsel.Utstyr_ID = U.Utstyr_ID " +
+                                "WHERE Akseptert = FALSE " +
                                 "ORDER BY Foresporsel_ID ASC;";
 
 

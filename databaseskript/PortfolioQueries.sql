@@ -1,18 +1,14 @@
 /*List all equipment in the system with their type*/
-SELECT Utstyr_Navn, Kategori.Kategori from Utstyr
-JOIN Kategori on Utstyr.Kategori_ID = Kategori.Kategori_ID;
+SELECT U.Utstyr_Navn AS Utstyrnavn, K.Kategori
+FROM Utstyr U
+JOIN Kategori K ON U.Kategori_ID = K.Kategori_ID;
 
 /* List all the available (at the moment – not already borrowed) equipment */
-SELECT distinct Utstyr.Utstyr_Navn
-FROM Foresporsel
-         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
-WHERE Slutt_Dato < CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
-
-/* List all equipment that is borrowed at the moment */
-SELECT distinct Utstyr.Utstyr_Navn
-FROM Foresporsel
-         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
-WHERE Slutt_Dato > CAST(current_date AS DATE) or Start_Dato > CAST(current_date AS DATE);
+SELECT DISTINCT U.Utstyr_ID, U.Utstyr_Navn AS Utstyrnavn
+FROM Utstyr U
+INNER JOIN Foresporsel F ON U.Utstyr_ID = F.Utstyr_ID
+INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
+WHERE S.Levert = TRUE AND F.Akseptert = FALSE;
 
 /*Listing the 5 first rows of the 5 most important tables (your judgement), sorted.*/
 SELECT * FROM Ansatt
@@ -31,33 +27,35 @@ SELECT * FROM Rapport
 LIMIT 5;
 
 /*List the names and number of borrows of the three users with most equipment borrowed, sorted by number of borrows */
-SELECT Ansatt.Fornavn, COUNT(Betaling.Ansatt_ID) AS UTSTYRLANT
-FROM Betaling
-         INNER JOIN Ansatt ON Betaling.Ansatt_ID = Ansatt.Ansatt_ID
-GROUP BY Betaling.Ansatt_ID
-ORDER BY UTSTYRLANT DESC
+SELECT A.Fornavn, A.Etternavn, COUNT(A.Ansatt_ID) AS AntallUtstyr
+FROM Betaling B
+INNER JOIN Ansatt A ON B.Ansatt_ID = A.Ansatt_ID
+GROUP BY B.Ansatt_ID
+ORDER BY AntallUtstyr DESC
 LIMIT 3;
 
 
 /*List all the equipment borrowed by the user with the highest number of equipment borrowed, sorted by date/time*/
-SELECT Foresporsel_ID, Ansatt.Fornavn, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato
-FROM Foresporsel
-         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
-         JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
-WHERE Foresporsel.Ansatt_ID =
+SELECT F.Foresporsel_ID, A.Fornavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
+FROM Foresporsel F
+JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
+WHERE F.Ansatt_ID =
       (
-          SELECT Ansatt_ID
-          FROM Foresporsel
-          GROUP BY Ansatt_ID
-          ORDER BY count(Ansatt_ID) DESC
+          SELECT F.Ansatt_ID
+          FROM Foresporsel F
+          WHERE F.Akseptert = TRUE
+          GROUP BY F.Ansatt_ID
+          ORDER BY COUNT(F.Ansatt_ID) DESC
           LIMIT 1
+
       )
-ORDER BY Start_Dato;
+ORDER BY F.Start_Dato;
 
 /*List all overdue equipment with their borrowers */
-SELECT Ansatt.Ansatt_ID, Ansatt.Fornavn, Utstyr.Utstyr_Navn
-FROM Foresporsel
-         JOIN Ansatt on Foresporsel.Ansatt_ID = Ansatt.Ansatt_ID
-         JOIN Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID
-         JOIN Status on Foresporsel.Foresporsel_ID = Status.Foresporsel_ID
-WHERE Status.Levert = 0 AND Slutt_Dato < CAST(current_date AS DATE);
+SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn, U.Utstyr_Navn
+FROM Foresporsel F
+JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
+JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
+WHERE S.Levert = 0 AND F.Akseptert AND F.Slutt_Dato < CAST(CURRENT_DATE AS DATE);

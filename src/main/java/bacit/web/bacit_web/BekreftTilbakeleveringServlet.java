@@ -101,7 +101,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String tilbakeLeveringKode = "UPDATE Status SET Levert = true where Foresporsel_ID = ?;";
+            String tilbakeLeveringKode = "UPDATE Status SET Levert = TRUE WHERE Foresporsel_ID = ?;";
 
             PreparedStatement leggInnKode = db.prepareStatement(tilbakeLeveringKode);
             leggInnKode.setString(1, model.getForesporsel_ID());
@@ -172,11 +172,11 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "select Foresporsel.Foresporsel_ID, Utstyr.Utstyr_Navn, Foresporsel.Start_Dato, Foresporsel.Slutt_Dato from Foresporsel " +
-                                "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                                "inner join Status on Foresporsel.Foresporsel_ID = Status.Foresporsel_ID " +
-                                "WHERE Status.Levert = 0 AND Foresporsel.Ansatt_ID = ? " +
-                                "ORDER BY Foresporsel.Foresporsel_ID ASC;";
+            String visTabell =  "SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
+                                "INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID " +
+                                "INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID " +
+                                "WHERE S.Levert = 0 AND F.Ansatt_ID = ? " +
+                                "ORDER BY F.Foresporsel_ID ASC;";
 
 
 

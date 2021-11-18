@@ -57,8 +57,8 @@ public class SeRapporteneServlet extends HttpServlet {
             db = DBUtils.getINSTANCE().getConnection(out);
 
             String visTabell = "SELECT Rapport_ID, Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID from Rapport " +
-                    "WHERE Lest_Rapport = false " +
-                    "ORDER BY Rapport_ID ASC; ";
+                                "WHERE Lest_Rapport = FALSE " +
+                                "ORDER BY Rapport_ID ASC; ";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
@@ -97,7 +97,7 @@ public class SeRapporteneServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String lesRapportKode = "UPDATE Rapport SET Lest_Rapport = true WHERE Rapport_ID = ?; ";
+            String lesRapportKode = "UPDATE Rapport SET Lest_Rapport = TRUE WHERE Rapport_ID = ?;";
 
             PreparedStatement kode2 = db.prepareStatement(lesRapportKode);
             kode2.setString(1,RapportNummer);

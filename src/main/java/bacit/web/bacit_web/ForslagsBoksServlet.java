@@ -94,7 +94,7 @@ public class ForslagsBoksServlet extends HttpServlet{
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID) VALUES(?,?,?);";
+            String leggeTilKode = "INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID) VALUES(?,?,?);";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(3, model.getAnsatt_ID());
             kode.setString(1, model.getForslag_Utstyr());
