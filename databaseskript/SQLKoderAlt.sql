@@ -6,7 +6,7 @@ CREATE OR REPLACE TABLE Kategori
 (
     Kategori_ID             SMALLINT UNIQUE AUTO_INCREMENT,
     Kategori                VARCHAR(50)     NOT NULL,
-    PRIMARY KEY (Kategori_ID)
+    CONSTRAINT PRIMARY KEY (Kategori_ID)
 );
 
 CREATE OR REPLACE TABLE Utstyr
@@ -15,8 +15,8 @@ CREATE OR REPLACE TABLE Utstyr
     Utstyr_Navn             VARCHAR(50)     NOT NULL,
     Utstyr_Beskrivelse      VARCHAR(1000)   NOT NULL,
     Kategori_ID             SMALLINT,
-    PRIMARY KEY (Utstyr_ID),
-    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
+    CONSTRAINT PRIMARY KEY (Utstyr_ID),
+    CONSTRAINT FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE LisensiertUtstyr
@@ -24,8 +24,8 @@ CREATE OR REPLACE TABLE LisensiertUtstyr
     Lisens_ID               SMALLINT UNIQUE AUTO_INCREMENT,
     Utstyr_Kommentar        VARCHAR (1000)  NOT NULL DEFAULT 'Ingen kommentar lagt til',
     Utstyr_ID               SMALLINT        NOT NULL,
-    PRIMARY KEY (Lisens_ID),
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+    CONSTRAINT PRIMARY KEY (Lisens_ID),
+    CONSTRAINT FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Ansatt
@@ -39,22 +39,22 @@ CREATE OR REPLACE TABLE Ansatt
     Adresse                 VARCHAR(50)     NOT NULL,
     Bynavn                  VARCHAR(50)     NOT NULL,
     Postnummer              SMALLINT        NOT NULL,
-    PRIMARY KEY (Ansatt_ID)
+    CONSTRAINT PRIMARY KEY (Ansatt_ID)
 );
 
 CREATE OR REPLACE TABLE Betalingsmetode
 (
     Betalingsmetode_ID      SMALLINT UNIQUE AUTO_INCREMENT,
     Metode                  VARCHAR(80)     NOT NULL,
-    PRIMARY KEY (Betalingsmetode_ID)
+    CONSTRAINT PRIMARY KEY (Betalingsmetode_ID)
 );
 
 CREATE OR REPLACE TABLE LisensiertAnsatt
 (
     Ansatt_ID               SMALLINT        NOT NULL,
     Lisens_ID               SMALLINT        NOT NULL,
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)           ON DELETE CASCADE,
-    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)           ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Foresporsel
@@ -65,9 +65,9 @@ CREATE OR REPLACE TABLE Foresporsel
     Start_Dato              DATE            NOT NULL,
     Slutt_Dato              DATE            NOT NULL,
     Akseptert               SMALLINT        DEFAULT 0,
-    PRIMARY KEY (Foresporsel_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+    CONSTRAINT PRIMARY KEY (Foresporsel_ID),
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Status
@@ -76,9 +76,8 @@ CREATE OR REPLACE TABLE Status
     /* date skrives på format dd.mm.åååå */
     Foresporsel_ID          SMALLINT        NOT NULL,
     Levert                  SMALLINT,
-
-    PRIMARY KEY (Status_ID),
-    FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
+    CONSTRAINT PRIMARY KEY (Status_ID),
+    CONSTRAINT FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Forslag
@@ -87,8 +86,8 @@ CREATE OR REPLACE TABLE Forslag
     Forslag_Utstyr          VARCHAR(150)    NOT NULL,
     Forslag_Kommentar       VARCHAR(1000)   NOT NULL,
     Ansatt_ID               SMALLINT,
-    PRIMARY KEY (Forslag_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL
+    CONSTRAINT PRIMARY KEY (Forslag_ID),
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Rapport
@@ -99,9 +98,9 @@ CREATE OR REPLACE TABLE Rapport
     Utstyr_ID               SMALLINT,
     Ansatt_ID               SMALLINT,
     Lest_Rapport            SMALLINT        DEFAULT 0,
-    PRIMARY KEY (Rapport_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
+    CONSTRAINT PRIMARY KEY (Rapport_ID),
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
+    CONSTRAINT FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Brukerrettigheter
@@ -109,7 +108,7 @@ CREATE OR REPLACE TABLE Brukerrettigheter
     Ansatt_ID               SMALLINT        NOT NULL,
     Rettighet               VARCHAR(50)     NOT NULL,
     Kommentar               VARCHAR(1000),
-    FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Betaling
@@ -118,8 +117,8 @@ CREATE OR REPLACE TABLE Betaling
     Utstyr_ID               SMALLINT        NOT NULL,
     Betalingsmetode_ID      SMALLINT,
     Foresporsel_ID          SMALLINT        NOT NULL,
-    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL,
-    FOREIGN KEY(Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL,
+    CONSTRAINT FOREIGN KEY(Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
 
 INSERT INTO Kategori (Kategori)
