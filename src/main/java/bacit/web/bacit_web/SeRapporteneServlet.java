@@ -51,6 +51,7 @@ public class SeRapporteneServlet extends HttpServlet{
             HtmlHelper.writeHtmlStartCss(out);
             out.println("<h1>Rapportene for utstyrene<h1>");
             out.println("<br><br>");
+            out.println("<div id=Sentrere>");
             out.println("<table>" +
                     "<tr>" +
                     "<th>Rapport ID</th>" +
@@ -69,6 +70,7 @@ public class SeRapporteneServlet extends HttpServlet{
                         "</tr>");
             }
             db.close();
+            out.println("</div>");
             HtmlHelper.writeHtmlEnd(out);
 
         } catch (ClassNotFoundException e) {
