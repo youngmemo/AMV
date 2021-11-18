@@ -1,6 +1,33 @@
 drop database if exists mytestdb;
 create database if not exists mytestdb;
 use mytestdb;
+
+CREATE OR REPLACE TABLE Kategori
+(
+    Kategori_ID             SMALLINT UNIQUE AUTO_INCREMENT,
+    Kategori                VARCHAR(50)     NOT NULL,
+    PRIMARY KEY (Kategori_ID)
+);
+
+CREATE OR REPLACE TABLE Utstyr
+(
+    Utstyr_ID               SMALLINT UNIQUE AUTO_INCREMENT,
+    Utstyr_Navn             VARCHAR(50)     NOT NULL,
+    Utstyr_Beskrivelse      VARCHAR(1000)   NOT NULL,
+    Kategori_ID             SMALLINT,
+    PRIMARY KEY (Utstyr_ID),
+    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
+);
+
+CREATE OR REPLACE TABLE LisensiertUtstyr
+(
+    Lisens_ID               SMALLINT UNIQUE AUTO_INCREMENT,
+    Utstyr_Kommentar        VARCHAR (1000)  NOT NULL DEFAULT 'Ingen kommentar lagt til',
+    Utstyr_ID               SMALLINT        NOT NULL,
+    PRIMARY KEY (Lisens_ID),
+    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+);
+
 CREATE OR REPLACE TABLE Ansatt
 (
     Ansatt_ID               SMALLINT UNIQUE AUTO_INCREMENT,
@@ -12,14 +39,9 @@ CREATE OR REPLACE TABLE Ansatt
     Adresse                 VARCHAR(50)     NOT NULL,
     Bynavn                  VARCHAR(50)     NOT NULL,
     Postnummer              SMALLINT        NOT NULL,
-    PRIMARY KEY (Ansatt_ID)
-);
-
-CREATE OR REPLACE TABLE Kategori
-(
-    Kategori_ID             SMALLINT UNIQUE AUTO_INCREMENT,
-    Kategori                VARCHAR(50)     NOT NULL,
-    PRIMARY KEY (Kategori_ID)
+    Lisens_ID               SMALLINT        ,
+    PRIMARY KEY (Ansatt_ID),
+    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Betalingsmetode
@@ -27,16 +49,6 @@ CREATE OR REPLACE TABLE Betalingsmetode
     Betalingsmetode_ID      SMALLINT UNIQUE AUTO_INCREMENT,
     Metode                  VARCHAR(80)     NOT NULL,
     PRIMARY KEY (Betalingsmetode_ID)
-);
-
-CREATE OR REPLACE TABLE Utstyr
-(
-    Utstyr_ID               SMALLINT UNIQUE AUTO_INCREMENT,
-    Utstyr_Navn             VARCHAR(50)     NOT NULL,
-    Utstyr_Beskrivelse      VARCHAR(1000)   NOT NULL,
-    Kategori_ID             SMALLINT,
-    PRIMARY KEY (Utstyr_ID),
-    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Foresporsel
@@ -63,15 +75,6 @@ CREATE OR REPLACE TABLE Status
     FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
 
-CREATE OR REPLACE TABLE LisensiertUtstyr
-(
-    Lisens_ID               SMALLINT UNIQUE AUTO_INCREMENT,
-    Utstyr_Kommentar        VARCHAR (1000)  NOT NULL DEFAULT 'Ingen kommentar lagt til',
-    Utstyr_ID               SMALLINT        NOT NULL,
-    PRIMARY KEY (Lisens_ID),
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
-);
-
 CREATE OR REPLACE TABLE Forslag
 (
     Forslag_ID              SMALLINT UNIQUE AUTO_INCREMENT,
@@ -89,6 +92,7 @@ CREATE OR REPLACE TABLE Rapport
     Rapport_Kommentar       VARCHAR(1000)   NOT NULL,
     Utstyr_ID               SMALLINT,
     Ansatt_ID               SMALLINT,
+    Lest_Rapport            SMALLINT        DEFAULT 0,
     PRIMARY KEY (Rapport_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
@@ -111,7 +115,6 @@ CREATE OR REPLACE TABLE Betaling
     FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL,
     FOREIGN KEY(Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
-
 
 INSERT INTO Kategori (Kategori)
 VALUES ('Verktøy'),
@@ -164,17 +167,17 @@ VALUES  ('Eksentersliper 230 VAC', 'Børsteløs motor som gjør den vedlikeholds
         ('Bluetooth høyttaler SOUNDBOKS', 'Beskrivelse', 1);
 
 
-INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
-VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
-        ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5),
-        ('Personløfter punktert', 'Dekket til personløfter ble punktert når jeg skulle løfte opp noe', 7,4),
-        ('Motorisert trillebår ødelagt','Den ble ødelagt når prøvde å borre stein', 9,3),
-        ('Slagdrill fungerer ikke','Det er noe problem med motoren i selve drillen', 5,1),
-        ('Kantklipper lager problemer','Kantklipperen klipper skeivt og det er veldig irriterende for meg', 6,8),
-        ('Spikerpistol er ødelagt','To spikere sitter fast så jeg får ikke ut den ene', 10,7),
-        ('Meislemaskinen er skadet','Den falt på en stor stein så ble den skadet', 4,2),
-        ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
-        ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
+INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID, Lest_Rapport)
+VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10,0),
+        ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5,0),
+        ('Personløfter punktert', 'Dekket til personløfter ble punktert når jeg skulle løfte opp noe', 7,4,0),
+        ('Motorisert trillebår ødelagt','Den ble ødelagt når prøvde å borre stein', 9,3,0),
+        ('Slagdrill fungerer ikke','Det er noe problem med motoren i selve drillen', 5,1,0),
+        ('Kantklipper lager problemer','Kantklipperen klipper skeivt og det er veldig irriterende for meg', 6,8,0),
+        ('Spikerpistol er ødelagt','To spikere sitter fast så jeg får ikke ut den ene', 10,7,0),
+        ('Meislemaskinen er skadet','Den falt på en stor stein så ble den skadet', 4,2,0),
+        ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6,0),
+        ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9,0);
 
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
@@ -238,19 +241,6 @@ VALUES  (1,0),   (2,0),   (3,0),   (4,0),
         (32,0),  (33,0),  (34,0),  (35,0),
         (36,0),  (37,1),  (38,1),  (39,1),
         (40,1),  (41,1);
-
-
-INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
-VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
-        ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5),
-        ('Personløfter punktert', 'Dekket til personløfter ble punktert når jeg skulle løfte opp noe', 7,4),
-        ('Motorisert trillebår ødelagt','Den ble ødelagt når prøvde å borre stein', 9,3),
-        ('Slagdrill fungerer ikke','Det er noe problem med motoren i selve drillen', 5,1),
-        ('Kantklipper lager problemer','Kantklipperen klipper skeivt og det er veldig irriterende for meg', 6,8),
-        ('Spikerpistol er ødelagt','To spikere sitter fast så jeg får ikke ut den ene', 10,7),
-        ('Meislemaskinen er skadet','Den falt på en stor så ble den skadet', 4,2),
-        ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
-        ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
 
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
