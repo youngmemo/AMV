@@ -89,6 +89,7 @@ CREATE OR REPLACE TABLE Rapport
     Rapport_Kommentar       VARCHAR(1000)   NOT NULL,
     Utstyr_ID               SMALLINT,
     Ansatt_ID               SMALLINT,
+    Lest_Rapport            SMALLINT        DEFAULT 0,
     PRIMARY KEY (Rapport_ID),
     FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
     FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
@@ -164,17 +165,17 @@ VALUES  ('Eksentersliper 230 VAC', 'Børsteløs motor som gjør den vedlikeholds
         ('Bluetooth høyttaler SOUNDBOKS', 'Beskrivelse', 1);
 
 
-INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
-VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10),
-        ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5),
-        ('Personløfter punktert', 'Dekket til personløfter ble punktert når jeg skulle løfte opp noe', 7,4),
-        ('Motorisert trillebår ødelagt','Den ble ødelagt når prøvde å borre stein', 9,3),
-        ('Slagdrill fungerer ikke','Det er noe problem med motoren i selve drillen', 5,1),
-        ('Kantklipper lager problemer','Kantklipperen klipper skeivt og det er veldig irriterende for meg', 6,8),
-        ('Spikerpistol er ødelagt','To spikere sitter fast så jeg får ikke ut den ene', 10,7),
-        ('Meislemaskinen er skadet','Den falt på en stor stein så ble den skadet', 4,2),
-        ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6),
-        ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9);
+INSERT INTO Rapport (Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID, Lest_Rapport)
+VALUES  ('Vinkelsliper skadet', 'Bladet til vinkelsliperen knakk', 3,10,0),
+        ('Gaffeltruck funker ikke', 'Den vil ikke løfte opp plankene mine', 8,5,0),
+        ('Personløfter punktert', 'Dekket til personløfter ble punktert når jeg skulle løfte opp noe', 7,4,0),
+        ('Motorisert trillebår ødelagt','Den ble ødelagt når prøvde å borre stein', 9,3,0),
+        ('Slagdrill fungerer ikke','Det er noe problem med motoren i selve drillen', 5,1,0),
+        ('Kantklipper lager problemer','Kantklipperen klipper skeivt og det er veldig irriterende for meg', 6,8,0),
+        ('Spikerpistol er ødelagt','To spikere sitter fast så jeg får ikke ut den ene', 10,7,0),
+        ('Meislemaskinen er skadet','Den falt på en stor stein så ble den skadet', 4,2,0),
+        ('Båndsliper funker ikke','Bladet til båndsliperen gikk i stykker', 2,6,0),
+        ('Eksentersliper vil ikke slipe','Den vil ikke slipe det jeg vil at den skal slipe', 1,9,0);
 
 INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
 VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
