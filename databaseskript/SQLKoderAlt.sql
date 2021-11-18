@@ -39,9 +39,7 @@ CREATE OR REPLACE TABLE Ansatt
     Adresse                 VARCHAR(50)     NOT NULL,
     Bynavn                  VARCHAR(50)     NOT NULL,
     Postnummer              SMALLINT        NOT NULL,
-    Lisens_ID               SMALLINT        ,
-    PRIMARY KEY (Ansatt_ID),
-    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE SET NULL
+    PRIMARY KEY (Ansatt_ID)
 );
 
 CREATE OR REPLACE TABLE Betalingsmetode
@@ -49,6 +47,14 @@ CREATE OR REPLACE TABLE Betalingsmetode
     Betalingsmetode_ID      SMALLINT UNIQUE AUTO_INCREMENT,
     Metode                  VARCHAR(80)     NOT NULL,
     PRIMARY KEY (Betalingsmetode_ID)
+);
+
+CREATE OR REPLACE TABLE LisensiertAnsatt
+(
+    Ansatt_ID               SMALLINT        NOT NULL,
+    Lisens_ID               SMALLINT        NOT NULL,
+    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)           ON DELETE CASCADE,
+    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Foresporsel
@@ -284,6 +290,10 @@ VALUES  (1, 'normal', ''),  (2, 'normal', ''),
         (10, 'administrator', 'superbruker skal ha tilgang her'),
 
         (10, 'superbruker', 'Grunnleggeren av systemet');
+
+INSERT INTO LisensiertAnsatt (Ansatt_ID, Lisens_ID)
+VALUES (4, 1),
+       (5, 2);
 
 /*CREATE OR REPLACE TABLE Files
 (
