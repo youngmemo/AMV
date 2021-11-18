@@ -12,18 +12,23 @@ WHERE S.Levert = TRUE AND F.Akseptert = FALSE;
 
 /*Listing the 5 first rows of the 5 most important tables (your judgement), sorted.*/
 SELECT * FROM Ansatt
+ORDER BY Ansatt_ID
 LIMIT 5;
 
 SELECT * FROM Utstyr
+ORDER BY Utstyr_ID
 LIMIT 5;
 
 SELECT * FROM Forslag
+ORDER BY Forslag_ID
 LIMIT 5;
 
 SELECT * FROM Foresporsel
+ORDER BY Foresporsel_ID
 LIMIT 5;
 
 SELECT * FROM Rapport
+ORDER BY Rapport_ID
 LIMIT 5;
 
 /*List the names and number of borrows of the three users with most equipment borrowed, sorted by number of borrows */
