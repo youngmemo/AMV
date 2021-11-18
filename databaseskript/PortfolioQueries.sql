@@ -28,9 +28,9 @@ LIMIT 5;
 
 /*List the names and number of borrows of the three users with most equipment borrowed, sorted by number of borrows */
 SELECT A.Fornavn, A.Etternavn, COUNT(A.Ansatt_ID) AS AntallUtstyr
-FROM Betaling B
-INNER JOIN Ansatt A ON B.Ansatt_ID = A.Ansatt_ID
-GROUP BY B.Ansatt_ID
+FROM Foresporsel F
+INNER JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
+GROUP BY F.Ansatt_ID
 ORDER BY AntallUtstyr DESC
 LIMIT 3;
 
@@ -58,4 +58,5 @@ FROM Foresporsel F
 JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
 JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
 JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
-WHERE S.Levert = 0 AND F.Akseptert AND F.Slutt_Dato < CAST(CURRENT_DATE AS DATE);
+WHERE S.Levert = FALSE AND F.Akseptert = TRUE AND F.Slutt_Dato < CAST(CURRENT_DATE AS DATE)
+ORDER BY A.Fornavn;
