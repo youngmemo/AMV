@@ -65,7 +65,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
         Connection db = null;
         try{
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode ="insert into Rapport(Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID) VALUES(?, ?, ?, ?)";
+            String leggeTilKode ="INSERT INTO Rapport(Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID) VALUES(?, ?, ?, ?)";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, model.getRapport_Tittel());
             kode.setString(2, model.getRapport_Kommentar());

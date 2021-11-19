@@ -101,9 +101,9 @@ public class KansellereUtstyrServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String foresporselKode = "select Foresporsel_ID, Utstyr.Utstyr_Navn, Start_Dato, Slutt_Dato from Foresporsel " +
-                                     "inner join Utstyr on Foresporsel.Utstyr_ID = Utstyr.Utstyr_ID " +
-                                     "where Foresporsel.Ansatt_ID = ?";
+            String foresporselKode = "SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
+                                     "INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID " +
+                                     "where F.Ansatt_ID = ?;";
 
 
             PreparedStatement kode = db.prepareStatement(foresporselKode);

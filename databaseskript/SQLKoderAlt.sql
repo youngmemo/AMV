@@ -6,17 +6,17 @@ CREATE OR REPLACE TABLE Kategori
 (
     Kategori_ID             SMALLINT UNIQUE AUTO_INCREMENT,
     Kategori                VARCHAR(50)     NOT NULL,
-    PRIMARY KEY (Kategori_ID)
+    CONSTRAINT PRIMARY KEY (Kategori_ID)
 );
 
 CREATE OR REPLACE TABLE Utstyr
 (
     Utstyr_ID               SMALLINT UNIQUE AUTO_INCREMENT,
     Utstyr_Navn             VARCHAR(50)     NOT NULL,
-    Utstyr_Beskrivelse      VARCHAR(1000)   NOT NULL,
+    Utstyr_Beskrivelse      VARCHAR(1000),
     Kategori_ID             SMALLINT,
-    PRIMARY KEY (Utstyr_ID),
-    FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
+    CONSTRAINT PRIMARY KEY (Utstyr_ID),
+    CONSTRAINT FOREIGN KEY (Kategori_ID) REFERENCES Kategori(Kategori_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE LisensiertUtstyr
@@ -24,8 +24,8 @@ CREATE OR REPLACE TABLE LisensiertUtstyr
     Lisens_ID               SMALLINT UNIQUE AUTO_INCREMENT,
     Utstyr_Kommentar        VARCHAR (1000)  NOT NULL DEFAULT 'Ingen kommentar lagt til',
     Utstyr_ID               SMALLINT        NOT NULL,
-    PRIMARY KEY (Lisens_ID),
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+    CONSTRAINT PRIMARY KEY (Lisens_ID),
+    CONSTRAINT FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Ansatt
@@ -39,22 +39,22 @@ CREATE OR REPLACE TABLE Ansatt
     Adresse                 VARCHAR(50)     NOT NULL,
     Bynavn                  VARCHAR(50)     NOT NULL,
     Postnummer              SMALLINT        NOT NULL,
-    PRIMARY KEY (Ansatt_ID)
+    CONSTRAINT PRIMARY KEY (Ansatt_ID)
 );
 
 CREATE OR REPLACE TABLE Betalingsmetode
 (
     Betalingsmetode_ID      SMALLINT UNIQUE AUTO_INCREMENT,
     Metode                  VARCHAR(80)     NOT NULL,
-    PRIMARY KEY (Betalingsmetode_ID)
+    CONSTRAINT PRIMARY KEY (Betalingsmetode_ID)
 );
 
 CREATE OR REPLACE TABLE LisensiertAnsatt
 (
     Ansatt_ID               SMALLINT        NOT NULL,
     Lisens_ID               SMALLINT        NOT NULL,
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)           ON DELETE CASCADE,
-    FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID)           ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (Lisens_ID) REFERENCES LisensiertUtstyr(Lisens_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Foresporsel
@@ -65,9 +65,9 @@ CREATE OR REPLACE TABLE Foresporsel
     Start_Dato              DATE            NOT NULL,
     Slutt_Dato              DATE            NOT NULL,
     Akseptert               SMALLINT        DEFAULT 0,
-    PRIMARY KEY (Foresporsel_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
+    CONSTRAINT PRIMARY KEY (Foresporsel_ID),
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Status
@@ -76,9 +76,8 @@ CREATE OR REPLACE TABLE Status
     /* date skrives på format dd.mm.åååå */
     Foresporsel_ID          SMALLINT        NOT NULL,
     Levert                  SMALLINT,
-
-    PRIMARY KEY (Status_ID),
-    FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
+    CONSTRAINT PRIMARY KEY (Status_ID),
+    CONSTRAINT FOREIGN KEY (Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Forslag
@@ -87,8 +86,8 @@ CREATE OR REPLACE TABLE Forslag
     Forslag_Utstyr          VARCHAR(150)    NOT NULL,
     Forslag_Kommentar       VARCHAR(1000)   NOT NULL,
     Ansatt_ID               SMALLINT,
-    PRIMARY KEY (Forslag_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL
+    CONSTRAINT PRIMARY KEY (Forslag_ID),
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Rapport
@@ -99,9 +98,9 @@ CREATE OR REPLACE TABLE Rapport
     Utstyr_ID               SMALLINT,
     Ansatt_ID               SMALLINT,
     Lest_Rapport            SMALLINT        DEFAULT 0,
-    PRIMARY KEY (Rapport_ID),
-    FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
-    FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
+    CONSTRAINT PRIMARY KEY (Rapport_ID),
+    CONSTRAINT FOREIGN KEY (Ansatt_ID) REFERENCES Ansatt(Ansatt_ID) ON DELETE SET NULL,
+    CONSTRAINT FOREIGN KEY (Utstyr_ID) REFERENCES Utstyr(Utstyr_ID) ON DELETE SET NULL
 );
 
 CREATE OR REPLACE TABLE Brukerrettigheter
@@ -109,7 +108,7 @@ CREATE OR REPLACE TABLE Brukerrettigheter
     Ansatt_ID               SMALLINT        NOT NULL,
     Rettighet               VARCHAR(50)     NOT NULL,
     Kommentar               VARCHAR(1000),
-    FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY(Ansatt_ID)  REFERENCES Ansatt(Ansatt_ID) ON DELETE CASCADE
 );
 
 CREATE OR REPLACE TABLE Betaling
@@ -118,8 +117,8 @@ CREATE OR REPLACE TABLE Betaling
     Utstyr_ID               SMALLINT        NOT NULL,
     Betalingsmetode_ID      SMALLINT,
     Foresporsel_ID          SMALLINT        NOT NULL,
-    FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL,
-    FOREIGN KEY(Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
+    CONSTRAINT FOREIGN KEY(Betalingsmetode_ID) REFERENCES Betalingsmetode(Betalingsmetode_ID) ON DELETE SET NULL,
+    CONSTRAINT FOREIGN KEY(Foresporsel_ID) REFERENCES Foresporsel(Foresporsel_ID) ON DELETE CASCADE
 );
 
 INSERT INTO Kategori (Kategori)
@@ -206,22 +205,22 @@ VALUES ('Trengs fullført og bestått kurs', 7),
        ('Trengs truckførerbevis', 8);
 
 INSERT INTO Foresporsel(Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato, Akseptert)
-VALUES  (11,1, '2021-02-02', '2021-02-04', 1),  (11,2, '2021-02-02', '2021-02-04', 1),
-        (11,3, '2021-02-02', '2021-02-04', 1),  (11,4, '2021-02-02', '2021-02-04', 1),
-        (11,5, '2021-02-02', '2021-02-04', 1),  (11,6, '2021-02-02', '2021-02-04', 1),
-        (11,7, '2021-02-02', '2021-02-04', 1),  (11,8, '2021-02-02', '2021-02-04', 1),
-        (11,9, '2021-02-02', '2021-02-04', 1),  (11,10,'2021-02-02', '2021-02-04', 1),
-        (11,11,'2021-02-02', '2021-02-04', 1),  (11,12,'2021-02-02', '2021-02-04', 1),
-        (11,13,'2021-02-02', '2021-02-04', 1),  (11,14,'2021-02-02', '2021-02-04', 1),
-        (11,15,'2021-02-02', '2021-02-04', 1),  (11,16,'2021-02-02', '2021-02-04', 1),
-        (11,17,'2021-02-02', '2021-02-04', 1),  (11,18,'2021-02-02', '2021-02-04', 1),
-        (11,19,'2021-02-02', '2021-02-04', 1),  (11,20,'2021-02-02', '2021-02-04', 1),
-        (11,21,'2021-02-02', '2021-02-04', 1),  (11,22,'2021-02-02', '2021-02-04', 1),
-        (11,23,'2021-02-02', '2021-02-04', 1),  (11,24,'2021-02-02', '2021-02-04', 1),
-        (11,25,'2021-02-02', '2021-02-04', 1),  (11,26,'2021-02-02', '2021-02-04', 1),
-        (11,27,'2021-02-02', '2021-02-04', 1),  (11,28,'2021-02-02', '2021-02-04', 1),
-        (11,29,'2021-02-02', '2021-02-04', 1),  (11,30,'2021-02-02', '2021-02-04', 1),
-        (11,31,'2021-02-02', '2021-02-04', 1),
+VALUES  (1,1, '2021-02-02', '2021-02-04', 1),  (1,2, '2021-02-02', '2021-02-04', 1),
+        (2,3, '2021-02-02', '2021-02-04', 1),  (6,4, '2021-02-02', '2021-02-04', 1),
+        (3,5, '2021-02-02', '2021-02-04', 1),  (9,6, '2021-02-02', '2021-02-04', 1),
+        (4,7, '2021-02-02', '2021-02-04', 1),  (2,8, '2021-02-02', '2021-02-04', 1),
+        (5,9, '2021-02-02', '2021-02-04', 1),  (5,10,'2021-02-02', '2021-02-04', 1),
+        (6,11,'2021-02-02', '2021-02-04', 1),  (6,12,'2021-02-02', '2021-02-04', 1),
+        (7,13,'2021-02-02', '2021-02-04', 1),  (1,14,'2021-02-02', '2021-02-04', 1),
+        (8,15,'2021-02-02', '2021-02-04', 1),  (2,16,'2021-02-02', '2021-02-04', 1),
+        (9,17,'2021-02-02', '2021-02-04', 1),  (9,18,'2021-02-02', '2021-02-04', 1),
+        (9,19,'2021-02-02', '2021-02-04', 1),  (9,20,'2021-02-02', '2021-02-04', 1),
+        (1,21,'2021-02-02', '2021-02-04', 1),  (6,22,'2021-02-02', '2021-02-04', 1),
+        (2,23,'2021-02-02', '2021-02-04', 1),  (3,24,'2021-02-02', '2021-02-04', 1),
+        (6,25,'2021-02-02', '2021-02-04', 1),  (6,26,'2021-02-02', '2021-02-04', 1),
+        (2,27,'2021-02-02', '2021-02-04', 1),  (2,28,'2021-02-02', '2021-02-04', 1),
+        (3,29,'2021-02-02', '2021-02-04', 1),  (4,30,'2021-02-02', '2021-02-04', 1),
+        (1,31,'2021-02-02', '2021-02-04', 1),
 
         (1,1,  '2021-11-15', '2021-11-19', 1),
         (2,1,  '2021-11-15', '2021-11-19', 1),
@@ -235,16 +234,16 @@ VALUES  (11,1, '2021-02-02', '2021-02-04', 1),  (11,2, '2021-02-02', '2021-02-04
         (10,10,'2021-10-08', '2021-10-13', 0);
 
 INSERT INTO Status (Foresporsel_ID, Levert)
-VALUES  (1,0),   (2,0),   (3,0),   (4,0),
-        (5,0),   (6,0),   (7,0),   (8,0),
-        (9,0),   (10,0),  (11,0),  (12,0),
-        (13,0),  (14,0),  (15,0),  (16,0),
-        (17,0),  (18,0),  (19,0),  (20,0),
-        (21,0),  (22,0),  (23,0),  (24,0),
-        (25,0),  (26,0),  (27,0),  (28,0),
+VALUES  (1,1),   (2,0),   (3,0),   (4,1),
+        (5,1),   (6,0),   (7,1),   (8,0),
+        (9,1),   (10,1),  (11,0),  (12,1),
+        (13,1),  (14,1),  (15,0),  (16,0),
+        (17,1),  (18,1),  (19,1),  (20,1),
+        (21,0),  (22,0),  (23,1),  (24,1),
+        (25,1),  (26,1),  (27,1),  (28,0),
         (29,0),  (30,0),  (31,0),
 
-        (32,0),  (33,0),  (34,0),  (35,0),
+        (32,1),  (33,1),  (34,0),  (35,1),
         (36,0),  (37,1),  (38,1),  (39,1),
         (40,1),  (41,1);
 
@@ -262,15 +261,15 @@ VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
 
 INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID)
 VALUES  (3, 1, 1, 1),
-        (8, 2, 1, 1),
-        (5, 4, 2, 1),
-        (8, 9, 1, 1),
-        (8, 2, 2, 1),
-        (5, 6, 2, 1),
-        (8, 7, 1, 1),
-        (5, 5, 2, 1),
-        (3, 2, 2, 1),
-        (1, 2, 2, 1);
+        (8, 2, 1, 2),
+        (5, 4, 2, 3),
+        (8, 9, 1, 4),
+        (8, 2, 2, 5),
+        (5, 6, 2, 6),
+        (8, 7, 1, 7),
+        (5, 5, 2, 8),
+        (3, 2, 2, 9),
+        (1, 2, 2, 10);
 
 INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
 VALUES  (1, 'normal', ''),  (2, 'normal', ''),

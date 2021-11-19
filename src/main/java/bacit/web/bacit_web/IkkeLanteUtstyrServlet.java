@@ -46,10 +46,10 @@ public class IkkeLanteUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT distinct Utstyr.Utstyr_ID, Utstyr_Navn FROM Utstyr " +
-                                "INNER JOIN Foresporsel ON Utstyr.Utstyr_ID = Foresporsel.Utstyr_ID " +
-                                "INNER JOIN Status ON Foresporsel.Foresporsel_ID = Status.Foresporsel_ID " +
-                                "WHERE Status.Levert = true AND Foresporsel.Akseptert = false;";
+            String visTabell =  "SELECT DISTINCT Utstyr.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U " +
+                                "INNER JOIN Foresporsel F ON U.Utstyr_ID = F.Utstyr_ID " +
+                                "INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID " +
+                                "WHERE S.Levert = true AND F.Akseptert = FALSE;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;

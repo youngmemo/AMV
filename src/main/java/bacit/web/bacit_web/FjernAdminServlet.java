@@ -90,9 +90,9 @@ public class FjernAdminServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String visAdministratorer = "SELECT Ansatt.Ansatt_ID, Fornavn, Etternavn FROM Ansatt " +
-                                        "INNER JOIN Brukerrettigheter ON Ansatt.Ansatt_ID = Brukerrettigheter.Ansatt_ID " +
-                                        "WHERE Brukerrettigheter.Rettighet = 'administrator'";
+            String visAdministratorer = "SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn FROM Ansatt A " +
+                                        "INNER JOIN Brukerrettigheter B ON A.Ansatt_ID = B.Ansatt_ID " +
+                                        "WHERE B.Rettighet = 'administrator'";
             PreparedStatement kode = db.prepareStatement(visAdministratorer);
             ResultSet rs;
             rs = kode.executeQuery();

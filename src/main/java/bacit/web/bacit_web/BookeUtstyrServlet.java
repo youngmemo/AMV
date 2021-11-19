@@ -150,8 +150,8 @@ public class BookeUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato) values(?,?,?,?);";
-            String betalingKode =    "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID) values(?,?,?,(SELECT MAX(Foresporsel_ID) FROM Foresporsel));";
+            String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato) VALUES(?,?,?,?);";
+            String betalingKode =    "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID) VALUES(?,?,?,(SELECT MAX(Foresporsel_ID) FROM Foresporsel));";
             PreparedStatement fkode = db.prepareStatement(foresporselKode);
             fkode.setString(1, model.getAnsattNummer());
             fkode.setString(2, model.getUtstyrId());

@@ -68,7 +68,7 @@ public class FjerneUtstyrServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "Delete from Utstyr where Utstyr_Navn = ?;";
+            String leggeTilKode = "DELETE FROM Utstyr WHERE Utstyr_Navn = ?;";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, Utstyr.getUtstyr());
 

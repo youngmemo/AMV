@@ -75,8 +75,8 @@ public class OpprettAnsattServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "insert into ansatt (Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer, Ansatt_ID, Passord) values(?,?,?,?,?,?,?,?,?);";
-            String giRettighetKode = "insert into Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar) VALUES(?, 'normal', 'Førstegangsregistrering')";
+            String leggeTilKode = "INSERT INTO ansatt (Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer, Ansatt_ID, Passord) VALUES (?,?,?,?,?,?,?,?,?);";
+            String giRettighetKode = "INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar) VALUES(?, 'normal', 'Førstegangsregistrering')";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             PreparedStatement rettighetKode = db.prepareStatement(giRettighetKode);
 

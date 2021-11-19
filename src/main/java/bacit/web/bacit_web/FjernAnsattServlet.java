@@ -94,7 +94,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String ShowTable = "SELECT distinct Ansatt_ID, Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer FROM Ansatt";
+            String ShowTable = "SELECT DISTINCT Ansatt_ID, Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer FROM Ansatt";
             PreparedStatement kode = db.prepareStatement(ShowTable);
             ResultSet rs;
             rs = kode.executeQuery();
