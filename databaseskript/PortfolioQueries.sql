@@ -67,10 +67,10 @@ WHERE S.Levert = FALSE AND F.Akseptert = TRUE AND F.Slutt_Dato < CAST(CURRENT_DA
 ORDER BY A.Fornavn;
 
 /*Lister opp alle lisensierte utstyr Ansatt "?" har tilgang til*/
-SELECT Utstyr.Utstyr_ID, Utstyr_Navn, LisensiertUtstyr.Utstyr_Kommentar, Kategori.Kategori
-FROM Utstyr
-    INNER JOIN LisensiertUtstyr ON Utstyr.Utstyr_ID = LisensiertUtstyr.Utstyr_ID
-    INNER JOIN Kategori ON Utstyr.Kategori_ID = Kategori.Kategori_ID
-    INNER JOIN LisensiertAnsatt ON LisensiertUtstyr.Lisens_ID = LisensiertAnsatt.Lisens_ID
-WHERE LisensiertAnsatt.Ansatt_ID = ?;
+SELECT U.Utstyr_ID, U.Utstyr_Navn, LU.Utstyr_Kommentar, K.Kategori
+FROM Utstyr U
+    INNER JOIN LisensiertUtstyr LU ON U.Utstyr_ID = LU.Utstyr_ID
+    INNER JOIN Kategori K ON U.Kategori_ID = K.Kategori_ID
+    INNER JOIN LisensiertAnsatt LA ON LU.Lisens_ID = LA.Lisens_ID
+WHERE LA.Ansatt_ID = ?;
 
