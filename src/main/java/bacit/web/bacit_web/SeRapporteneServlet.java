@@ -56,7 +56,7 @@ public class SeRapporteneServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell = "SELECT Rapport_ID, Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID from Rapport " +
+            String visTabell = "SELECT Rapport_ID, Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID FROM Rapport " +
                                 "WHERE Lest_Rapport = FALSE " +
                                 "ORDER BY Rapport_ID ASC; ";
 

@@ -69,7 +69,7 @@ public class EndreDataServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "UPDATE ansatt SET Epost = ?, Adresse = ?, Post_nummer = ?, Passord = ? WHERE Ansatt_ID = ?";
+            String leggeTilKode = "UPDATE Ansatt SET Epost = ?, Adresse = ?, Post_nummer = ?, Passord = ? WHERE Ansatt_ID = ?";
             //String leggeTilKode = "insert into ansatt (Epost, Adresse, Post_nummer, Passord),  values(?,?,?,?);";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             kode.setString(1, ansatt.getEpost());

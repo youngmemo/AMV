@@ -1,7 +1,7 @@
 /*List all equipment in the system with their type*/
 SELECT U.Utstyr_Navn AS Utstyrnavn, K.Kategori
 FROM Utstyr U
-    JOIN Kategori K ON U.Kategori_ID = K.Kategori_ID;
+    INNER JOIN Kategori K ON U.Kategori_ID = K.Kategori_ID;
 
 /* List all the available (at the moment – not already borrowed) equipment */
 SELECT DISTINCT U.Utstyr_ID, U.Utstyr_Navn AS Utstyrnavn
@@ -39,12 +39,11 @@ GROUP BY F.Ansatt_ID
 ORDER BY AntallUtstyr DESC
 LIMIT 3;
 
-
 /*List all the equipment borrowed by the user with the highest number of equipment borrowed, sorted by date/time*/
 SELECT F.Foresporsel_ID, A.Fornavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
 FROM Foresporsel F
-    JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
-    JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
+    INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+    INNER JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
 WHERE F.Ansatt_ID =
       (
           SELECT F.Ansatt_ID
@@ -60,9 +59,9 @@ ORDER BY F.Start_Dato;
 /*List all overdue equipment with their borrowers */
 SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn, U.Utstyr_Navn
 FROM Foresporsel F
-    JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
-    JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
-    JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
+    INNER JOIN Ansatt A ON F.Ansatt_ID = A.Ansatt_ID
+    INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+    INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
 WHERE S.Levert = FALSE AND F.Akseptert = TRUE AND F.Slutt_Dato < CAST(CURRENT_DATE AS DATE)
 ORDER BY A.Fornavn;
 
@@ -74,3 +73,130 @@ FROM Utstyr U
     INNER JOIN LisensiertAnsatt LA ON LU.Lisens_ID = LA.Lisens_ID
 WHERE LA.Ansatt_ID = ?;
 
+/*Spørringer vi har på servletsene*/
+/*AkseptereForesporselServlet*/
+INSERT INTO Status (Foresporsel_ID, Levert)
+VALUES(?, 0);
+
+UPDATE Foresporsel
+    SET Akseptert = TRUE
+WHERE Foresporsel_ID = ?;
+
+/*AvslaForesporselServlet*/
+DELETE FROM Foresporsel WHERE Foresporsel_ID = ?;
+
+SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
+FROM Foresporsel F
+    INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+WHERE Akseptert = FALSE
+ORDER BY Foresporsel_ID ASC;
+
+/*BekreftTilbakeleveringServlet*/
+SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
+FROM Foresporsel F
+    INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+    INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
+WHERE S.Levert = 0 AND F.Ansatt_ID = ?
+ORDER BY F.Foresporsel_ID ASC;
+
+/*BookeLisensiertUtstyrServlet*/
+INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID)
+VALUES(?,?,?);
+
+INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato)
+VALUES(?,?,?,?);
+
+/*BookeUtstyrServlet*/
+INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato)
+VALUES(?,?,?,?);
+
+INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID)
+VALUES(?,?,?,(SELECT MAX(Foresporsel_ID) FROM Foresporsel));
+
+/*EndreDataServlet*/
+UPDATE Ansatt
+SET Epost = ?, Adresse = ?, Post_nummer = ?, Passord = ?
+WHERE Ansatt_ID = ?;
+
+/*FjernAdminServlet*/
+DELETE FROM Brukerrettigheter
+WHERE Rettighet = 'administrator' AND Ansatt_ID = ?;
+
+/*FjernAnsattServlet*/
+DELETE FROM Ansatt
+WHERE Ansatt_ID = ?;
+
+SELECT DISTINCT Ansatt_ID, Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer
+FROM Ansatt;
+
+/*FjerneUtstyrServlet*/
+DELETE FROM Utstyr
+WHERE Utstyr_Navn = ?;
+
+SELECT *
+FROM Utstyr;
+
+/*ForslagsBoksServlet*/
+INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
+VALUES(?,?,?);
+
+/*GiAdminTilAnsattServlet*/
+INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
+VALUES(?,'administrator',?);
+
+/*GiLisensRettighetServlet*/
+INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
+VALUES(?,'lisens',?);
+
+/*IkkeLanteUtstyrServlet*/
+SELECT DISTINCT Utstyr.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U
+    INNER JOIN Foresporsel F ON U.Utstyr_ID = F.Utstyr_ID
+    INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
+WHERE S.Levert = true AND F.Akseptert = FALSE;
+
+/*KansellereUtstyrServlet*/
+DELETE FROM Foresporsel
+WHERE Foresporsel_ID = ?;
+
+SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
+FROM Foresporsel F
+    INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+WHERE F.Ansatt_ID = ?
+
+/*LeggeTilUtstyrServlet*/
+INSERT INTO Utstyr (Utstyr_Navn,Utstyr_Beskrivelse,Kategori_ID)
+VALUES(?,?,?);
+
+/*OpprettAnsattServlet*/
+INSERT INTO ansatt (Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer, Ansatt_ID, Passord)
+VALUES (?,?,?,?,?,?,?,?,?);
+
+INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
+VALUES(?, 'normal', 'Førstegangsregistrering');
+
+/*RapporterUtstyretServlet*/
+INSERT INTO Rapport(Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
+VALUES(?,?,?,?);
+
+/*SeForslagServlet*/
+SELECT Forslag_Utstyr, Forslag_Kommentar
+FROM Forslag;
+
+/*SeRapporteneServlet*/
+SELECT Rapport_ID, Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID
+FROM Rapport
+WHERE Lest_Rapport = FALSE
+ORDER BY Rapport_ID ASC;
+
+UPDATE Rapport
+SET Lest_Rapport = TRUE
+WHERE Rapport_ID = ?;
+
+/*UtlantUtstyrServlet*/
+SELECT F.Foresporsel_ID, A.Ansatt_ID, A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
+FROM Foresporsel F
+    INNER JOIN Utstyr U on F.Utstyr_ID = U.Utstyr_ID
+    INNER JOIN Status S on F.Foresporsel_ID = S.Foresporsel_ID
+    INNER JOIN Ansatt A on F.Ansatt_ID = A.Ansatt_ID
+WHERE F.Akseptert = 1 AND S.Levert = 0 AND F.Slutt_Dato > CAST(CURRENT_DATE AS DATE) AND F.Start_Dato < CAST(CURRENT_DATE AS DATE)
+ORDER BY Foresporsel_ID ASC;

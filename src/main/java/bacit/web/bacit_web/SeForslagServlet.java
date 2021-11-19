@@ -44,7 +44,7 @@ public class SeForslagServlet extends HttpServlet{
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell = "SELECT Forslag_Utstyr, Forslag_Kommentar FROM Forslag; ";
+            String visTabell = "SELECT Forslag_Utstyr, Forslag_Kommentar FROM Forslag;";
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
