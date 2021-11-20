@@ -96,23 +96,20 @@ public class EndreDataServlet extends HttpServlet {
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/endre-data' method='POST'>");
 
         out.println("<h3>Her kan du endre data på en ansatt</h3>");
-        out.println("<h3>Skriv inn ansattnummeret på den ansatte og deretter fyll inn data du vil endre på</h3>");
 
-        out.println("<label for='ansattnummer'>Ansattnummer</label>");
-        out.println("<input type='text' name='ansattnummer' placeholder='Skriv inn ansattnummer '/>");
+        out.println("<input type='text' name='ansattnummer' placeholder='Skriv inn ansattnummeret til den ansatte du ønsker å endre data på'/>");
 
         out.println("<br><br><br><h3>Skriv inn ny data på den ansatte under</h3>");
 
-        out.println("<br> <label for='epost'>E-post</label>");
         out.println("<input type='text' name='epost' placeholder='Skriv inn e-post'/>");
 
-        out.println("<br><br><label for='adresse'>Adresse</label>");
+        out.println("<br><br>");
         out.println("<input type='text' name='adresse' placeholder='Skriv inn adresse'/>");
 
-        out.println("<br><br> <label for='postnummer'>Postnummer</label>");
+        out.println("<br><br>");
         out.println("<input type='text' name='postnummer' placeholder='Skriv inn postnummer'/>");
 
-        out.println("<br><br> <label for='passord'>Passord</label>");
+        out.println("<br><br>");
         out.println("<input type='password' name='passord' placeholder='Skriv inn passord'/>");
 
         out.println("<br><br> <input type='submit' value='Endre info på ansatt'/>");

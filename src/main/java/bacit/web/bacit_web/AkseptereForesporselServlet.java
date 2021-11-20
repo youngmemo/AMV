@@ -119,7 +119,7 @@ public class AkseptereForesporselServlet extends HttpServlet {
             db = DBUtils.getINSTANCE().getConnection(out);
 
             String visTabell =  "SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
-                                "INNER JOIN Utstyr U ON Foresporsel.Utstyr_ID = U.Utstyr_ID " +
+                                "INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID " +
                                 "WHERE Akseptert = FALSE " +
                                 "ORDER BY Foresporsel_ID ASC;";
 
@@ -159,11 +159,10 @@ public class AkseptereForesporselServlet extends HttpServlet {
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
-        out.println("<label for='foresporselIdInp'>Skriv inn forespørsel ID</label>");
 
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/aksepter-foresporsel' method='POST'>");
-        out.println("<br><br>");
-        out.println("<input type='text' name='foresporselIdInp' placeholder='Skriv inn forespørsel ID'/>");
+        out.println("<br>");
+        out.println("<input type='text' name='foresporselIdInp' placeholder='Skriv inn forespørsel ID-en til den ansatte du vil akseptere forespørselen til'/>");
         out.println("<br><br>");
         out.println("<input type='submit' value='Aksepter forespørsel'/>");
         out.println("</form>");

@@ -38,7 +38,7 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
         model.setUtstyrId(request.getParameter("utstyrid"));
         model.setStartDato(request.getParameter("startdato"));
         model.setSluttDato(request.getParameter("sluttdato"));
-        model.setAnsattNummer(request.getParameter("ansattnummer"));
+        model.setAnsattNummer(request.getUserPrincipal().getName());
         model.setBetalingsMetode(request.getParameter("betalingsmetode"));
 
         PrintWriter out = response.getWriter();
@@ -69,19 +69,13 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
 
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/lisens/booke-lisensiertutstyr' method='POST'>");
 
-        out.println("<h3>Her kan du booke utstyr som krever lisens</h3>");
-        out.println("<h3>NB! Du får bare lov til å låne det du har lisens til, ellers vil du ikke få godkjent utlån!</h3>");
-        out.println("<h3>Skriv inn ansattnummeret ditt under</h3>");
-
-        out.println("<label for='ansattnummer'>Ansattnummer</label>");
-        out.println("<input type='text' name='ansattnummer' placeholder='Skriv inn ansattnummer'/>");
+        out.println("<h1>Her kan du booke utstyr som krever lisens</h3>");
 
         out.println("<br><br><br>");
         out.println("<h3>Vennligst velg utstyret du ønsker å låne</h3>");
 
-        out.println("<label for='utstyrValg'>Velg et utstyr:</label>");
         out.println("<select name='utstyrid' id='utstyrid'>");
-        out.println("<option selected='true' value='0' disabled='disabled'>Velg lisensiert utstyr</option>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg det lisensierte utstyret du ønsker å låne</option>");
         out.println("<option value='7'>Personløfter</option>");
         out.println("<option value='8'>Gaffeltruck</option>");
         out.println("</select>");
@@ -94,9 +88,8 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
         out.println("<input type='date' name='sluttdato' min='2021-10-15'></label>");
 
         out.println("<br><br>");
-        out.println("<label for='betalingsmetode'>Velg betalingsmetode:</label>");
         out.println("<select name='betalingsmetode' id='betalingsmetode'>");
-        out.println("<option selected='true' value='0' disabled='disabled'>Velg betalingsmetode</option>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg betalingsmetoden du ønsker å bruke for å låne utstyret</option>");
         out.println("<option value='1'>Kort</option>");
         out.println("<option value='2'>Faktura</option>");
         out.println("</select>");
@@ -111,15 +104,8 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String betalingKode = "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID) VALUES(?,?,?);";
             String foresporselKode = "INSERT INTO Foresporsel (Ansatt_ID, Utstyr_ID, Start_Dato, Slutt_Dato) VALUES(?,?,?,?);";
-
-            PreparedStatement bkode = db.prepareStatement(betalingKode);
-            bkode.setString(1, model.getAnsattNummer());
-            bkode.setString(2, model.getUtstyrId());
-            bkode.setString(3, model.getBetalingsMetode());
-            bkode.executeUpdate();
-
+            String betalingKode =    "INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID) VALUES(?,?,?,(SELECT MAX(Foresporsel_ID) FROM Foresporsel));";
             PreparedStatement fkode = db.prepareStatement(foresporselKode);
             fkode.setString(1, model.getAnsattNummer());
             fkode.setString(2, model.getUtstyrId());
@@ -127,8 +113,14 @@ public class BookeLisensiertUtstyrServlet extends HttpServlet {
             fkode.setString(4, model.getSluttDato());
             fkode.executeUpdate();
 
-            db.close();
+            PreparedStatement bkode = db.prepareStatement(betalingKode);
+            bkode.setString(1, model.getAnsattNummer());
+            bkode.setString(2, model.getUtstyrId());
+            bkode.setString(3, model.getBetalingsMetode());
+            bkode.executeUpdate();
 
+
+            db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

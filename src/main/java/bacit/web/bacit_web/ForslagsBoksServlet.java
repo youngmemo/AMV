@@ -35,7 +35,7 @@ public class ForslagsBoksServlet extends HttpServlet{
         ForslagsBoksModel model = new ForslagsBoksModel();
         HtmlHelper HtmlHelper = new HtmlHelper();
 
-        model.setAnsatt_ID(request.getParameter("Ansattnummeret"));
+        model.setAnsatt_ID(request.getUserPrincipal().getName());
         model.setForslag_Utstyr(request.getParameter("Hvilket utstyr?"));
         model.setForslag_Kommentar(request.getParameter("Kommentar for forslaget"));
 
@@ -114,14 +114,11 @@ public class ForslagsBoksServlet extends HttpServlet{
             out.println("<h2>" + feilMelding + "</h2>");}
             out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/forslags-boks' method='POST'>");
 
-            out.println("<br><br> <label for='Ansattnummeret'> Ansattnummeret</label>");
-            out.println("<input type='text' name='Ansattnummeret' placeholder='Skriv inn ansattnummeret'/>");
-
-            out.println("<br><br> <label for='Hvilket utstyr?'> Hvilket utstyr</label>");
-            out.println("<input type='text' name='Hvilket utstyr?' placeholder='Skriv inn ustyret'/>");
+            out.println("<br><br>");
+            out.println("<input type='text' name='Hvilket utstyr?' placeholder='Skriv inn utstyrsnavnet du ønsker å få mulighet til å låne'/>");
 
             out.println("<br><br> <label for='Kommentar for forslaget'> Kommentar for forslaget</label>");
-            out.println("<br><br><textarea id='Kommentar for forslaget' name='Kommentar for forslaget' rows='4' cols='50'></textarea><br>");
+            out.println("<br><br><textarea id='Kommentar for forslaget' name='Kommentar for forslaget' placeholder='Skriv inn hvorfor du ønsker at deg og ansatte skal få muligheten til å få lånt dette utstyret' rows='15' cols='85'></textarea><br>");
 
             out.println("<br><br> <input type='submit' value='Godta'/>");
             out.println("</form>");

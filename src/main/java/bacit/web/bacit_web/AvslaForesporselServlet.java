@@ -136,11 +136,9 @@ public class AvslaForesporselServlet extends HttpServlet {
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
-        out.println("<label for='foresporselIdInp'>Skriv inn forespørsel ID</label>");
-
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/avsla-foresporsel' method='POST'>");
         out.println("<br><br>");
-        out.println("<input type='text' name='foresporselIdInp' placeholder='Skriv inn forespørsel ID'/>");
+        out.println("<input type='text' name='foresporselIdInp' placeholder='Skriv inn forespørsel ID-en til den ansatte du vil avslå forespørselen til'/>");
         out.println("<br><br>");
         out.println("<input type='submit' value='Avslå forespørsel'/>");
         out.println("</form>");

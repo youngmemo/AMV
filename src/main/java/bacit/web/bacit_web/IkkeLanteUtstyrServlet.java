@@ -46,7 +46,7 @@ public class IkkeLanteUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT DISTINCT Utstyr.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U " +
+            String visTabell =  "SELECT DISTINCT U.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U " +
                                 "INNER JOIN Foresporsel F ON U.Utstyr_ID = F.Utstyr_ID " +
                                 "INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID " +
                                 "WHERE S.Levert = true AND F.Akseptert = FALSE;";

@@ -82,6 +82,11 @@ UPDATE Foresporsel
     SET Akseptert = TRUE
 WHERE Foresporsel_ID = ?;
 
+SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F
+    INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
+WHERE Akseptert = FALSE
+ORDER BY Foresporsel_ID ASC;
+
 /*AvslaForesporselServlet*/
 DELETE FROM Foresporsel WHERE Foresporsel_ID = ?;
 
@@ -92,7 +97,7 @@ WHERE Akseptert = FALSE
 ORDER BY Foresporsel_ID ASC;
 
 /*BekreftTilbakeleveringServlet*/
-SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
+SELECT S.Status_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
 FROM Foresporsel F
     INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
     INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
@@ -149,7 +154,7 @@ INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
 VALUES(?,'lisens',?);
 
 /*IkkeLanteUtstyrServlet*/
-SELECT DISTINCT Utstyr.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U
+SELECT DISTINCT U.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U
     INNER JOIN Foresporsel F ON U.Utstyr_ID = F.Utstyr_ID
     INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
 WHERE S.Levert = true AND F.Akseptert = FALSE;
@@ -168,8 +173,8 @@ INSERT INTO Utstyr (Utstyr_Navn,Utstyr_Beskrivelse,Kategori_ID)
 VALUES(?,?,?);
 
 /*OpprettAnsattServlet*/
-INSERT INTO ansatt (Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer, Ansatt_ID, Passord)
-VALUES (?,?,?,?,?,?,?,?,?);
+INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
+VALUES((SELECT MAX(Ansatt_ID) FROM Ansatt), 'normal', 'Førstegangsregistrering');
 
 INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
 VALUES(?, 'normal', 'Førstegangsregistrering');
@@ -193,7 +198,7 @@ SET Lest_Rapport = TRUE
 WHERE Rapport_ID = ?;
 
 /*UtlantUtstyrServlet*/
-SELECT F.Foresporsel_ID, A.Ansatt_ID, A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
+SELECT A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
 FROM Foresporsel F
     INNER JOIN Utstyr U on F.Utstyr_ID = U.Utstyr_ID
     INNER JOIN Status S on F.Foresporsel_ID = S.Foresporsel_ID

@@ -87,11 +87,13 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
         out.println("<div id=feltned>");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/legge-til-utstyr' method='POST'>");
 
-        out.println("<br><br><br><input type='text' name='utstyrnavn' placeholder='Skriv inn utstyr navn'/>");
+        out.println("<br><br><br><input type='text' name='utstyrnavn' placeholder='Skriv inn navnet på utstyret som skal legges til'/>");
 
-        out.println("<br><br><br><input type='text' name='utstyrBeskrivelse' placeholder='Skriv inn Utstyr beskrivelse'/>");
+        out.println("<br><br><br><input type='text' name='utstyrBeskrivelse' placeholder='Skriv inn en kort beskrivelse for dette utstyret.'/>");
 
-        out.println("<br><br><br><input type='text' name='KategoriID' placeholder='Skriv inn kategori ID'/>");
+
+        //TODO: Fikse slik at det blir at det blir "select menu" istedenfor? Eller hvertfall få frem Kategori_ID.
+        out.println("<br><br><br><input type='text' name='KategoriID' placeholder='Skriv inn kategori ID-en til dette utstyret.'/>");
 
 
         out.println("<br><br> <input type='submit' value='Legg til Utstyr'/>");

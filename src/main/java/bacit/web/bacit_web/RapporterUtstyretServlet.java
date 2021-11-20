@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+//TODO: FIKSE SLIK AT UTSTYR TABELLEN VISES HER, ANSATTE VET IKKE UTSTYR_ID NUMMER MEN BARE NAVN :)
+
 @WebServlet(name= "RapporterUtstyretServlet", value = "/ansatt/rapporter-utstyr")
 public class RapporterUtstyretServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -34,7 +36,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
         model.setRapport_Tittel(request.getParameter("Tittel"));
         model.setRapport_Kommentar(request.getParameter("RapportKommentar"));
         model.setUtstyr_ID(request.getParameter("Utstyret"));
-        model.setAnsatt_ID(request.getParameter("Ansatt"));
+        model.setAnsatt_ID(request.getUserPrincipal().getName());
 
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
@@ -85,17 +87,14 @@ public class RapporterUtstyretServlet extends HttpServlet {
                 out.println("<h2>" + feilMelding + "</h2>");}
                 out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/rapporter-utstyr' method='POST'>");
 
-                out.println("<br><br> <label for ='Tittel'> Tittel</label>");
-                out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn tittelen'/>");
+                out.println("<br><br>");
+                out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn en passende tittel for rapporten'/>");
 
-                out.println("<br><br> <label for='RapportKommentar'> RapportKommentar </label>");
-                out.println("<br><br><textarea id='RapportKommentar' name='RapportKommentar' rows='4' cols='50'></textarea><br>");
+                out.println("<br><br>");
+                out.println("<br><br><textarea id='Rapport Kommentar' name='RapportKommentar' placeholder='Skriv hva som er galt med utstyret og forklar feilen om du kan' rows='15' cols='85'></textarea><br>");
 
-                out.println("<br><br> <label for='Utstyret'> Utstyret</label>");
-                out.println("<input type='text' name='Utstyret' placeholder='Skriv inn utstyret'/>");
-
-                out.println("<br><br> <label for='Ansatt'> Ansatt</label>");
-                out.println("<input type='text' name='Ansatt' placeholder='Skriv inn ansattnummeret'/>");
+                out.println("<br><br>");
+                out.println("<input type='text' name='Utstyr ID' placeholder='Skriv ID-en til utstyret du sender inn rapport for'/>");
 
                 out.println("<br><br> <input type='submit' value='Rapporter'/>");
                 out.println("</form>");

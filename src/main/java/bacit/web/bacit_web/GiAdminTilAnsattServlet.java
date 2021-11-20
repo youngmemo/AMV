@@ -86,14 +86,11 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/super/gi-admin' method='POST'>");
 
         out.println("<h3>Her kan du gi adminrettigheter til en ansatt</h3>");
-        out.println("<p>Skriv inn ansattiden på den ansatte og deretter fyll inn kommentar hvis ønsket</p>");
 
-        out.println("<label for='ansattid'>AnsattID</label>");
-        out.println("<input type='text' name='ansattid' placeholder='Skriv inn ansattid '/>");
+        out.println("<input type='text' name='ansattid' placeholder='Skriv inn ansattnummeret til den ansatte du ønsker å gi administrator rettigheter til'/>");
 
         out.println("<br><br>");
-        out.println("<label for='kommentar'>Kommentar</label>");
-        out.println("<input type='text' name='kommentar' placeholder='Skriv inn kommentar'/>");
+        out.println("<input type='text' name='kommentar' placeholder='Skriv inn kommentar på hvorfor denne ansatte har fått administrator rettigheter'/>");
 
 
         out.println("<br><br> <input type='submit' value='Gi adminrettigheter'/>");

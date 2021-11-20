@@ -46,7 +46,7 @@ public class UtlantUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT F.Foresporsel_ID, A.Ansatt_ID, A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
+            String visTabell =  "SELECT A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
                                 "INNER JOIN Utstyr U on F.Utstyr_ID = U.Utstyr_ID " +
                                 "INNER JOIN Status S on F.Foresporsel_ID = S.Foresporsel_ID " +
                                 "INNER JOIN Ansatt A on F.Ansatt_ID = A.Ansatt_ID " +
@@ -62,8 +62,6 @@ public class UtlantUtstyrServlet extends HttpServlet {
             out.println("<br><br>");
             out.println("<table>" +
                     "<tr>" +
-                    "<th>Forespørsel ID</th>" +
-                    "<th>Ansatt ID</th>" +
                     "<th>Fornavn</th>" +
                     "<th>Etternavn</th>" +
                     "<th>Utstyr Navn</th>" +
@@ -73,8 +71,6 @@ public class UtlantUtstyrServlet extends HttpServlet {
 
             while (rs.next()) {
                 out.println("<tr>" +
-                        "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
-                        "<td>" + rs.getString("Ansatt_ID") + "</td>" +
                         "<td>" + rs.getString("Fornavn") + "</td>" +
                         "<td>" + rs.getString("Etternavn") + "</td>" +
                         "<td>" + rs.getString("Utstyr_Navn") + "</td>" +

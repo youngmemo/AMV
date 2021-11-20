@@ -86,14 +86,11 @@ public class GiLisensRettighetServlet extends HttpServlet {
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/gi-lisens' method='POST'>");
 
         out.println("<h3>Her kan du gi lisensrettigheter til en ansatt</h3>");
-        out.println("<p>Skriv inn ansattiden på den ansatte og deretter fyll inn kommentar hvis ønsket</p>");
 
-        out.println("<label for='ansattid'>AnsattID</label>");
-        out.println("<input type='text' name='ansattid' placeholder='Skriv inn ansattid '/>");
+        out.println("<input type='text' name='ansattid' placeholder='Skriv inn ansatt ID-en til den ansatte du ønsker å gi lisensrettigheter til '/>");
 
         out.println("<br><br>");
-        out.println("<label for='kommentar'>Kommentar</label>");
-        out.println("<input type='text' name='kommentar' placeholder='Skriv inn kommentar'/>");
+        out.println("<input type='text' name='kommentar' placeholder='Skriv inn en kommentar på hvorfor denne ansatten har fått lisensrettigheter'/>");
 
 
         out.println("<br><br> <input type='submit' value='Gi lisensrettigheter'/>");

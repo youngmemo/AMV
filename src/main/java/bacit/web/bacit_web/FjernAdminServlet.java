@@ -54,8 +54,8 @@ public class FjernAdminServlet extends HttpServlet {
                 out.println(ex.getMessage());
             }
             HtmlHelper.writeHtmlStartCssTitle(out, "Admin har nå blitt fjernet");
-            out.println("Under kan du se h<br>" +
-                    "<br>Admin navn: " + Admin.getAdmin());
+            out.println("Under kan du se hvilken ansattnummer som har blitt fjernet administratorrettighetene sine<br>" +
+                    "<br>Ansattnummer: " + Admin.getAdmin());
 
             HtmlHelper.writeHtmlEnd(out);
 
@@ -130,8 +130,8 @@ public class FjernAdminServlet extends HttpServlet {
 
         out.println("<p>På denne siden kan du fjerne adminrettigheter til en ansatt med å skrive ansattnummeret til vedkommende.");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/fjerne-admin' method='POST'>");
-        out.println("<br><br> <label for='Ansattnummer'>Ansatt nummer</label>");
-        out.println("<input type='text' name='AnsattID' placeholder='Skriv inn ansattnummer'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='AnsattID' placeholder='Skriv inn ansattnummeret til den ansatte du ønsker å fjerne adminrettigheter på'/>");
 
 
         out.println("<br><br> <input type='submit' value='Fjern admin'/>");

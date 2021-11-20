@@ -111,13 +111,13 @@ public class SeRapporteneServlet extends HttpServlet {
 
     }
     public void lesRapportInput(PrintWriter out, String feilMelding) {
-        HtmlHelper.writeHtmlStartCssTitle(out,"Skriv rapporten som er lest nedenfor");
+        HtmlHelper.writeHtmlStartCssTitle(out,"Oversikt over rapporter som er sendt inn");
         if (feilMelding != null) {
             out.println("<h2>" + feilMelding + "</h2>");
         }
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/se-rapport' method='POST'>");
 
-        out.println("<input type='text' name='Rapport_ID' placeholder='Skriv inn RapportID som du ønsker å markere som lest'/>");
+        out.println("<input type='text' name='Rapport_ID' placeholder='Skriv inn rapportens ID som du ønsker å markere som lest'/>");
         out.println("<br> <input type='submit' value='Lest'/>");
 
         out.println("</form>");

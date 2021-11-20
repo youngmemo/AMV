@@ -127,8 +127,8 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
 
 
-            out.println("<br><b> <label for='Statusen'> Statusen</label>");
-            out.println("<input type= 'text' name= 'Statusen' placeholder='Skriv inn statusen'/>");
+            out.println("<br>");
+            out.println("<input type= 'text' name='Statusen' placeholder='Skriv inn Status ID-en til utstyret du har lånt'/>");
 
 
             out.println("<br><br> <input type='submit' value='Levert'/>");
@@ -172,7 +172,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
+            String visTabell =  "SELECT S.Status_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
                                 "INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID " +
                                 "INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID " +
                                 "WHERE S.Levert = 0 AND F.Ansatt_ID = ? " +

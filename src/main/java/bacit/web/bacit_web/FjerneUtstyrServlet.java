@@ -129,10 +129,9 @@ public class FjerneUtstyrServlet extends HttpServlet {
 
         out.println("<h1> Fjerne Utstyr </h1>");
         out.println("<br><br>");
-        out.println("<h3> Vennligst skriv under hvilket utstyr du ønsker å fjerne </h3>");
         out.println("<br><br><br>");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/fjerne-utstyr' method='POST'>");
-        out.println("<input type='text' name='utstyrnavn' placeholder='Skriv inn navn på utstyret'/>");
+        out.println("<input type='text' name='utstyrnavn' placeholder='Skriv inn navnet på utstyret du ønsker å fjerne fra systemet'/>");
 
         out.println("<div id=submit center>");
         out.println("<br> <input type='submit' value='Fjern utstyr'/>");
