@@ -120,7 +120,7 @@ VALUES(?,?,?,(SELECT MAX(Foresporsel_ID) FROM Foresporsel));
 
 /*EndreDataServlet*/
 UPDATE Ansatt
-SET Epost = ?, Adresse = ?, Post_nummer = ?, Passord = ?
+SET Epost = ?, Adresse = ?, PostNummer = ?, Passord = ?
 WHERE Ansatt_ID = ?;
 
 /*FjernAdminServlet*/
@@ -166,7 +166,7 @@ WHERE Foresporsel_ID = ?;
 SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato
 FROM Foresporsel F
     INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID
-WHERE F.Ansatt_ID = ?
+WHERE F.Ansatt_ID = ?;
 
 /*LeggeTilUtstyrServlet*/
 INSERT INTO Utstyr (Utstyr_Navn,Utstyr_Beskrivelse,Kategori_ID)
