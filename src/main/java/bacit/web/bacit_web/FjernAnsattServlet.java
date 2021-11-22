@@ -99,7 +99,6 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             ResultSet rs;
             rs = kode.executeQuery();
 
-            out.println("<div id=FjernAnsattSentrering>");
             out.println("<div id=Sentrere>");
             out.println("<table>" +
                     "<tr>" +
