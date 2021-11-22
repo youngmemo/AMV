@@ -51,13 +51,12 @@ public class UtlantUtstyrServlet extends HttpServlet {
                                 "INNER JOIN Status S on F.Foresporsel_ID = S.Foresporsel_ID " +
                                 "INNER JOIN Ansatt A on F.Ansatt_ID = A.Ansatt_ID " +
                                 "WHERE F.Akseptert = 1 AND S.Levert = 0 AND F.Slutt_Dato > CAST(CURRENT_DATE AS DATE) AND F.Start_Dato < CAST(CURRENT_DATE AS DATE) " +
-                                "ORDER BY Foresporsel_ID ASC;";
+                                "ORDER BY F.Foresporsel_ID ASC;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
-            HtmlHelper.writeHtmlStartCss(out);
-            out.println("<h1>Oversikt over utstyr som er utlånt</h1>");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Oversikt over utstyr som er utlånt");
             out.println("<p>Under kan dere se tabellen av utstyr som er utlånt akkurat nå sortert på foresporsel id i stigende rekkefølge");
             out.println("<br><br>");
             out.println("<table>" +

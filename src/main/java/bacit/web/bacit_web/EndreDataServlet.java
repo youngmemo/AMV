@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name = "EndreDataServlet", value = "/admin/endre-data")
@@ -22,6 +23,7 @@ public class EndreDataServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
+        seAnsattListe(out);
 
         hentAnsattSkjema(out, null);
     }
@@ -65,6 +67,49 @@ public class EndreDataServlet extends HttpServlet {
         }
     }
 
+    public void seAnsattListe(PrintWriter out) {
+        Connection db = null;
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+            String seListeKode = "SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn, A.Epost, A.Adresse, A.Postnummer, A.Passord FROM Ansatt A";
+            PreparedStatement kode = db.prepareStatement(seListeKode);
+
+            kode.executeQuery();
+
+            ResultSet rs;
+            rs = kode.executeQuery();
+
+            HtmlHelper.writeHtmlStartCss(out);
+            out.println("<table>" +
+                    "<tr>" +
+                    "<th>Ansatt ID</th>" +
+                    "<th>Fornavn</th>" +
+                    "<th>Etternavn</th>" +
+                    "<th>Epost</th>" +
+                    "<th>Adresse</th>" +
+                    "<th>Postnummer</th>" +
+                    "<th>Passord</th>" +
+                    "</tr>");
+
+            while (rs.next()) {
+                out.println("<tr>" +
+                        "<td>" +rs.getInt("Ansatt_ID") + "</td>" +
+                        "<td>" + rs.getString("Fornavn") + "</td>" +
+                        "<td>" + rs.getString("Etternavn") + "</td>" +
+                        "<td>" + rs.getString("Epost") + "</td>" +
+                        "<td>" + rs.getString("Adresse") + "</td>" +
+                        "<td>" + rs.getString("Postnummer") + "</td>" +
+                        "<td>" + rs.getString("Passord") + "</td>" +
+                        "</tr>");
+            }
+            db.close();
+
+            HtmlHelper.writeHtmlEnd(out);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void endreAnsatt(AnsattModel ansatt, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
@@ -97,22 +142,22 @@ public class EndreDataServlet extends HttpServlet {
 
         out.println("<h3>Her kan du endre data på en ansatt</h3>");
 
-        out.println("<input type='text' name='ansattnummer' placeholder='Skriv inn ansattnummeret til den ansatte du ønsker å endre data på'/>");
+        out.println("<input type='text' name='ansattnummer' placeholder='Skriv inn ansattnummeret til den ansatte du ønsker å endre data på' required/>");
 
         out.println("<br><br><br><h3>Skriv inn ny data på den ansatte under</h3>");
 
-        out.println("<input type='text' name='epost' placeholder='Skriv inn e-post'/>");
+        out.println("<input type='text' name='epost' placeholder='Skriv inn e-post' required/>");
 
         out.println("<br><br>");
-        out.println("<input type='text' name='adresse' placeholder='Skriv inn adresse'/>");
+        out.println("<input type='text' name='adresse' placeholder='Skriv inn adresse' required/>");
 
         out.println("<br><br>");
-        out.println("<input type='text' name='postnummer' placeholder='Skriv inn postnummer'/>");
+        out.println("<input type='text' name='postnummer' placeholder='Skriv inn postnummer' required/>");
 
         out.println("<br><br>");
-        out.println("<input type='password' name='passord' placeholder='Skriv inn passord'/>");
+        out.println("<input type='password' name='passord' placeholder='Skriv inn passord' required/>");
 
-        out.println("<br><br> <input type='submit' value='Endre info på ansatt'/>");
+        out.println("<br><br> <input type='submit' value='Endre info på ansatt' required/>");
         out.println("</form>");
         HtmlHelper.writeHtmlEnd(out);
     }

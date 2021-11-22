@@ -58,33 +58,6 @@ public class ForslagsBoksServlet extends HttpServlet{
             out.println("<br><b>Kommentar for forslaget:</b>" +model.getForslag_Kommentar());
 
             HtmlHelper.writeHtmlEnd(out);;
-            out.println("<html><head>");
-
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
-
 
         } else {
             ForslagsBoksInput(out, "Ops! Det skjedde noe feil..");
@@ -118,35 +91,12 @@ public class ForslagsBoksServlet extends HttpServlet{
             out.println("<input type='text' name='Hvilket utstyr?' placeholder='Skriv inn utstyrsnavnet du ønsker å få mulighet til å låne'/>");
 
             out.println("<br><br> <label for='Kommentar for forslaget'> Kommentar for forslaget</label>");
-            out.println("<br><br><textarea id='Kommentar for forslaget' name='Kommentar for forslaget' placeholder='Skriv inn hvorfor du ønsker at deg og ansatte skal få muligheten til å få lånt dette utstyret' rows='15' cols='85'></textarea><br>");
+            out.println("<br><br><textarea id='Kommentar for forslaget' name='Kommentar for forslaget' placeholder='Skriv inn hvorfor du ønsker at deg og ansatte skal få muligheten til å få lånt dette utstyret' rows='15' cols='144'></textarea><br>");
 
             out.println("<br><br> <input type='submit' value='Godta'/>");
             out.println("</form>");
 
             HtmlHelper.writeHtmlEnd(out);
-            out.println("<html><head>");
-
-            out.println("<style>\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-size: 150px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "background-position: 10px 20px;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
 
         }
     }

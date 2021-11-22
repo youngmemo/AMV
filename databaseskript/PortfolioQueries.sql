@@ -120,8 +120,11 @@ VALUES(?,?,?,(SELECT MAX(Foresporsel_ID) FROM Foresporsel));
 
 /*EndreDataServlet*/
 UPDATE Ansatt
-SET Epost = ?, Adresse = ?, PostNummer = ?, Passord = ?
+SET Epost = ?, Adresse = ?, Postnummer = ?, Passord = ?
 WHERE Ansatt_ID = ?;
+
+SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn, A.Epost, A.Adresse, A.Postnummer, A.Passord
+FROM Ansatt A;
 
 /*FjernAdminServlet*/
 DELETE FROM Brukerrettigheter
@@ -149,6 +152,9 @@ VALUES(?,?,?);
 INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
 VALUES(?,'administrator',?);
 
+SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn
+FROM Ansatt A;
+
 /*GiLisensRettighetServlet*/
 INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar)
 VALUES(?,'lisens',?);
@@ -157,7 +163,8 @@ VALUES(?,'lisens',?);
 SELECT DISTINCT U.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U
     INNER JOIN Foresporsel F ON U.Utstyr_ID = F.Utstyr_ID
     INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
-WHERE S.Levert = true AND F.Akseptert = FALSE;
+WHERE S.Levert = TRUE
+ORDER BY Utstyr_ID;
 
 /*KansellereUtstyrServlet*/
 DELETE FROM Foresporsel
@@ -182,6 +189,9 @@ VALUES(?, 'normal', 'Førstegangsregistrering');
 /*RapporterUtstyretServlet*/
 INSERT INTO Rapport(Rapport_Tittel, Rapport_Kommentar, Utstyr_ID, Ansatt_ID)
 VALUES(?,?,?,?);
+
+SELECT U.Utstyr_ID, U.Utstyr_Navn
+FROM Utstyr U;
 
 /*SeForslagServlet*/
 SELECT Forslag_Utstyr, Forslag_Kommentar
