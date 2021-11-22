@@ -8,17 +8,6 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<script>
-    function myFunction() {
-        if(document.getElementById("myText").value == "") {
-            var feilMelding = document.getElementById("feilMelding").innerHTML = "Noe galt skjedde. Prøv på nytt.";
-            feilMelding;
-        }
-        else {
-            location.href="ansatt/fileDownload?id="+document.getElementById("myText").value;
-        }
-    }
-</script>
 <img src=https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w" class="imgLogo" alt="logo">
 
 <div id="inputOgKnapper">

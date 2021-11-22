@@ -6,8 +6,6 @@ body {
     margin: auto;
     max-width: 760px;
 
-
-
 }
 h3 {
 
@@ -189,12 +187,6 @@ body {
 
     z-index: 1;
     width: 10%;
-}
-
-
-#midtstillKnapp {
-    margin: auto;
-    display: block;
 }
 
 
