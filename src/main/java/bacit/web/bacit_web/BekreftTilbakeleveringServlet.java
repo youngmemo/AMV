@@ -66,31 +66,6 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
             out.println("<br><b>Forespørsel:</b>" + model.getForesporsel_ID());
 
             HtmlHelper.writeHtmlEnd(out);
-            out.println("<html><head>");
-
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
 
         } else {
             BekreftsProsessInput(out, "Ops! Det skjedde noe feil..");
@@ -135,32 +110,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
             out.println("</form>");
 
             HtmlHelper.writeHtmlEnd(out);
-            out.println("<html><head>");
 
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
         }
 
     }

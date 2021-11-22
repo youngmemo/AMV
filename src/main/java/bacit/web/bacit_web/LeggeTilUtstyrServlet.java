@@ -36,7 +36,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
         Utstyr.setUtstyr(request.getParameter("utstyrnavn"));
         Utstyr.setUtstyrBeskrivelse(request.getParameter("utstyrBeskrivelse"));
-        Utstyr.setKategoriID(request.getParameter("KategoriID"));
+        Utstyr.setKategoriID(request.getParameter("kategoriid"));
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
@@ -91,10 +91,13 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
         out.println("<br><br><br><input type='text' name='utstyrBeskrivelse' placeholder='Skriv inn en kort beskrivelse for dette utstyret.'/>");
 
+        out.println("<br><br><br>");
 
-        //TODO: Fikse slik at det blir at det blir "select menu" istedenfor? Eller hvertfall få frem Kategori_ID.
-        out.println("<br><br><br><input type='text' name='KategoriID' placeholder='Skriv inn kategori ID-en til dette utstyret.'/>");
+        out.println("<select name='kategoriid' id='kategoriid'>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg kategori for utstyret</option>");
 
+        out.println("<option value='1'>Verktøy</option>");
+        out.println("<option value='2'>Kjøretøy</option>");
 
         out.println("<br><br> <input type='submit' value='Legg til Utstyr'/>");
         out.println("</form>");
