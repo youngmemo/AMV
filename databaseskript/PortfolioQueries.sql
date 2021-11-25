@@ -10,6 +10,14 @@ FROM Utstyr U
     INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID
 WHERE S.Levert = TRUE AND F.Akseptert = FALSE;
 
+/* List all equipment that is borrowed at the moment */
+SELECT A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F
+INNER JOIN Utstyr U on F.Utstyr_ID = U.Utstyr_ID
+INNER JOIN Status S on F.Foresporsel_ID = S.Foresporsel_ID
+INNER JOIN Ansatt A on F.Ansatt_ID = A.Ansatt_ID
+WHERE F.Akseptert = 1 AND S.Levert = 0 AND F.Slutt_Dato > CAST(CURRENT_DATE AS DATE) AND F.Start_Dato < CAST(CURRENT_DATE AS DATE)
+ORDER BY F.Foresporsel_ID ASC;
+
 /*Listing the 5 first rows of the 5 most important tables (your judgement), sorted.*/
 SELECT * FROM Ansatt
 ORDER BY Ansatt_ID
