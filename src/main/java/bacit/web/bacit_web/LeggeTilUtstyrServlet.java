@@ -1,8 +1,6 @@
 package bacit.web.bacit_web;
 import bacit.web.bacit_models.LeggeTilUtstyrModel;
 import bacit.web.bacit_utilities.HtmlHelper;
-
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +45,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
             } catch (SQLException ex) {
                 out.println(ex.getMessage());
             }
-            HtmlHelper.writeHtmlStart(out, "Utstyret har nå blitt lagt til!");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Utstyret har nå blitt lagt til!");
             out.println("under ser du hvilket utstyr som ble lagt til:  <br>" +
                     "<br>Utstyr navn: " + Utstyr.getUtstyr() +
                     "<br>Utstyr beskrivelse: " + Utstyr.getUtstyrBeskrivelse() +

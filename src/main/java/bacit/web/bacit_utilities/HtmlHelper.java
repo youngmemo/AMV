@@ -32,13 +32,12 @@ public class HtmlHelper {
         out.println("<head>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<img src='https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w' class='imgLogo' alt='logo'>");
         out.println("<div id=right-top>");
         out.println("\n" +
                 "<div class=\"navigation\">\n" +
                 "  \n" +
                 "\t<a class=\"imgLogo\" href=\"/bacit-web-1.0-SNAPSHOT/index.jsp\">\n"+
-                "\t<img src=\"https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w\" class=\"imgLogo\">\n"+
+                "\t<img src=\"https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w\" class=\"imgLogo\">\n" +
 
 
                 "\t<a class=\"logoutbutton\" href=\"/bacit-web-1.0-SNAPSHOT/logge-ut\">\n" +
@@ -62,12 +61,6 @@ public class HtmlHelper {
         out.println("<h2>" + title + "</h2>");
     }
 
-    public static void writeHtmlOnlyHead(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>" + title + "</title>");
-        out.println("</head>");
-    }
 
     public static void writeHtmlNoTitle(PrintWriter out) {
         out.println("<html>");
@@ -80,19 +73,7 @@ public class HtmlHelper {
         out.println("</html>");
     }
 
-    public static void writeHtmlStartEspen(PrintWriter out, String title) {
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>"+title+"</title>");
 
-        out.println("<!-- Latest compiled and minified CSS -->\n" +
-                "<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\" integrity=\"sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu\" crossorigin=\"anonymous\">\n" +
-                "\n" +
-                "<!-- Optional theme -->\n" +
-                "<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css\" integrity=\"sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ\" crossorigin=\"anonymous\">");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h2>"+title+"</h2>");
-    }
+
 
 }
