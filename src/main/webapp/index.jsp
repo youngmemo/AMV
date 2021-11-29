@@ -37,6 +37,7 @@
     <input type="button" class="button_active" onclick="location.href='admin/fjerne-admin';" value="Fjern admin"/>
     <input type="button" class="button_active" onclick="location.href='admin/fjerne-ansatt';" value="Fjern ansatt"/>
     <input type="button" class="button_active" onclick="location.href='admin/fjerne-utstyr';" value="Fjern utstyr"/>
+    <input type="button" class="button_active" onclick="location.href='admin/fjerne-lisens';" value="Fjern lisens"/>
     <br><br>
 
     <input type="button" class="button_active" onclick="location.href='admin/legge-til-utstyr';" value="Legg til utstyr"/>
