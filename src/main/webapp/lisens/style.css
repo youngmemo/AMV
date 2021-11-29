@@ -4,7 +4,7 @@ body {
     background-color: goldenrod;
     text-align: center;
     margin: auto;
-    max-width: 500px;
+    max-width: 1115px;
 
 
 
@@ -168,6 +168,45 @@ a:hover .logouttext{
 
 a {
     text-decoration: none;
+}
+
+#inputOgKnapper {
+    text-align: center;
+    z-index: 10000;
+}
+
+#right-top {
+    position: absolute;
+    right: 3%;
+    top: 5%;
+}
+
+body {
+    background-color: goldenrod;
+}
+
+.imgLogo {
+
+    z-index: 1;
+    width: 10%;
+}
+
+
+#midtstillKnapp {
+    margin: auto;
+    display: block;
+}
+
+
+h1 {
+    color: midnightblue;
+    font-family:Arial-BoldMT, Arial, Arial;
+    text-align: center;
+
+}
+p {
+    font-family: Arial-BoldMT, Arial, Arial;
+    color: midnightblue;
 }
 
 

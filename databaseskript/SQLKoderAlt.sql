@@ -222,16 +222,16 @@ VALUES  (1,1, '2021-02-02', '2021-02-04', 1),  (1,2, '2021-02-02', '2021-02-04',
         (3,29,'2021-02-02', '2021-02-04', 1),  (4,30,'2021-02-02', '2021-02-04', 1),
         (1,31,'2021-02-02', '2021-02-04', 1),
 
-        (1,1,  '2021-11-15', '2021-11-19', 1),
+        (1,1,  '2021-11-15', '2021-12-30', 1),
         (2,1,  '2021-11-15', '2021-11-19', 1),
-        (3,3,  '2021-11-15', '2021-11-19', 1),
+        (3,3,  '2021-11-15', '2021-12-30', 1),
         (1,4,  '2021-11-15', '2021-11-19', 1),
         (5,1,  '2021-11-15', '2021-11-19', 1),
-        (1,1,  '2021-10-10', '2021-10-14', 0),
-        (7,7,  '2021-10-08', '2021-10-18', 0),
-        (1,8,  '2021-10-08', '2021-10-19', 0),
-        (9,9,  '2021-10-08', '2021-10-11', 0),
-        (10,10,'2021-10-08', '2021-10-13', 0);
+        (1,1,  '2021-10-10', '2021-10-14', 1),
+        (7,7,  '2021-10-08', '2021-12-30', 1),
+        (1,8,  '2021-10-08', '2021-12-30', 1),
+        (9,9,  '2021-10-08', '2021-12-30', 1),
+        (10,10,'2021-10-08', '2021-10-13', 1);
 
 INSERT INTO Status (Foresporsel_ID, Levert)
 VALUES  (1,1),   (2,0),   (3,0),   (4,1),
@@ -243,21 +243,9 @@ VALUES  (1,1),   (2,0),   (3,0),   (4,1),
         (25,1),  (26,1),  (27,1),  (28,0),
         (29,0),  (30,0),  (31,0),
 
-        (32,1),  (33,1),  (34,0),  (35,1),
-        (36,0),  (37,1),  (38,1),  (39,1),
-        (40,1),  (41,1);
-
-INSERT INTO Forslag (Forslag_Utstyr, Forslag_Kommentar, Ansatt_ID)
-VALUES  ('MAG-sveisemaskin','Er ofte jeg trenger MAG-sveisemaskin',1),
-        ('TIG-sveisemaskin','Er ofte jeg trenger TIG-sveisemaskin',2),
-        ('Enkelstige 4100 mm','Vi har ingen stiger å låne akkurat nå, å ha noen hadde vært greit',3),
-        ('Mørtelblander','Vi har alt annet utstyr til muring, men ikke en mørtelblander',4),
-        ('Høytrykksvasker','Høytrykksvaskere er dyrt, hadde vært greit å fått lånt fra bedriften',5),
-        ('Bosch Nibbler','Ønsker en Nibbler her på jobb, veldig god utstyr',6),
-        ('Termisk kamera','Viktig å se hvor varmt ting er.',7),
-        ('Støv/Våtsuger','Blir for mye vann i terrassen etter vask av tepper med madammen',8),
-        ('Tørrsuger','Kan anta mange av oss maler hjemme, hadde vært greit å få tørket malinga fortere',9),
-        ('Rotasjonslaser','Greit når man jobber hjemme.',10);
+        (32,0),  (33,1),  (34,0),  (35,1),
+        (36,0),  (37,1),  (38,0),  (39,0),
+        (40,0),  (41,1);
 
 INSERT INTO Betaling (Ansatt_ID, Utstyr_ID, Betalingsmetode_ID, Foresporsel_ID)
 VALUES  (3, 1, 1, 1),

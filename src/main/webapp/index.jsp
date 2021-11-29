@@ -8,17 +8,6 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<script>
-    function myFunction() {
-        if(document.getElementById("myText").value == "") {
-            var feilMelding = document.getElementById("feilMelding").innerHTML = "Noe galt skjedde. Prøv på nytt.";
-            feilMelding;
-        }
-        else {
-            location.href="ansatt/fileDownload?id="+document.getElementById("myText").value;
-        }
-    }
-</script>
 <img src=https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w" class="imgLogo" alt="logo">
 
 <div id="inputOgKnapper">
@@ -56,13 +45,16 @@
 
     <br><br>
 
+    <h1>Lisens rettigheter</h1>
+    <input type="button" class="button_active" onclick="location.href='lisens/booke-lisensiertutstyr';" value="Book lisensierte utstyr"/>
+
     <h1>Normale rettigheter</h1>
     <input type="button" class="button_active" onclick="location.href='ansatt/tilbake-levering';" value="Lever tilbake utstyr"/>
     <br><br>
 
     <input type="button" class="button_active" onclick="location.href='ansatt/booke-utstyr';" value="Book utstyr"/>
     <input type="button" class="button_active" onclick="location.href='ansatt/kanseller-utstyr';" value="Kanseller utstyr"/>
-    <input type="button" class="button_active" onclick="location.href='ansatt/ulante-utstyr';" value="Se utstyr som er ledig"/>
+    <input type="button" class="button_active" onclick="location.href='ansatt/ikke-lante-utstyr';" value="Se utstyr som er ledig"/>
     <input type="button" class="button_active" onclick="location.href='ansatt/utlant-utstyr';" value="Se utstyr som er lånt ut"/>
     <input type="button" class="button_active" onclick="location.href='ansatt/rapporter-utstyr';" value="Rapporter et utstyr"/>
     <br><br>

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name = "GiAdminTilAnsattServlet", value = "/super/gi-admin")
@@ -22,6 +23,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
+        seAnsattListe(out);
 
         hentAnsattSkjema(out, null);
     }
@@ -32,10 +34,14 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         response.setContentType("text/html");
         AnsattModel ansatt = new AnsattModel();
 
-        ansatt.setAnsattID(request.getParameter("ansattid"));
+        ansatt.setAnsattID(request.getParameter("ansatt"));
         ansatt.setKommentar(request.getParameter("kommentar"));
 
         PrintWriter out = response.getWriter();
+
+        out.println(ansatt.getAnsattID());
+        out.println(ansatt.getKommentar());
+
         HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
 
@@ -50,7 +56,7 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
             HtmlHelper.writeHtmlStart(out, "Den ansatte sine brukerrettigheter er nå endret!");
             out.println("AnsattID "+ansatt.getAnsattID()+" har nå blitt oppdatert i vår database, og har nå fått adminrettigheter<br>"+
                     "<br><b>AnsattID:</b> " +ansatt.getAnsattID()+
-                    "<br><b>Rettighet: </b>Admin" +
+                    "<br><b>Rettighet: </b>Administrator" +
                     "<br><b>Kommentar: </b>" + ansatt.getKommentar());
             HtmlHelper.writeHtmlEnd(out);
         }
@@ -77,6 +83,41 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
 
     }
 
+    public void seAnsattListe(PrintWriter out) {
+        Connection db = null;
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+            String seListeKode = "SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn FROM Ansatt A";
+            PreparedStatement kode = db.prepareStatement(seListeKode);
+
+            kode.executeQuery();
+
+            ResultSet rs;
+            rs = kode.executeQuery();
+
+            HtmlHelper.writeHtmlStartCss(out);
+            out.println("<table>" +
+                    "<tr>" +
+                    "<th>Ansatt ID</th>" +
+                    "<th>Fornavn</th>" +
+                    "<th>Etternavn</th>" +
+                    "</tr>");
+
+            while (rs.next()) {
+                out.println("<tr>" +
+                        "<td>" +rs.getInt("Ansatt_ID") + "</td>" +
+                        "<td>" + rs.getString("Fornavn") + "</td>" +
+                        "<td>" + rs.getString("Etternavn") + "</td>" +
+                        "</tr>");
+            }
+            db.close();
+
+            HtmlHelper.writeHtmlEnd(out);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void hentAnsattSkjema(PrintWriter out, String feilMelding) {
         HtmlHelper.writeHtmlStartCssTitle(out, "Gi adminrettigheter til en ansatt");
         if (feilMelding != null) {
@@ -86,14 +127,11 @@ public class GiAdminTilAnsattServlet extends HttpServlet {
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/super/gi-admin' method='POST'>");
 
         out.println("<h3>Her kan du gi adminrettigheter til en ansatt</h3>");
-        out.println("<p>Skriv inn ansattiden på den ansatte og deretter fyll inn kommentar hvis ønsket</p>");
 
-        out.println("<label for='ansattid'>AnsattID</label>");
-        out.println("<input type='text' name='ansattid' placeholder='Skriv inn ansattid '/>");
+        out.println("<input type='text' name='ansatt' placeholder='Skriv inn ansattnummeret til den ansatte du ønsker å gi administrator rettigheter til'/>");
 
         out.println("<br><br>");
-        out.println("<label for='kommentar'>Kommentar</label>");
-        out.println("<input type='text' name='kommentar' placeholder='Skriv inn kommentar'/>");
+        out.println("<input type='text' name='kommentar' placeholder='Skriv inn kommentar på hvorfor denne ansatte har fått administrator rettigheter'/>");
 
 
         out.println("<br><br> <input type='submit' value='Gi adminrettigheter'/>");

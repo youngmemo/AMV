@@ -75,8 +75,8 @@ public class OpprettAnsattServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String leggeTilKode = "INSERT INTO ansatt (Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer, Ansatt_ID, Passord) VALUES (?,?,?,?,?,?,?,?,?);";
-            String giRettighetKode = "INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar) VALUES(?, 'normal', 'Førstegangsregistrering')";
+            String leggeTilKode = "INSERT INTO ansatt (Fornavn, Etternavn, Mobilnummer, Epost, Adresse, Bynavn, Postnummer, Passord) VALUES (?,?,?,?,?,?,?,?);";
+            String giRettighetKode = "INSERT INTO Brukerrettigheter (Ansatt_ID, Rettighet, Kommentar) VALUES((SELECT MAX(Ansatt_ID) FROM Ansatt), 'normal', 'Førstegangsregistrering')";
             PreparedStatement kode = db.prepareStatement(leggeTilKode);
             PreparedStatement rettighetKode = db.prepareStatement(giRettighetKode);
 
@@ -109,32 +109,28 @@ public class OpprettAnsattServlet extends HttpServlet {
         }
 
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/registrer-ansatt' method='POST'>");
-        out.println("<label for='fornavn'>Fornavn</label>");
-        out.println("<input type='text' name='fornavn' placeholder='Skriv inn fornavn'/>");
+        out.println("<input type='text' name='fornavn' placeholder='Skriv inn fornavnet til den ansatte som skal legges til i systemet'/>");
 
-        out.println("<br><br> <label for='etternavn'>Etternavn</label>");
-        out.println("<input type='text' name='etternavn' placeholder='Skriv inn etternavn'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='etternavn' placeholder='Skriv inn etternavnet til den ansatte som skal legges til i systemet'/>");
 
-        out.println("<br><br> <label for='mobilNummer'>Mobilnummer</label>");
-        out.println("<input type='text' name='mobilNummer' placeholder='Skriv inn mobilnummer'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='mobilNummer' placeholder='Skriv inn mobilnummeret til den ansatte som skal legges til i systemet'/>");
 
-        out.println("<br><br> <label for='epost'>E-post</label>");
-        out.println("<input type='text' name='epost' placeholder='Skriv inn e-post'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='epost' placeholder='Skriv inn e-posten til den ansatte som skal legges til i systemet'/>");
 
-        out.println("<br><br> <label for='adresse'>Adresse</label>");
-        out.println("<input type='text' name='adresse' placeholder='Skriv inn adresse'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='adresse' placeholder='Skriv inn adressen til den ansatte som skal legges til i systemet'/>");
 
-        out.println("<br><br> <label for='by'>By</label>");
-        out.println("<input type='text' name='by' placeholder='Skriv inn by'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='by' placeholder='Skriv inn den byen den ansatte som skal legges til i systemet bor i'/>");
 
-        out.println("<br><br> <label for='postNummer'>Postnummer</label>");
-        out.println("<input type='text' name='postNummer' placeholder='Skriv inn postnummer'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='postNummer' placeholder='Skriv inn postnummeret til den ansatte som skal legges til i systemet'/>");
 
-        out.println("<br><br> <label for='ansattNummer'>Ansatt nummer</label>");
-        out.println("<input type='text' name='ansattNummer' placeholder='Skriv inn ansattnummer'/>");
-
-        out.println("<br><br> <label for='passord'>Passord</label>");
-        out.println("<input type='password' name='passord' placeholder='Skriv inn passord'/>");
+        out.println("<br><br>");
+        out.println("<input type='password' name='passord' placeholder='Skriv inn passord til den ansatte som skal legges til i systemet'/>");
 
         out.println("<br><br> <input type='submit' value='Registrer ansatt'/>");
         out.println("</form>");

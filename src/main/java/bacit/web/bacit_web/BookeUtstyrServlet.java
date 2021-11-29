@@ -73,11 +73,9 @@ public class BookeUtstyrServlet extends HttpServlet {
 
         out.println("<h3>Her kan du booke utstyr</h3>");
         out.println("<br><br>");
-        out.println("<h3>Vennligst velg utstyret du ønsker å låne</h3>");
 
-        out.println("<label for='utstyrValg'>Velg et utstyr:</label>");
         out.println("<select name='utstyrid' id='utstyrid'>");
-        out.println("<option selected='true' value='0' disabled='disabled'>Velg utstyr</option>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg utstyret du ønsker å låne</option>");
 
         out.println("<optgroup label='Slipere'>");
         out.println("<option value='1'>Eksentersliper</option>");
@@ -133,9 +131,8 @@ public class BookeUtstyrServlet extends HttpServlet {
         out.println("<input type='date' name='sluttdato' min='2021-10-15'></label>");
 
         out.println("<br><br>");
-        out.println("<label for='betalingsmetode'>Velg betalingsmetode:</label>");
         out.println("<select name='betalingsmetode' id='betalingsmetode'>");
-        out.println("<option selected='true' value='0' disabled='disabled'>Velg betalingsmetode</option>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg betalingsmetoden du ønsker å bruke for å låne utstyret</option>");
         out.println("<option value='1'>Kort</option>");
         out.println("<option value='2'>Faktura</option>");
         out.println("</select>");

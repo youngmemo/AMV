@@ -152,8 +152,8 @@ public class KansellereUtstyrServlet extends HttpServlet {
 
         out.print("<br><br>");
         out.println("Under kan du skrive forespørselsnummeret som du ønsker å kansellere");
-        out.println("<br><br> <label for='ForesporselID'>Foresporsel ID</label>");
-        out.println("<input type='text' name='ForesporselID' placeholder='Skriv inn forespørsel ID'/>");
+        out.println("<br><br>");
+        out.println("<input type='text' name='ForesporselID' placeholder='Skriv inn forespørsel ID-en til som er knyttet til utstyret du ønsker å kansellere'/>");
 
 
         out.println("<br><br> <input type='submit' value='Kanseller utstyr'/>");

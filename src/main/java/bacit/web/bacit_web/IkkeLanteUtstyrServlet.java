@@ -46,49 +46,16 @@ public class IkkeLanteUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT DISTINCT Utstyr.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U " +
+            String visTabell =  "SELECT DISTINCT U.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U " +
                                 "INNER JOIN Foresporsel F ON U.Utstyr_ID = F.Utstyr_ID " +
                                 "INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID " +
-                                "WHERE S.Levert = true AND F.Akseptert = FALSE;";
+                                "WHERE S.Levert = TRUE " +
+                                "ORDER BY Utstyr_ID;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
-            HtmlHelper.writeHtmlNoTitle(out);
-            out.println("<html><head>");
-
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "}" +
-
-                    "h1 {" +
-                    "color: midnightblue;\n" +
-                    "text-align:center;\n" +
-                    "font-family:Arial-BoldMT, Arial, Arial;\n" +
-                    "}" +
-
-                    "p {" +
-                    "color:midnightblue;\n" +
-                    "text-align:center;\n" +
-                    "font-family:Arial-BoldMT, Arial, Arial;\n" +
-                    "}" +
-
-                    "#table {" +
-                    "margin-left: auto;\n" +
-                    "margin-right: auto;\n" +
-                    "display:flex;\n" +
-                    "justify-content: center;\n" +
-                    "}" +
-
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Oversikt over utstyr som ikke er lånt</h1>");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Oversikt over utstyr som ikke er lånt");
             out.println("<p>Under kan dere se hvilke utstyr som kan lånes");
             out.println("<br><br>");
             out.println("<div id=table>");

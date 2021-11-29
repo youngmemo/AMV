@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+//TODO: FIKSE SLIK AT UTSTYR TABELLEN VISES HER, ANSATTE VET IKKE UTSTYR_ID NUMMER MEN BARE NAVN :)
 
 @WebServlet(name= "RapporterUtstyretServlet", value = "/ansatt/rapporter-utstyr")
 public class RapporterUtstyretServlet extends HttpServlet {
@@ -20,6 +23,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
+        seUtstyr(out);
 
         RapporterUtstyrInput(out,null);
 
@@ -34,7 +38,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
         model.setRapport_Tittel(request.getParameter("Tittel"));
         model.setRapport_Kommentar(request.getParameter("RapportKommentar"));
         model.setUtstyr_ID(request.getParameter("Utstyret"));
-        model.setAnsatt_ID(request.getParameter("Ansatt"));
+        model.setAnsatt_ID(request.getUserPrincipal().getName());
 
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
@@ -57,7 +61,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
             HtmlHelper.writeHtmlEnd(out);
 
         } else {
-            RapporterUtstyrInput(out, "Ops!!! Det skjedde noe feil..");
+            RapporterUtstyrInput(out, "Ops! Det skjedde noe feil..");
 
         }
     }
@@ -78,56 +82,69 @@ public class RapporterUtstyretServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-}
-    public void RapporterUtstyrInput(PrintWriter out, String feilMelding) {
-            HtmlHelper.writeHtmlStart(out, "Her kan du rapportere utstyret du har lånt:");
-            { {if(feilMelding !=null)
-                out.println("<h2>" + feilMelding + "</h2>");}
-                out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/rapporter-utstyr' method='POST'>");
+    }
 
-                out.println("<br><br> <label for ='Tittel'> Tittel</label>");
-                out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn tittelen'/>");
+    public void seUtstyr(PrintWriter out) {
+        Connection db = null;
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+            String visTabell = "SELECT U.Utstyr_ID, U.Utstyr_Navn FROM Utstyr U";
 
-                out.println("<br><br> <label for='RapportKommentar'> RapportKommentar </label>");
-                out.println("<br><br><textarea id='RapportKommentar' name='RapportKommentar' rows='4' cols='50'></textarea><br>");
 
-                out.println("<br><br> <label for='Utstyret'> Utstyret</label>");
-                out.println("<input type='text' name='Utstyret' placeholder='Skriv inn utstyret'/>");
 
-                out.println("<br><br> <label for='Ansatt'> Ansatt</label>");
-                out.println("<input type='text' name='Ansatt' placeholder='Skriv inn ansattnummeret'/>");
+            PreparedStatement kode = db.prepareStatement(visTabell);
+            ResultSet rs;
+            rs = kode.executeQuery();
 
-                out.println("<br><br> <input type='submit' value='Rapporter'/>");
-                out.println("</form>");
-                HtmlHelper.writeHtmlEnd(out);
-                out.println("<html><head>");
+            HtmlHelper.writeHtmlStartCss(out);
+            out.println("<table>" +
+                    "<tr>" +
+                    "<th>Utstyr ID</th>" +
+                    "<th>Utstyr navn</th>" +
+                    "</tr>");
 
-                out.println("<style>\n" +
-                        "  td {\n" +
-                        "    padding: 0 25px;\n" +
-                        "  }\n" +
-                        "  body {" +
-                        "    background-color:goldenrod;\n" +
-                        "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                        "background-repeat: no-repeat;\n"+
-                        "background-position: left top;\n"+
-                        "background-size: 250px 100px;\n"+
-                        "position: absolute;\n"+
-                        "top: 35%;\n"+
-                        "left: 50%;\n"+
-                        "transform: translate(-50%, -50%);\n"+
-                        "}"+
-                        "h2 {" +
-                        "color: midnightblue;\n" +
-                        "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                        "}" +
-
-                        "</style>");
-
-                out.println("</head>");
-                out.println("<body>");
-
+            while (rs.next()) {
+                out.println("<tr>" +
+                        "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
+                        "<td>" + rs.getString("Utstyr_ID") + "</td>" +
+                        "</tr>");
             }
+            out.println("</div>");
+
+            db.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void RapporterUtstyrInput(PrintWriter out, String feilMelding) {
+            HtmlHelper.writeHtmlStart(out, "Her kan du rapportere utstyret du har lånt for skader");
+
+            if (feilMelding != null) {
+                out.println("<br><br><br><br>");
+                out.println("<h2>" + feilMelding + "</h2>");
+            }
+            out.println("<form action='/bacit-web-1.0-SNAPSHOT/ansatt/rapporter-utstyr' method='POST'>");
+
+            out.println("<br><br>");
+            out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn en passende tittel for rapporten'/>");
+
+            out.println("<br><br>");
+            out.println("<br><br><textarea id='Rapport Kommentar' name='RapportKommentar' placeholder='Skriv hva som er galt med utstyret og forklar feilen om du kan' rows='15' cols='144'></textarea><br>");
+
+            out.println("<br><br>");
+            out.println("<input type='text' name='Utstyr ID' placeholder='Skriv ID-en til utstyret du sender inn rapport for'/>");
+
+            out.println("<br><br> <input type='submit' value='Rapporter'/>");
+            out.println("</form>");
+            HtmlHelper.writeHtmlEnd(out);
+            out.println("<html><head>");
+
+
+            out.println("</head>");
+            out.println("<body>");
+
         }
 
 

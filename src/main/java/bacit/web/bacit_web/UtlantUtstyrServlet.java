@@ -46,24 +46,21 @@ public class UtlantUtstyrServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT F.Foresporsel_ID, A.Ansatt_ID, A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
+            String visTabell =  "SELECT A.Fornavn, A.Etternavn, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
                                 "INNER JOIN Utstyr U on F.Utstyr_ID = U.Utstyr_ID " +
                                 "INNER JOIN Status S on F.Foresporsel_ID = S.Foresporsel_ID " +
                                 "INNER JOIN Ansatt A on F.Ansatt_ID = A.Ansatt_ID " +
                                 "WHERE F.Akseptert = 1 AND S.Levert = 0 AND F.Slutt_Dato > CAST(CURRENT_DATE AS DATE) AND F.Start_Dato < CAST(CURRENT_DATE AS DATE) " +
-                                "ORDER BY Foresporsel_ID ASC;";
+                                "ORDER BY F.Foresporsel_ID ASC;";
 
             PreparedStatement kode = db.prepareStatement(visTabell);
             ResultSet rs;
             rs = kode.executeQuery();
-            HtmlHelper.writeHtmlStartCss(out);
-            out.println("<h1>Oversikt over utstyr som er utlånt</h1>");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Oversikt over utstyr som er utlånt");
             out.println("<p>Under kan dere se tabellen av utstyr som er utlånt akkurat nå sortert på foresporsel id i stigende rekkefølge");
             out.println("<br><br>");
             out.println("<table>" +
                     "<tr>" +
-                    "<th>Forespørsel ID</th>" +
-                    "<th>Ansatt ID</th>" +
                     "<th>Fornavn</th>" +
                     "<th>Etternavn</th>" +
                     "<th>Utstyr Navn</th>" +
@@ -73,8 +70,6 @@ public class UtlantUtstyrServlet extends HttpServlet {
 
             while (rs.next()) {
                 out.println("<tr>" +
-                        "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
-                        "<td>" + rs.getString("Ansatt_ID") + "</td>" +
                         "<td>" + rs.getString("Fornavn") + "</td>" +
                         "<td>" + rs.getString("Etternavn") + "</td>" +
                         "<td>" + rs.getString("Utstyr_Navn") + "</td>" +

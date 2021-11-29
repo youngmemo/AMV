@@ -72,7 +72,7 @@ public class AnsattModel {
         return ansattID;
     }
 
-    public void setAnsattID(String ansattNummer) {
+    public void setAnsattID(String ansattID) {
         this.ansattID = ansattID;
     }
 

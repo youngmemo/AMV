@@ -4,7 +4,7 @@ body {
     background-color: goldenrod;
     text-align: center;
     margin: auto;
-    max-width: 500px;
+    max-width: 1115px;
 
 
 
@@ -192,6 +192,10 @@ body {
 }
 
 
+#midtstillKnapp {
+    margin: auto;
+    display: block;
+}
 
 
 h1 {

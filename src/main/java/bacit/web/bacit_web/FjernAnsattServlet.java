@@ -79,10 +79,10 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         }
             out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/fjerne-ansatt' method='POST'>");
 
-            out.println("<br><br> <label for='Ansattnummeret'> Ansattnummeret</label>");
-            out.println("<input type='text' name='Ansattnummeret' placeholder='Skriv inn ansattnummeret'/>");
+            out.println("<br><br>");
+            out.println("<input type='text' name='Ansattnummeret' placeholder='Skriv inn ansattnummeret til den ansatte du ønsker å slette fra systemet'/>");
 
-            out.println("<br><br> <input type='submit' value='Fjern Ansatt'/>");
+            out.println("<br><br> <input type='submit' value='Fjern ansatt'/>");
             out.println("</form>");
 
             HtmlHelper.writeHtmlEnd(out);
@@ -99,9 +99,6 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             ResultSet rs;
             rs = kode.executeQuery();
 
-
-
-            out.println("<div id=FjernAnsattSentrering>");
             out.println("<div id=Sentrere>");
             out.println("<table>" +
                     "<tr>" +

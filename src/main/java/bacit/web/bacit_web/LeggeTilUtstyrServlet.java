@@ -36,7 +36,7 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
 
         Utstyr.setUtstyr(request.getParameter("utstyrnavn"));
         Utstyr.setUtstyrBeskrivelse(request.getParameter("utstyrBeskrivelse"));
-        Utstyr.setKategoriID(request.getParameter("KategoriID"));
+        Utstyr.setKategoriID(request.getParameter("kategoriid"));
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
         HtmlHelper.writeHtmlStartKnappLogo(out);
@@ -87,12 +87,17 @@ public class LeggeTilUtstyrServlet extends HttpServlet {
         out.println("<div id=feltned>");
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/legge-til-utstyr' method='POST'>");
 
-        out.println("<br><br><br><input type='text' name='utstyrnavn' placeholder='Skriv inn utstyr navn'/>");
+        out.println("<br><br><br><input type='text' name='utstyrnavn' placeholder='Skriv inn navnet på utstyret som skal legges til'/>");
 
-        out.println("<br><br><br><input type='text' name='utstyrBeskrivelse' placeholder='Skriv inn Utstyr beskrivelse'/>");
+        out.println("<br><br><br><input type='text' name='utstyrBeskrivelse' placeholder='Skriv inn en kort beskrivelse for dette utstyret.'/>");
 
-        out.println("<br><br><br><input type='text' name='KategoriID' placeholder='Skriv inn kategori ID'/>");
+        out.println("<br><br><br>");
 
+        out.println("<select name='kategoriid' id='kategoriid'>");
+        out.println("<option selected='true' value='0' disabled='disabled'>Velg kategori for utstyret</option>");
+
+        out.println("<option value='1'>Verktøy</option>");
+        out.println("<option value='2'>Kjøretøy</option>");
 
         out.println("<br><br> <input type='submit' value='Legg til Utstyr'/>");
         out.println("</form>");

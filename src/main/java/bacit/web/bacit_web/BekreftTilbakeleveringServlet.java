@@ -66,31 +66,6 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
             out.println("<br><b>Forespørsel:</b>" + model.getForesporsel_ID());
 
             HtmlHelper.writeHtmlEnd(out);
-            out.println("<html><head>");
-
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
 
         } else {
             BekreftsProsessInput(out, "Ops! Det skjedde noe feil..");
@@ -127,40 +102,15 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
 
 
-            out.println("<br><b> <label for='Statusen'> Statusen</label>");
-            out.println("<input type= 'text' name= 'Statusen' placeholder='Skriv inn statusen'/>");
+            out.println("<br>");
+            out.println("<input type= 'text' name='Statusen' placeholder='Skriv inn Status ID-en til utstyret du har lånt'/>");
 
 
             out.println("<br><br> <input type='submit' value='Levert'/>");
             out.println("</form>");
 
             HtmlHelper.writeHtmlEnd(out);
-            out.println("<html><head>");
 
-            out.println("<style>\n" +
-                    "  td {\n" +
-                    "    padding: 0 25px;\n" +
-                    "  }\n" +
-                    "  body {" +
-                    "    background-color:goldenrod;\n" +
-                    "background-image: url('https://images.squarespace-cdn.com/content/v1/5bcf4baf90f904e66e8eb8bf/1571139220977-8Y75FILX6E39M4ZH8REW/Logo-eng-web-blue.png?format=1500w');\n"+
-                    "background-repeat: no-repeat;\n"+
-                    "background-position: left top;\n"+
-                    "background-size: 250px 100px;\n"+
-                    "position: absolute;\n"+
-                    "top: 35%;\n"+
-                    "left: 50%;\n"+
-                    "transform: translate(-50%, -50%);\n"+
-                    "}"+
-                    "h2 {" +
-                    "color: midnightblue;\n" +
-                    "font-family: Arial-BoldMT, Arial, Arial;\n"+
-                    "}" +
-
-                    "</style>");
-
-            out.println("</head>");
-            out.println("<body>");
         }
 
     }
@@ -172,7 +122,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
 
-            String visTabell =  "SELECT F.Foresporsel_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
+            String visTabell =  "SELECT S.Status_ID, U.Utstyr_Navn, F.Start_Dato, F.Slutt_Dato FROM Foresporsel F " +
                                 "INNER JOIN Utstyr U ON F.Utstyr_ID = U.Utstyr_ID " +
                                 "INNER JOIN Status S ON F.Foresporsel_ID = S.Foresporsel_ID " +
                                 "WHERE S.Levert = 0 AND F.Ansatt_ID = ? " +
