@@ -281,12 +281,3 @@ VALUES  (1, 'normal', ''),  (2, 'normal', ''),
 INSERT INTO LisensiertAnsatt (Ansatt_ID, Lisens_ID)
 VALUES (4, 1),
        (5, 2);
-
-/*CREATE OR REPLACE TABLE Files
-(
-    Id                      SMALLINT UNIQUE auto_increment,
-    Name                    VARCHAR(255)    NOT NULL,
-    Content                 LONGBLOB        NOT NULL,
-    ContentType             VARCHAR(255)    NOT NULL,
-    PRIMARY KEY (Id)
-);*/
