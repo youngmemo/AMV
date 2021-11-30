@@ -1,4 +1,5 @@
 package bacit.web.bacit_web;
+import bacit.web.bacit_models.AnsattModel;
 import bacit.web.bacit_models.BekreftTilbakeleveringModel;
 import bacit.web.bacit_utilities.HtmlHelper;
 
@@ -25,8 +26,11 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
         String innloggetAnsatt = request.getUserPrincipal().getName();
 
+        AnsattModel ansatt = new AnsattModel();
+        ansatt.setAnsattID(innloggetAnsatt);
+
         try {
-            seEgneForesporsel(out, innloggetAnsatt);
+            seEgneForesporsel(out, ansatt);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -115,7 +119,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
     }
 
-    public void seEgneForesporsel(PrintWriter out, String ansatt) throws SQLException {
+    public void seEgneForesporsel(PrintWriter out, AnsattModel ansatt) throws SQLException {
         Connection db = null;
 
 
@@ -131,14 +135,14 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
 
             PreparedStatement kode = db.prepareStatement(visTabell);
-            kode.setString(1, ansatt);
+            kode.setString(1, ansatt.getAnsattID());
 
             ResultSet rs;
             rs = kode.executeQuery();
             HtmlHelper.writeHtmlNoTitle(out);
             out.println("<table>" +
                     "<tr>" +
-                    "<th>Forespørsel ID</th>" +
+                    "<th>Status ID</th>" +
                     "<th>Utstyr navn</th>" +
                     "<th>Start Dato</th>" +
                     "<th>Slutt Dato</th>" +
@@ -146,7 +150,7 @@ public class BekreftTilbakeleveringServlet extends HttpServlet{
 
             while (rs.next()) {
                 out.println("<tr>" +
-                        "<td>" +rs.getInt("Foresporsel_ID") + "</td>" +
+                        "<td>" +rs.getInt("Status_ID") + "</td>" +
                         "<td>" + rs.getString("Utstyr_Navn") + "</td>" +
                         "<td>" + rs.getString("Start_Dato") + "</td>" +
                         "<td>" + rs.getString("Slutt_Dato") + "</td>" +
