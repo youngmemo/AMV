@@ -204,9 +204,9 @@ public class GiLisensRettighetServlet extends HttpServlet {
             return false;
         if(ansatt.getKommentar().trim().equalsIgnoreCase(""))
             return false;
-        if(utstyrm.getUtstyrId()==null)
+        if(utstyrm.getLisensId()==null)
             return false;
-        if(utstyrm.getUtstyrId().trim().equalsIgnoreCase(""))
+        if(utstyrm.getLisensId().trim().equalsIgnoreCase(""))
             return false;
 
         return true;

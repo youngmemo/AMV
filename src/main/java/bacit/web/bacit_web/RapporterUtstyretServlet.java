@@ -96,7 +96,6 @@ public class RapporterUtstyretServlet extends HttpServlet {
             ResultSet rs;
             rs = kode.executeQuery();
 
-            HtmlHelper.writeHtmlStartCss(out);
             out.println("<table>" +
                     "<tr>" +
                     "<th>Utstyr ID</th>" +
@@ -109,7 +108,6 @@ public class RapporterUtstyretServlet extends HttpServlet {
                         "<td>" + rs.getString("Utstyr_ID") + "</td>" +
                         "</tr>");
             }
-            out.println("</div>");
 
             db.close();
 
@@ -119,7 +117,7 @@ public class RapporterUtstyretServlet extends HttpServlet {
     }
 
     public void RapporterUtstyrInput(PrintWriter out, String feilMelding) {
-            HtmlHelper.writeHtmlStart(out, "Her kan du rapportere utstyret du har lånt for skader");
+            HtmlHelper.writeHtmlStartCssTitle(out, "Her kan du rapportere utstyret du har lånt for skader");
 
             if (feilMelding != null) {
                 out.println("<br><br><br><br>");
@@ -130,11 +128,12 @@ public class RapporterUtstyretServlet extends HttpServlet {
             out.println("<br><br>");
             out.println("<input type='text' name='Tittel' placeholder= 'Skriv inn en passende tittel for rapporten'/>");
 
-            out.println("<br><br>");
-            out.println("<br><br><textarea id='Rapport Kommentar' name='RapportKommentar' placeholder='Skriv hva som er galt med utstyret og forklar feilen om du kan' rows='15' cols='144'></textarea><br>");
 
             out.println("<br><br>");
             out.println("<input type='text' name='Utstyr ID' placeholder='Skriv ID-en til utstyret du sender inn rapport for'/>");
+
+            out.println("<br><br>");
+            out.println("<br><br><textarea id='Rapport Kommentar' name='RapportKommentar' placeholder='Skriv hva som er galt med utstyret og forklar feilen om du kan' rows='15' cols='144'></textarea><br>");
 
             out.println("<br><br> <input type='submit' value='Rapporter'/>");
             out.println("</form>");
