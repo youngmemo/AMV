@@ -8,6 +8,16 @@ public class BookeUtstyrModel {
     private String utstyrId;
     private String betalingsMetode;
 
+    public String getLisensId() {
+        return lisensId;
+    }
+
+    public void setLisensId(String lisensId) {
+        this.lisensId = lisensId;
+    }
+
+    private String lisensId;
+
     public String getBetalingsMetode() {
         return betalingsMetode;
     }

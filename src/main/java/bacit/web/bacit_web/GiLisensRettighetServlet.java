@@ -27,6 +27,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
         HtmlHelper.writeHtmlStartKnappLogo(out);
         try {
             giTilgangTilUtstyr(out);
+            visLisensierteUtstyr(out);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,7 +44,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
 
         ansatt.setAnsattID(request.getParameter("ansattid"));
         ansatt.setKommentar(request.getParameter("kommentar"));
-        utstyrm.setUtstyrId(request.getParameter("utstyrid"));
+        utstyrm.setLisensId(request.getParameter("lisensid"));
 
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
@@ -52,6 +53,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
         if(sjekkAnsatt(ansatt, utstyrm)){
             try{
                 giLisensRettighet(ansatt, utstyrm,out);
+                visLisensierteUtstyr(out);
             }
             catch (SQLException ex)
             {
@@ -59,10 +61,10 @@ public class GiLisensRettighetServlet extends HttpServlet {
             }
             HtmlHelper.writeHtmlStart(out, "Den ansatte sine brukerrettigheter er nå endret!");
             out.println("AnsattID "+ansatt.getAnsattID()+" har nå blitt oppdatert i vår database, og har nå fått lisensrettigheter<br>"+
-                        "<br><b>AnsattID:</b> " +ansatt.getAnsattID()+
+                        "<br><b>Ansatt ID:</b> " +ansatt.getAnsattID()+
                         "<br><b>Rettighet: </b>Lisens" +
                         "<br><b>Kommentar: </b>" + ansatt.getKommentar()+
-                        "<br><b>UtstyrID: </b>" + utstyrm.getUtstyrId());
+                        "<br><b>Lisens ID: </b>" + utstyrm.getLisensId());
             HtmlHelper.writeHtmlEnd(out);
         }
         else
@@ -71,7 +73,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
         }
     }
 
-    public void giLisensRettighet(AnsattModel ansatt, BookeUtstyrModel utstyrm,PrintWriter out) throws SQLException {
+    public void giLisensRettighet(AnsattModel ansatt, BookeUtstyrModel utstyrm, PrintWriter out) throws SQLException {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
@@ -80,13 +82,15 @@ public class GiLisensRettighetServlet extends HttpServlet {
             kode.setString(1, ansatt.getAnsattID());
             kode.setString(2, ansatt.getKommentar());
 
-            String UtstyrKode = "INSERT INTO Utstyr (Utstyr_ID) VALUES (?)";
+            String UtstyrKode = "INSERT INTO LisensiertAnsatt (Ansatt_ID, Lisens_ID) VALUES (?,?)";
             PreparedStatement kode2 = db.prepareStatement(UtstyrKode);
-            kode2.setString(1,utstyrm.getUtstyrId());
+            kode2.setString(1,ansatt.getAnsattID());
+            kode2.setString(2,utstyrm.getLisensId());
 
 
 
             kode.executeUpdate();
+            kode2.executeUpdate();
             db.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -99,11 +103,11 @@ public class GiLisensRettighetServlet extends HttpServlet {
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
             String giTilgangKode = "SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn, B.Rettighet " +
-                    "FROM Brukerrettigheter B " +
-                    "INNER JOIN Ansatt A on B.Ansatt_ID = A.Ansatt_ID " +
-                    "WHERE NOT A.Ansatt_ID IN " +
-                    "(SELECT distinct Ansatt_ID FROM Brukerrettigheter " +
-                    "WHERE Rettighet = 'lisens');";
+                                    "FROM Brukerrettigheter B " +
+                                    "INNER JOIN Ansatt A on B.Ansatt_ID = A.Ansatt_ID " +
+                                    "WHERE NOT A.Ansatt_ID IN " +
+                                    "(SELECT distinct Ansatt_ID FROM Brukerrettigheter " +
+                                    "WHERE Rettighet = 'lisens');";
             PreparedStatement kode = db.prepareStatement(giTilgangKode);
             ResultSet rs;
             rs = kode.executeQuery();
@@ -118,10 +122,44 @@ public class GiLisensRettighetServlet extends HttpServlet {
 
             while (rs.next()) {
                 out.println("<tr>" +
-                        "<td>" + rs.getString("Ansatt_ID") + "</td>" +
-                        "<td>" + rs.getString("Fornavn") + "</td>" +
-                        "<td>" + rs.getString("Etternavn") + "</td>" +
-                        "<td>" + rs.getString("Lisens_ID") + "</td>" +
+                        "<td>" + rs.getString("A.Ansatt_ID") + "</td>" +
+                        "<td>" + rs.getString("A.Fornavn") + "</td>" +
+                        "<td>" + rs.getString("A.Etternavn") + "</td>" +
+                        "<td>" + rs.getString("B.Rettighet") + "</td>" +
+                        "</tr>");
+            }
+
+            db.close();
+            HtmlHelper.writeHtmlEnd(out);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void visLisensierteUtstyr(PrintWriter out) throws SQLException {
+        Connection db = null;
+        try {
+            db = DBUtils.getINSTANCE().getConnection(out);
+            String lisensierteUtstyr =  "SELECT LU.Lisens_ID, U.Utstyr_Navn, LU.Utstyr_Kommentar " +
+                                        "FROM LisensiertUtstyr LU " +
+                                        "INNER JOIN Utstyr U on LU.Utstyr_ID = U.Utstyr_ID;";
+            PreparedStatement kode = db.prepareStatement(lisensierteUtstyr);
+            ResultSet rs;
+            rs = kode.executeQuery();
+            HtmlHelper.writeHtmlStartCss(out);
+            out.println("<table>" +
+                    "<tr>" +
+                    "<th>Lisens ID</th>" +
+                    "<th>Utstyr Navn</th>" +
+                    "<th>Utstyr Kommentar</th>" +
+                    "</tr>");
+
+            while (rs.next()) {
+                out.println("<tr>" +
+                        "<td>" + rs.getString("LU.Lisens_ID") + "</td>" +
+                        "<td>" + rs.getString("U.Utstyr_Navn") + "</td>" +
+                        "<td>" + rs.getString("LU.Utstyr_Kommentar") + "</td>" +
                         "</tr>");
             }
 
@@ -149,7 +187,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
         out.println("<input type='text' name='kommentar' placeholder='Skriv inn en kommentar på hvorfor denne ansatten har fått lisensrettigheter'/>");
 
         out.println("<br><br>");
-        out.println("<input type='text' name='utstyrid' placeholder='Skriv inn Utstyr ID'/>");
+        out.println("<input type='text' name='lisensid' placeholder='Skriv inn Lisens ID'/>");
 
 
         out.println("<br><br> <input type='submit' value='Gi lisensrettigheter'/>");
