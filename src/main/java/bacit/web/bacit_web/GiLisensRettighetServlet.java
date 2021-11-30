@@ -96,9 +96,12 @@ public class GiLisensRettighetServlet extends HttpServlet {
         Connection db = null;
         try {
             db = DBUtils.getINSTANCE().getConnection(out);
-            String giTilgangKode = "SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn, LA.Lisens_ID FROM LisensiertAnsatt LA " +
-                    "INNER JOIN LisensiertUtstyr LU ON LA.Lisens_ID = LU.Lisens_ID " +
-                    "INNER JOIN Ansatt A ON LA.Ansatt_ID = A.Ansatt_ID";
+            String giTilgangKode = "SELECT A.Ansatt_ID, A.Fornavn, A.Etternavn, B.Rettighet " +
+                    "FROM Brukerrettigheter B " +
+                    "INNER JOIN Ansatt A on B.Ansatt_ID = A.Ansatt_ID " +
+                    "WHERE NOT A.Ansatt_ID IN " +
+                    "(SELECT distinct Ansatt_ID FROM Brukerrettigheter " +
+                    "WHERE Rettighet = 'lisens');";
             PreparedStatement kode = db.prepareStatement(giTilgangKode);
             ResultSet rs;
             rs = kode.executeQuery();
