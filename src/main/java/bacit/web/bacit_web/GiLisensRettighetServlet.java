@@ -43,6 +43,7 @@ public class GiLisensRettighetServlet extends HttpServlet {
 
         ansatt.setAnsattID(request.getParameter("ansattid"));
         ansatt.setKommentar(request.getParameter("kommentar"));
+        utstyrm.setUtstyrId(request.getParameter("utstyrid"));
 
         PrintWriter out = response.getWriter();
         HtmlHelper.writeHtmlStartCss(out);
@@ -60,7 +61,8 @@ public class GiLisensRettighetServlet extends HttpServlet {
             out.println("AnsattID "+ansatt.getAnsattID()+" har nå blitt oppdatert i vår database, og har nå fått lisensrettigheter<br>"+
                         "<br><b>AnsattID:</b> " +ansatt.getAnsattID()+
                         "<br><b>Rettighet: </b>Lisens" +
-                        "<br><b>Kommentar: </b>" + ansatt.getKommentar());
+                        "<br><b>Kommentar: </b>" + ansatt.getKommentar()+
+                        "<br><b>UtstyrID: </b>" + utstyrm.getUtstyrId());
             HtmlHelper.writeHtmlEnd(out);
         }
         else
@@ -146,6 +148,9 @@ public class GiLisensRettighetServlet extends HttpServlet {
         out.println("<br><br>");
         out.println("<input type='text' name='kommentar' placeholder='Skriv inn en kommentar på hvorfor denne ansatten har fått lisensrettigheter'/>");
 
+        out.println("<br><br>");
+        out.println("<input type='text' name='utstyrid' placeholder='Skriv inn Utstyr ID'/>");
+
 
         out.println("<br><br> <input type='submit' value='Gi lisensrettigheter'/>");
         out.println("</form>");
@@ -160,6 +165,10 @@ public class GiLisensRettighetServlet extends HttpServlet {
         if(ansatt.getKommentar()==null)
             return false;
         if(ansatt.getKommentar().trim().equalsIgnoreCase(""))
+            return false;
+        if(utstyrm.getUtstyrId()==null)
+            return false;
+        if(utstyrm.getUtstyrId().trim().equalsIgnoreCase(""))
             return false;
 
         return true;
