@@ -46,7 +46,7 @@ public class SeRapporteneServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        HtmlHelper.writeHtmlStartCssTitle(out, "Rapporten du har skrevet er markest som lest");
+        HtmlHelper.writeHtmlStartCssTitle(out, "Rapporten du ønsket å markere som lest er nå markest som lest");
 
     }
 
@@ -117,7 +117,7 @@ public class SeRapporteneServlet extends HttpServlet {
         }
         out.println("<form action='/bacit-web-1.0-SNAPSHOT/admin/se-rapport' method='POST'>");
 
-        out.println("<input type='text' name='Rapport_ID' placeholder='Skriv inn rapportens ID som du ønsker å markere som lest'/>");
+        out.println("<input type='text' name='Rapport_ID' placeholder='Skriv inn rapportens ID som du ønsker å markere som lest' required/>");
         out.println("<br> <input type='submit' value='Lest'/>");
 
         out.println("</form>");
