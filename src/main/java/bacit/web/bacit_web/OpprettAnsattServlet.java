@@ -40,7 +40,6 @@ public class OpprettAnsattServlet extends HttpServlet {
         ansatt.setAdresse(request.getParameter("adresse"));
         ansatt.setBy(request.getParameter("by"));
         ansatt.setPostNummer(request.getParameter("postNummer"));
-        ansatt.setAnsattID(request.getParameter("ansattNummer"));
         ansatt.setPassord(request.getParameter("passord"));
 
         PrintWriter out = response.getWriter();
@@ -63,7 +62,6 @@ public class OpprettAnsattServlet extends HttpServlet {
                     "<br>Adresse: " + ansatt.getAdresse() +
                     "<br>By: " + ansatt.getBy() +
                     "<br>Postnummer: " + ansatt.getPostNummer() +
-                    "<br>Ansattnummer: " + ansatt.getAnsattID() +
                     "<br>Passord: " + ansatt.getPassord());
             HtmlHelper.writeHtmlEnd(out);
         } else {
@@ -87,10 +85,8 @@ public class OpprettAnsattServlet extends HttpServlet {
             kode.setString(5, ansatt.getAdresse());
             kode.setString(6, ansatt.getBy());
             kode.setString(7, ansatt.getPostNummer());
-            kode.setString(8, ansatt.getAnsattID());
-            kode.setString(9, ansatt.getPassord());
+            kode.setString(8, ansatt.getPassord());
 
-            rettighetKode.setString(1, ansatt.getAnsattID());
 
             kode.executeUpdate();
             rettighetKode.executeUpdate();
@@ -160,10 +156,6 @@ public class OpprettAnsattServlet extends HttpServlet {
         if(ansatt.getPostNummer()==null)
             return false;
         if(ansatt.getPostNummer().trim().equalsIgnoreCase(""))
-            return false;
-        if(ansatt.getAnsattID()==null)
-            return false;
-        if(ansatt.getAnsattID().trim().equalsIgnoreCase(""))
             return false;
         if(ansatt.getPassord()==null)
             return false;
